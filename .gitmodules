@@ -1,0 +1,3 @@
+[submodule "mustang"]
+	path = mustang
+	url = https://github.com/mustang-gan/mustang.git
