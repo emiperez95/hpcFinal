@@ -110,9 +110,10 @@ class Neighbourhood:
             x = idx % dim
             y = idx // dim
             return len(client_nodes), (x, y), matching_nodes[0]
+        elif len(matching_nodes) > 1:
+            raise Exception('Too many clients match the condition.')
         else:
-            raise Exception('This host is not specified as client in the configuration file, '
-                            'or too many clients match the condition.')
+            raise Exception('This host is not specified as client in the configuration file.')
 
     def _load_cell_number(self):
         x, y = self.grid_position
