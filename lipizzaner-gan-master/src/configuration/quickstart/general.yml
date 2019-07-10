@@ -9,10 +9,27 @@ losswise:
   api_key: MN3GDIZWZ
 output_dir: ./output
 distribution:
-  type: mpi
-  root : 0
-  grid:
-    x_size: 3
-    y_size: 4
+  auto_discover: False
+  master_node:
+    exit_clients_on_disconnect: True
+  client_nodes:
+    - address: localhost
+      port: 5000
+    # - address: localhost
+    #   port: 5001
+    # - address: localhost
+    #   port: 5002
+    # - address: localhost
+    #   port: 5003
+    # - address: localhost
+    #   port: 5004
+    # - address: localhost
+    #   port: 5005
+    # - address: localhost
+    #   port: 5006
+    # - address: localhost
+    #   port: 5007
+    # - address: localhost
+    #   port: 5008
 seed: 1
 num_workers: 0    # how many subprocesses to use for data loading
