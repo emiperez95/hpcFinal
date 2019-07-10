@@ -22,13 +22,15 @@ class Neighbourhood:
 
         dataloader = self.cc.create_instance(self.cc.settings['dataloader']['dataset_name'])
         network_factory = self.cc.create_instance(self.cc.settings['network']['name'], dataloader.n_input_neurons)
+        # TRACE: Node client es la comunicación con las apis de otros clientes
         self.node_client = NodeClient(network_factory)
 
         self.grid_size, self.grid_position, self.local_node = self._load_topology_details()
         self.cell_number = self._load_cell_number()
         self.neighbours = self._adjacent_cells()
-        self.all_nodes = self.neighbours + [self.local_node]
-
+        self.all_nodes = self.neighbours + [self.local_node]    
+        
+        # TRACE: Se generan pesos iniciales para cada nodo de all_nodes, como 1/cantidad de nodos en all_nodes
         self.mixture_weights_generators = self._init_mixture_weights()
         if self.cc.settings['trainer']['name'] == 'with_disc_mixture_wgan' \
             or self.cc.settings['trainer']['name'] == 'with_disc_mixture_gan':
@@ -105,6 +107,7 @@ class Neighbourhood:
                           is_local_host(node['address']) and int(node['port']) == local_port]
 
         if len(matching_nodes) == 1:
+            # TRACE: Aca se encuentro el lugar de el nodo en matching_node en la grid
             dim = int(round(sqrt(len(client_nodes))))
             idx = client_nodes.index(matching_nodes[0])
             x = idx % dim
@@ -132,6 +135,7 @@ class Neighbourhood:
         nodes = np.reshape(nodes, (-1, dim))
 
         def neighbours(x, y):
+            # TRACE: Aca se define la estrutura de un vecino, se podria podificar para tomar otros tipos de vecinos
             indices = np.array([(x - 1, y), (x, y - 1), (x + 1, y), (x, y + 1)])
             # Start at 0 when x or y is out of bounds
             indices[indices >= dim] = 0
