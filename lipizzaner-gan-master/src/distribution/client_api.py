@@ -222,4 +222,4 @@ class ClientAPI:
     def listen(self, port):
         ClientEnvironment.port = port
         ConcurrentPopulations.instance().lock()
-        self.app.run(threaded=True, port=port, host="0.0.0.0")
+        self.app.run(threaded=True, port=port, host="localhost")
