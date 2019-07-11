@@ -167,3 +167,6 @@ dmypy.json
 .history
 
 # End of https://www.gitignore.io/api/osx,python,visualstudiocode
+
+#Project ignore data
+output/

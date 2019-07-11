@@ -49,10 +49,12 @@ class LipizzanerGANTrainer(EvolutionaryAlgorithmTrainer):
             individual.learning_rate = self._default_adam_learning_rate
             individual.id = '{}/D{}'.format(self.neighbourhood.cell_number, i)
 
+        # TRACE: Se genera un lock para setear la población? Usa multithread lock
+        #               Faltaria revisar si singleton es thread safe
         self.concurrent_populations = ConcurrentPopulations.instance()
         self.concurrent_populations.generator = self.population_gen
         self.concurrent_populations.discriminator = self.population_dis
-        self.concurrent_populations.unlock()
+        # self.concurrent_populations.unlock()
 
         experiment_id = self.cc.settings['general']['logging'].get('experiment_id', None)
         self.db_logger = DbLogger(current_experiment=experiment_id)
@@ -208,8 +210,8 @@ class LipizzanerGANTrainer(EvolutionaryAlgorithmTrainer):
 
     def step(self, original, attacker, defender, input_data, i, loaded, data_iterator):
         # Don't execute for remote populations - needed if generator and discriminator are on different node
-#         if any(not ind.is_local for ind in original.individuals):
-#             return
+        #         if any(not ind.is_local for ind in original.individuals):
+        #             return
 
         self.mutate_hyperparams(attacker)
         return self.update_genomes(attacker, defender, input_data, loaded, data_iterator)
@@ -222,7 +224,7 @@ class LipizzanerGANTrainer(EvolutionaryAlgorithmTrainer):
                  self.concurrent_populations.generator.individuals[0].fitness),
                 (self.concurrent_populations.discriminator.individuals[0].genome,
                  self.concurrent_populations.discriminator.individuals[0].fitness))
-
+ 
     def mutate_hyperparams(self, population):
         loc = -(self._default_adam_learning_rate / 10)
         deltas = np.random.normal(loc=loc, scale=self._default_adam_learning_rate, size=len(population.individuals))
@@ -279,10 +281,10 @@ class LipizzanerGANTrainer(EvolutionaryAlgorithmTrainer):
         for individual_attacker in population_attacker.individuals:
             individual_attacker.fitness = float('-inf')    # Reinitalize before evaluation started (Needed for average fitness)
             for individual_defender in population_defender.individuals:
-
+                # TRACE: Evalua atacante contra defensor
                 fitness_attacker = float(individual_attacker.genome.compute_loss_against(
                     individual_defender.genome, input_var)[0])
-
+                # TRACE: Se que da con el mejor fitness?
                 individual_attacker.fitness = compare_fitness(fitness_attacker, individual_attacker.fitness, fitness_mode)
 
             if fitness_mode == 'average':

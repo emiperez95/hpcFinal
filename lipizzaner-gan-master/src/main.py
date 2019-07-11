@@ -3,6 +3,9 @@ import logging
 import os
 import re
 import sys
+import importlib
+
+# from mpi4py import MPI
 
 import losswise
 import torch
@@ -17,6 +20,8 @@ from helpers.yaml_include_loader import YamlIncludeLoader
 from lipizzaner import Lipizzaner
 from lipizzaner_client import LipizzanerClient
 from lipizzaner_master import LipizzanerMaster, GENERATOR_PREFIX
+from lipizzaner_mpi_client import LipizzanerMpiClient
+from lipizzaner_mpi_master import LipizzanerMpiMaster
 from training.mixture.score_factory import ScoreCalculatorFactory
 from training.mixture.mixed_generator_dataset import MixedGeneratorDataset
 
@@ -64,6 +69,11 @@ def create_parser():
         action='store_true',
         help='Start as long-running client node. Waits for master '
              'to send experiment configuration, and runs them.')
+    group_train.add_argument(
+        '--mpi',
+        action="store_true",
+        help='Start program using MPI library (Message Passing Interface)'
+             'to send and manage experiment configuration between nodes.')
     add_config_file(group_train, '--master' in sys.argv or '--distributed' not in sys.argv)
 
     group_generate = subparsers.add_parser('generate')
@@ -178,6 +188,13 @@ if __name__ == '__main__':
                 LipizzanerMaster().run()
             elif args.client:
                 LipizzanerClient().run()
+        elif args.mpi:
+            initialize_settings(args)
+            MPI = importlib.import_module("mpi4py.MPI")
+            if MPI.COMM_WORLD.Get_rank() == 0:
+                LipizzanerMpiMaster()
+            else:
+                LipizzanerMpiClient()
         else:
             cc = initialize_settings(args)
             lipizzaner = Lipizzaner()

@@ -36,10 +36,12 @@ class DataLoader(ABC):
         # Image processing
 
         # Dataset
+        # TRACE: Primitive from torchvision, loads dataset and may download it.
         dataset = self.dataset(root=os.path.join(self.cc.settings['general']['output_dir'], 'data'),
                                train=True,
                                transform=self.transform(),
                                download=True)
+        # TRACE: Docs: An abstract class representing a Dataset.
         return torch.utils.data.DataLoader(dataset=dataset,
                                            batch_size=self.batch_size if self.use_batch else len(dataset),
                                            shuffle=self.shuffle,
