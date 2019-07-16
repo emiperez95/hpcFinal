@@ -9,7 +9,7 @@ from helpers.configuration_container import ConfigurationContainer
 from helpers.individual import Individual
 from helpers.population import Population, TYPE_GENERATOR, TYPE_DISCRIMINATOR
 
-TIMEOUT_SEC_DEFAULT = 60
+TIMEOUT_SEC_DEFAULT = 10
 MAX_HTTP_CLIENT_THREADS = 5
 
 
