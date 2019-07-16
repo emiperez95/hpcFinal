@@ -5,7 +5,6 @@ import torch.utils.data
 
 from helpers.pytorch_helpers import noise
 
-
 class MixedGeneratorDataset(torch.utils.data.Dataset):
 
     def __init__(self, generator_population, weights, n_samples, mixture_generator_samples_mode):
@@ -17,7 +16,15 @@ class MixedGeneratorDataset(torch.utils.data.Dataset):
         :param n_samples: Number of samples that will be generated
         """
         self.n_samples = n_samples
-        self.individuals = sorted(generator_population.individuals, key=lambda x: x.source)
+
+        def _parse_node(node):
+            if isinstance(node, int):
+                return node
+            elif isinstance(node, float):
+                return int(node)
+            return int(node["id"])
+
+        self.individuals = sorted(generator_population.individuals, key=lambda x: _parse_node(x.source))
         for individual in self.individuals:
             individual.genome.net.eval()
         self.data = []

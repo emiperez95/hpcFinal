@@ -36,5 +36,5 @@ master:
   calculate_score: True
   # Same amount of data as original CIFAR contains
   score_sample_size: 50000
-  cuda: True
+  cuda: False
 general: !include generalMPI.yml

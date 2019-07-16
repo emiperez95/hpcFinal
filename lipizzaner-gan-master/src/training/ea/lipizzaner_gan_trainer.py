@@ -7,6 +7,7 @@ import numpy as np
 
 from distribution.concurrent_populations import ConcurrentPopulations
 from distribution.neighbourhood import Neighbourhood
+from distribution.grid import Grid
 from helpers.configuration_container import ConfigurationContainer
 from helpers.db_logger import DbLogger
 from helpers.population import TYPE_GENERATOR, TYPE_DISCRIMINATOR
@@ -40,7 +41,10 @@ class LipizzanerGANTrainer(EvolutionaryAlgorithmTrainer):
         self._enable_selection = self.settings.get('enable_selection', enable_selection)
         self.mixture_sigma = self.settings.get('mixture_sigma', mixture_sigma)
 
-        self.neighbourhood = Neighbourhood.instance()
+        if self.cc.settings["general"]["distribution"].get("type", None) == "mpi":
+            self.neighbourhood = Grid.instance()
+        else:
+            self.neighbourhood = Neighbourhood.instance()
 
         for i, individual in enumerate(self.population_gen.individuals):
             individual.learning_rate = self._default_adam_learning_rate
@@ -102,8 +106,9 @@ class LipizzanerGANTrainer(EvolutionaryAlgorithmTrainer):
                 individual.name for individual in all_discriminators.individuals
             ]))
 
-            self._logger.info('L2 distance between all generators weights: {}'.format(all_generators.net_weights_dist))
-            self._logger.info('L2 distance between all discriminators weights: {}'.format(all_discriminators.net_weights_dist))
+            # TODO: Fixme
+            # self._logger.info('L2 distance between all generators weights: {}'.format(all_generators.net_weights_dist))
+            # self._logger.info('L2 distance between all discriminators weights: {}'.format(all_discriminators.net_weights_dist))
 
             new_populations = {}
 

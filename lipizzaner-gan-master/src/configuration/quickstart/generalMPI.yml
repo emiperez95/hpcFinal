@@ -12,7 +12,7 @@ distribution:
   type: mpi
   root : 0
   grid:
-    x_size: 3
-    y_size: 4
+    x_size: 2
+    y_size: 1
 seed: 1
 num_workers: 0    # how many subprocesses to use for data loading
