@@ -9,9 +9,6 @@
 *.out
 *.bak
 *.DS_Store
-src/output/*
-!src/output/networks/
-!src/output/networks/*
 **/venv
 sandbox/pytorch-tutorial/data/
 sandbox/pytorch-tutorial/*.pkl
