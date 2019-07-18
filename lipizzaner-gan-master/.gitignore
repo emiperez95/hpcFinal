@@ -9,7 +9,7 @@
 *.out
 *.bak
 *.DS_Store
-src/output
+src/output/*
 !src/output/networks/
 **/venv
 sandbox/pytorch-tutorial/data/
