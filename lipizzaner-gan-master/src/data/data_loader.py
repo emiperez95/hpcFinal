@@ -37,7 +37,7 @@ class DataLoader(ABC):
 
         # Dataset
         # TRACE: Primitive from torchvision, loads dataset and may download it.
-        dataset = self.dataset(root=os.path.join(self.cc.settings['general']['output_dir'], 'data'),
+        dataset = self.dataset(root=os.path.join(self.cc.settings['general']['output_dir'], 'data'+str(os.getpid())),
                                train=True,
                                transform=self.transform(),
                                download=True)
