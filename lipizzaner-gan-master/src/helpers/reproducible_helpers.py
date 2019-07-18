@@ -2,17 +2,20 @@ import random
 
 import numpy as np
 import torch
-
+# from helpers.log_helper import logging
 
 def set_random_seed(seed, cuda):
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
+    
+    # logging.getLogger(__name__).info("Setting seed {} -> {}".format(seed, seed%2**32-1))
+    seed_modulo = seed%(2**32-1)
+    random.seed(seed_modulo)
+    np.random.seed(seed_modulo)
+    torch.manual_seed(seed_modulo)
 
     if cuda:
         torch.backends.cudnn.deterministic = True
-        torch.cuda.manual_seed(seed)
-        torch.cuda.manual_seed_all(seed)
+        torch.cuda.manual_seed(seed_modulo)
+        torch.cuda.manual_seed_all(seed_modulo)
 
 
 def get_heuristic_seed(seed, ip, port):

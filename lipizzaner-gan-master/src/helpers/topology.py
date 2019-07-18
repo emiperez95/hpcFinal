@@ -17,7 +17,7 @@ class TopologyManager():
         self.active_pu = set([])
         self.inactive_pu = set([])
         self.offline_pu = set([])
-
+        
         self.pu_info = {}
         self.node_topology = {}
         for i, node in enumerate(comms.nodes_info):
@@ -89,5 +89,5 @@ class TopologyManager():
             if pu in self.inactive_pu:
                 return pu
 
-    # def get_worker_pu(self):
-    #     return self.active_pu - set([self.root])
+    def get_worker_pu(self):
+        return self.active_pu - set([CommsManager.instance().root])

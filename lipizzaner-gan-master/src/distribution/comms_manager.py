@@ -18,13 +18,14 @@ from mpi4py import MPI
 # MPI.pickle.dumps = dill.dumps
 # MPI.pickle.loads = dill.loads
 
+
 TIMEOUT_SEC_DEFAULT = 10
 MAX_HTTP_CLIENT_THREADS = 5
 
 @Singleton
 class CommsManager(NodeClient):
     _logger = logging.getLogger(__name__)
-    def __init__(self):
+    def __init__(self, network_factory=None):
         self.cc = ConfigurationContainer.instance()
         self.root = self.cc.settings['general']['distribution']['root']
         self.comm = MPI.COMM_WORLD
@@ -36,11 +37,13 @@ class CommsManager(NodeClient):
         }
 
         # Network factory
-        dataset_name = self.cc.settings['dataloader']['dataset_name']
-        dataloader = self.cc.create_instance(dataset_name)
-        self.network_factory = self.cc.create_instance(\
-                                    self.cc.settings['network']['name'],\
-                                    dataloader.n_input_neurons)
+        if not network_factory:
+            dataset_name = self.cc.settings['dataloader']['dataset_name']
+            dataloader = self.cc.create_instance(dataset_name)
+            self.network_factory = self.cc.create_instance(\
+                                        self.cc.settings['network']['name'],\
+                                        dataloader.n_input_neurons)
+        else: self.network_factory = network_factory
     # ===================================================
     #                    New functions
     # ===================================================
@@ -52,49 +55,49 @@ class CommsManager(NodeClient):
     def isend(self, message, dest):
         r_dest = self._parse_node(dest)
         self.comm.send(message, dest=r_dest, tag=1)
-        self._logger.info("Sent message to {}".format(r_dest))
+        self._logger.info("Sent message to {} ,tag 1".format(r_dest))
 
     def send_task(self, task, dest):
         r_dest = self._parse_node(dest)
         self.comm.send({"task" : task},dest=r_dest, tag=3)
-        self._logger.info("Sent task ({}) to {}".format(task, r_dest))
+        self._logger.info("Sent task ({}) to {}, tag 3".format(task, r_dest))
 
     def recv(self, source=None):
         if source:
             r_source = self._parse_node(source)
             data = self.comm.recv(source=r_source, tag=1)
-            self._logger.info("Recieved data from {}".format(r_source))
+            self._logger.info("Recieved data from {}, tag 1".format(r_source))
         else:
             status = MPI.Status()
             data = self.comm.recv(source=MPI.ANY_SOURCE, status=status, tag=1)
             data["source"] = status.Get_source()
-            self._logger.info("Recieved data from {}".format(data["source"]))
+            self._logger.info("Recieved data from {}, tag 1".format(data["source"]))
         return data
 
     def recv_task(self, source=None):
         if source:
             r_source = self._parse_node(source)
             data = self.comm.recv(source=r_source, tag=3)
-            self._logger.info("Recieved task ({}) from {}".format(data["task"],r_source))
+            self._logger.info("Recieved task ({}) from {}, tag 3".format(data["task"],r_source))
         else:
             status = MPI.Status()
             data = self.comm.recv(source=MPI.ANY_SOURCE, status=status, tag=3)
             data["source"] = status.Get_source()
-            self._logger.info("Recieved task ({}) from {}".format(data["task"],data["source"]))
+            self._logger.info("Recieved task ({}) from {}, tag 3".format(data["task"],data["source"]))
         return data
 
     
     def start_worker(self, pu, grid):
         r_pu = self._parse_node(pu)
         self.comm.send({"task" : "run", "config" : self.cc.settings}, dest=r_pu, tag=3)
-        self._logger.info("Started worker {}".format(r_pu))
+        self._logger.info("Started worker {}, tag 3".format(r_pu))
 
     # def recieve_root(self):
     #     return self.comm.recv(source=self.root)
 
     def close_all(self):
         for i in range(self.size):
-            self.comm.send({"task": "close"}, dest=i, tag=3)
+            self.comm.isend({"task": "close"}, dest=i, tag=3)
 
     def _parse_node(self, node):
         if isinstance(node, int):
@@ -162,7 +165,8 @@ class CommsManager(NodeClient):
 
     def _load_results(self, node, timeout_sec):
         try:
-            self.isend({"task" : "results"}, node)
+            self.send_task("results", node)
+            self._logger.info("Waiting for results {}".format(node))
             return self.recv(node)
         except Exception as ex:
             self._logger.error('Error loading results from {}: {}.'.format(node, ex))
@@ -175,15 +179,27 @@ class CommsManager(NodeClient):
         """
 
         results = []
-        with ThreadPoolExecutor(max_workers=MAX_HTTP_CLIENT_THREADS) as executor:
+        # with ThreadPoolExecutor(max_workers=MAX_HTTP_CLIENT_THREADS) as executor:
 
-            futures = {executor.submit(self._load_results, node, timeout_sec): node for node in nodes}
-            for future in as_completed(futures):
-                # Result has the form { 'discriminators': [[],  [], ..], 'generators': [[], [], ..] }
-                node = futures[future]
-                result = future.result()
-                if result is not None:
-                    results.append((node,
+        #     futures = {executor.submit(self._load_results, node, timeout_sec): node for node in nodes}
+        #     for future in as_completed(futures):
+        #         # Result has the form { 'discriminators': [[],  [], ..], 'generators': [[], [], ..] }
+        #         node = futures[future]
+        #         result = future.result()
+        #         if result is not None:
+        #             results.append((node,
+        #                             self._create_population(result['generators'],
+        #                                                     self.network_factory.create_generator,
+        #                                                     TYPE_GENERATOR),
+        #                             self._create_population(result['discriminators'],
+        #                                                     self.network_factory.create_discriminator,
+        #                                                     TYPE_DISCRIMINATOR),
+        #                             result['weights_generators'],
+        #                             result['weights_discriminators'])),
+
+        for node in nodes:
+            result = self._load_results(node, timeout_sec)
+            results.append((node,
                                     self._create_population(result['generators'],
                                                             self.network_factory.create_generator,
                                                             TYPE_GENERATOR),
@@ -200,7 +216,7 @@ class CommsManager(NodeClient):
         statuses = []
         for client in active_nodes:
             try:
-                self.isend({"task" : "status"}, client)
+                self.send_task("status", client)
                 resp = self.recv(client)
                 resp['address'] = client
                 resp['alive'] = True
@@ -218,7 +234,7 @@ class CommsManager(NodeClient):
 
     def stop_running_experiments(self, except_for_clients=None):
         for i in range(self.size):
-            self.comm.isend({"task": "close"}, dest=i)
+            self.comm.send_task("close", dest=i)
 
     def _load_parameters_async(self, node, task, timeout_sec):
         # try:

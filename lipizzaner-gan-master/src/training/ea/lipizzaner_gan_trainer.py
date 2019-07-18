@@ -58,7 +58,8 @@ class LipizzanerGANTrainer(EvolutionaryAlgorithmTrainer):
         self.concurrent_populations = ConcurrentPopulations.instance()
         self.concurrent_populations.generator = self.population_gen
         self.concurrent_populations.discriminator = self.population_dis
-        # self.concurrent_populations.unlock()
+        if self.concurrent_populations.locked():
+            self.concurrent_populations.unlock()
 
         experiment_id = self.cc.settings['general']['logging'].get('experiment_id', None)
         self.db_logger = DbLogger(current_experiment=experiment_id)

@@ -22,7 +22,10 @@ class MixedGeneratorDataset(torch.utils.data.Dataset):
                 return node
             elif isinstance(node, float):
                 return int(node)
-            return int(node["id"])
+            try:
+                return int(node["id"])
+            except:
+                return node
 
         self.individuals = sorted(generator_population.individuals, key=lambda x: _parse_node(x.source))
         for individual in self.individuals:

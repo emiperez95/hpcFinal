@@ -31,8 +31,8 @@ class LipizzanerMpiClient():
         self.comms = CommsManager.instance()
         self.comms.start_comms()
         self.grid = Grid.instance()
-        self.is_busy = False
-        self.is_finished = False
+        LipizzanerMpiClient.is_busy = False
+        LipizzanerMpiClient.is_finished = False
 
         self.run()
 
@@ -45,9 +45,11 @@ class LipizzanerMpiClient():
             result = func(data)
             # result = globals()["_task_"+task](data)
             if result:
-                self.comms.isend(result, data["source"])
-                if type(result) == "int":
+                if isinstance(result, int):
                     break
+                else:
+                    self.comms.isend(result, data["source"])
+        self._logger.info("Exiting...")
 
     # def __process_data(self):
     #     neightbours_list = self.grid.get_neightbours(self.comms.rank)
@@ -60,56 +62,57 @@ class LipizzanerMpiClient():
 
     def _task_run(self, data):
         config = data["config"]
-        self._lock.acquire()
-        if self.is_busy:
-            self._lock.release()
+        LipizzanerMpiClient._lock.acquire()
+        if LipizzanerMpiClient.is_busy:
+            LipizzanerMpiClient._lock.release()
             return 'Client is currently busy.'
         
-        self.is_finished = False
-        self.is_busy = True
-        self._lock.release()
-        self._stop_event = Event()
-        self._finish_event = Event()
+        LipizzanerMpiClient.is_finished = False
+        LipizzanerMpiClient.is_busy = True
+        LipizzanerMpiClient._lock.release()
+        LipizzanerMpiClient._stop_event = Event()
+        LipizzanerMpiClient._finish_event = Event()
         worker_thread = Thread(target=LipizzanerMpiClient._run_lipizzaner, args=(config,))
         worker_thread.start()
 
         return None
 
     def _task_stop(self, data):
-        self._lock.acquire()
+        LipizzanerMpiClient._lock.acquire()
 
-        if self.is_busy:
+        if LipizzanerMpiClient.is_busy:
             self._logger.warning('Received stop signal from master, experiment will be quit.')
-            self._stop_event.set()
+            LipizzanerMpiClient._stop_event.set()
         else:
             self._logger.warning('Received stop signal from master, but no experiment is running.')
 
-        self._lock.release()
+        LipizzanerMpiClient._lock.release()
         return None
     
     def _task_close(self, data):
-        return "end"
+        return 1
 
     def _task_status(self, data):
         result = {
-            'busy': self.is_busy,
-            'finished': self.is_finished
+            'busy': LipizzanerMpiClient.is_busy,
+            'finished': LipizzanerMpiClient.is_finished
         }
         return result
 
     def _task_results(self, data):
-        self._lock.acquire()
-        if self.is_busy:
+        # LipizzanerMpiClient._lock.acquire()
+        if LipizzanerMpiClient.is_busy:
             self._logger.info('Sending neighbourhood results to master')
-            response = self._gather_results()
-            self._finish_event.set()
+            worker_thread = Thread(target=LipizzanerMpiClient._gather_results, args=(data["source"],))
+            worker_thread.start()
+            # response = self._gather_results()
         else:
             self._logger.warning('Master requested results, but no experiment is running.')
             response = None
 
-        self._lock.release()
+        # LipizzanerMpiClient._lock.release()
             
-        return response
+        return None
 
     def _task_generators_best(self, data):
         populations = ConcurrentPopulations.instance()
@@ -146,13 +149,18 @@ class LipizzanerMpiClient():
     def _task_discriminators_best(self, data):
         populations = ConcurrentPopulations.instance()
 
-        populations.lock()
+        not_finished = not LipizzanerMpiClient.is_finished
+        if not_finished:
+            populations.lock()
+        
         if populations.discriminator is not None:
             best_individual = sorted(populations.discriminator.individuals, key=lambda x: x.fitness)[0]
             parameters = [self._individual_to_dict(best_individual)]
         else:
             parameters = []
-        populations.unlock()
+        
+        if not_finished:
+            populations.unlock()
         return parameters
     
     @staticmethod
@@ -160,7 +168,7 @@ class LipizzanerMpiClient():
         cc = ConfigurationContainer.instance()
         cc.settings = config
         
-        grid = Grid.instance()
+        grid = Grid.instance()  
         grid.load_grid()
 
         output_base_dir = cc.output_dir
@@ -174,7 +182,7 @@ class LipizzanerMpiClient():
         try:
             lipizzaner = Lipizzaner()
             lipizzaner.run(cc.settings['trainer']['n_iterations'], LipizzanerMpiClient._stop_event)
-            LipizzanerMpiClient._is_finished = True
+            LipizzanerMpiClient.is_finished = True
 
             # Wait until master finishes experiment, i.e. collects results, or experiment is terminated
             or_event(LipizzanerMpiClient._finish_event, LipizzanerMpiClient._stop_event).wait()
@@ -215,8 +223,9 @@ class LipizzanerMpiClient():
         os.makedirs(cc.output_dir, exist_ok=True)
     
     @staticmethod
-    def _gather_results():
-        neighbourhood = Neighbourhood.instance()
+    def _gather_results(source):
+        LipizzanerMpiClient._lock.acquire()
+        neighbourhood = Grid.instance()
         cc = ConfigurationContainer.instance()
         results = {
             'generators': neighbourhood.best_generator_parameters,
@@ -228,5 +237,9 @@ class LipizzanerMpiClient():
             results['weights_discriminators'] = neighbourhood.mixture_weights_discriminators
         else:
             results['weights_discriminators'] = 0.0
+        LipizzanerMpiClient._finish_event.set()
+        LipizzanerMpiClient._lock.release()
 
-        return results
+        comms = CommsManager.instance()
+        comms.isend(results, source)
+        # return results

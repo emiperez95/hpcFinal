@@ -26,8 +26,13 @@ class LogHelper:
                 add = '\033[93m'
             elif rank == 1:
                 add = '\033[94m'
-            else:
+            elif rank == 2:
                 add = '\033[92m'
+            elif rank == 3:
+                add = '\033[1;35;40m'
+            else:
+                add = '\033[1;36;40m'
+            
             formatter = logging.Formatter(add+'%(asctime)s %(levelname)s - %(name)s - %(message)s \033[0m')
         except:
             formatter = logging.Formatter('%(asctime)s %(levelname)s - %(name)s - %(message)s')
