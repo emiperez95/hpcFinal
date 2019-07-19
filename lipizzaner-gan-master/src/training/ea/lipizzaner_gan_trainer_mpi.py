@@ -41,10 +41,8 @@ class LipizzanerGANTrainer(EvolutionaryAlgorithmTrainer):
         self._enable_selection = self.settings.get('enable_selection', enable_selection)
         self.mixture_sigma = self.settings.get('mixture_sigma', mixture_sigma)
 
-        if self.cc.settings["general"]["distribution"].get("type", None) == "mpi":
-            self.neighbourhood = Grid.instance()
-        else:
-            self.neighbourhood = Neighbourhood.instance()
+
+        self.neighbourhood = Grid.instance()
 
         for i, individual in enumerate(self.population_gen.individuals):
             individual.learning_rate = self._default_adam_learning_rate
@@ -93,10 +91,11 @@ class LipizzanerGANTrainer(EvolutionaryAlgorithmTrainer):
             self._logger.debug('Iteration {} started'.format(iteration + 1))
             start_time = time()
 
-            all_generators = self.neighbourhood.all_generators
-            all_discriminators = self.neighbourhood.all_discriminators
             local_generators = self.neighbourhood.local_generators
             local_discriminators = self.neighbourhood.local_discriminators
+            all_generators, all_discriminators = self.neighbourhood.all_disc_gen_local()
+
+            # Local functions
 
             # Log the name of individuals in entire neighborhood for every iteration
             # (to help tracing because individuals from adjacent cells might be from different iterations)
@@ -301,7 +300,7 @@ class LipizzanerGANTrainer(EvolutionaryAlgorithmTrainer):
         if self.neighbourhood.grid_size == 1:
             if self.score_calc is not None:
                 self._logger.info('Calculating FID/inception score.')
-                best_generators = self.neighbourhood.best_generators
+                best_generators = self.neighbourhood.best_generators_local()
 
                 dataset = MixedGeneratorDataset(best_generators,
                                                 self.neighbourhood.mixture_weights_generators,
@@ -319,7 +318,7 @@ class LipizzanerGANTrainer(EvolutionaryAlgorithmTrainer):
 
             new_mixture_weights_generators = OrderedDict(zip(self.neighbourhood.mixture_weights_generators.keys(), transformed))
 
-            best_generators = self.neighbourhood.best_generators
+            best_generators = self.neighbourhood.best_generators_local()
             dataset_before_mutation = MixedGeneratorDataset(best_generators,
                                                             self.neighbourhood.mixture_weights_generators,
                                                             self.score_sample_size,

@@ -9,8 +9,6 @@
 *.out
 *.bak
 *.DS_Store
-src/output
-!src/output/networks/mnist_cnn.pkl
 **/venv
 sandbox/pytorch-tutorial/data/
 sandbox/pytorch-tutorial/*.pkl

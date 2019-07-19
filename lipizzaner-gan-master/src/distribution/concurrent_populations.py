@@ -32,3 +32,6 @@ class ConcurrentPopulations:
     @discriminator.setter
     def discriminator(self, value):
         self._discriminator = value
+
+    def locked(self):
+        return self._lock.locked()
