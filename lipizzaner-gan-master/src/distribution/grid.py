@@ -4,6 +4,7 @@ from collections import OrderedDict
 from helpers.singleton import Singleton
 from helpers.configuration_container import ConfigurationContainer
 from helpers.population import Population, TYPE_GENERATOR, TYPE_DISCRIMINATOR
+from helpers.log_helper import logging
 
 from distribution.concurrent_populations import ConcurrentPopulations
 from distribution.comms_manager import CommsManager
@@ -17,8 +18,10 @@ fail.
 to have changing neighbours or diferent structures without having to modify
 anything else.
 '''
+
 @Singleton
 class Grid():
+    _logger = logging.getLogger(__name__)
     def __init__(self):
         self.cc = ConfigurationContainer.instance()
         self.grid_x = self.cc.settings["general"]["distribution"]["grid"]["x_size"]
@@ -106,7 +109,7 @@ class Grid():
         neighs_list = []
         for nei in neighs:
             neighs_list.append(self.grid[nei[0]%self.grid_x, nei[1]%self.grid_y])
-        pu_pos = self.__pos_pu(processing_unit)
+        pu_pos = self.local_node["id"]
         return list(set(neighs_list) - set([pu_pos]))
 
     def __pos_pu(self, processing_unit):
@@ -120,6 +123,59 @@ class Grid():
         for individual in population.individuals:
             individual.source = self.local_node["id"]
         return population
+
+
+    # ==========================================================
+    #                 Local neighbourhood opers
+    # ==========================================================    
+
+    def all_disc_gen_local(self):
+        '''
+            Get all generator and discriminators from all neighbours
+        and create the Populations with them.
+        Return:
+            gen_pop: Population of all generators from neighbours
+            disc_pop: Population of all discriminators from neighbours
+        '''
+        # TODO: Check if encoding is necesary or if pickle is enough
+        local_gen = self.local_generators
+        local_disc = self.local_discriminators
+        send_data = (local_gen, local_disc)
+        data = self.node_client.local_all_gather(send_data)
+
+        generators = []
+        discriminators = []
+        # lamda_separator = lambda d: data[0], data[1]
+        for sender_wid, elem in enumerate(data):
+            # TODO: Mising neighbours filter
+            for gen_indiv in elem[0].individuals:
+                gen_indiv.source = sender_wid
+            generators += elem[0].individuals
+
+            for disc_indiv in elem[1].individuals:
+                disc_indiv.source = sender_wid
+            discriminators += elem[1].individuals
+            
+        gen_pop = Population(individuals=generators,
+                          default_fitness=local_gen.default_fitness,
+                          population_type=TYPE_GENERATOR)
+        disc_pop = Population(individuals=discriminators,
+                          default_fitness=local_disc.default_fitness,
+                          population_type=TYPE_DISCRIMINATOR)
+        return gen_pop, disc_pop
+
+
+    def best_generators_local(self):
+        local_population = self.local_generators
+        best_local_individual = sorted(local_population.individuals, key=lambda x: x.fitness)[0]
+
+        all_best = self.node_client.local_all_gather(best_local_individual)
+        for sender_wid, indiv in enumerate(all_best):
+            indiv.source = sender_wid
+
+        return Population(individuals=all_best,
+                          default_fitness=local_population.default_fitness,
+                          population_type=TYPE_GENERATOR)
 
     # ==========================================================
     #                   From neighbourhood

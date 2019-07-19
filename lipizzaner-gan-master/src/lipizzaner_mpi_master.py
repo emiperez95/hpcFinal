@@ -43,7 +43,7 @@ class LipizzanerMpiMaster:
         self._logger.info("Seed used in master: {}".format(self.cc.settings['general']['seed']))
 
         self.heartbeat_event = Event()
-        self.heartbeat_thread = Heartbeat(self.heartbeat_event,  False)
+        self.heartbeat_thread = Heartbeat(self.heartbeat_event, False)
 
         signal.signal(signal.SIGINT, self._sigint)
 
@@ -60,7 +60,7 @@ class LipizzanerMpiMaster:
         else:
             self._logger.info("Started stopped with error")
             self._terminate(stop_clients=False, return_code=-1)
-        self._terminate()
+        # self._terminate()
 
     def _start_experiments(self):
         self.cc.settings['general']['distribution']['start_time'] = time.strftime('%Y-%m-%d_%H-%M-%S')

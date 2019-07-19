@@ -59,7 +59,7 @@ class CommsManager(NodeClient):
     def isend(self, message, dest):
         r_dest = self._parse_node(dest)
         self.comm.send(message, dest=r_dest, tag=1)
-        self._logger.info("Sent message to {} ,tag 1".format(r_dest))
+        self._logger.warn("Sent message to {} ,tag 1".format(r_dest))
 
     def send_task(self, task, dest, data=None):
         r_dest = self._parse_node(dest)
@@ -68,30 +68,30 @@ class CommsManager(NodeClient):
             self.comm.send(data, dest=r_dest, tag=3)
         else:
             self.comm.send({"task" : task}, dest=r_dest, tag=3)
-        self._logger.info("Sent task ({}) to {}, tag 3".format(task, r_dest))
+        self._logger.warn("Sent task ({}) to {}, tag 3".format(task, r_dest))
 
     def recv(self, source=None):
         if source:
             r_source = self._parse_node(source)
             data = self.comm.recv(source=r_source, tag=1)
-            self._logger.info("Recieved data from {}, tag 1".format(r_source))
+            self._logger.warn("Recieved data from {}, tag 1".format(r_source))
         else:
             status = MPI.Status()
             data = self.comm.recv(source=MPI.ANY_SOURCE, status=status, tag=1)
             data["source"] = status.Get_source()
-            self._logger.info("Recieved data from {}, tag 1".format(data["source"]))
+            self._logger.warn("Recieved data from {}, tag 1".format(data["source"]))
         return data
 
     def recv_task(self, source=None):
         if source:
             r_source = self._parse_node(source)
             data = self.comm.recv(source=r_source, tag=3)
-            self._logger.info("Recieved task ({}) from {}, tag 3".format(data["task"],r_source))
+            self._logger.warn("Recieved task ({}) from {}, tag 3".format(data["task"],r_source))
         else:
             status = MPI.Status()
             data = self.comm.recv(source=MPI.ANY_SOURCE, status=status, tag=3)
             data["source"] = status.Get_source()
-            self._logger.info("Recieved task ({}) from {}, tag 3".format(data["task"],data["source"]))
+            self._logger.warn("Recieved task ({}) from {}, tag 3".format(data["task"],data["source"]))
         return data
 
     
@@ -120,12 +120,22 @@ class CommsManager(NodeClient):
 
     def new_comm(self, color, key):
         self.local = MPI.COMM_WORLD.Split(color, key)
-        self.local_rank = key
+        # self.local_rank = key
         size = self.local.Get_size()
-        self._logger.warn("New comm {}, rank {} out of {}".format(color, key, size))
+        self._logger.info("New comm {}, rank {} out of {}".format(color, key, size))
+
 
     # ===================================================
-    #                Redefined functions
+    #                Local operations
+    # ===================================================
+
+    def local_all_gather(self, send_data):
+        ret_data = self.local.allgather(send_data)
+        self._logger.info("Allgather on local comm")
+        return ret_data
+
+    # ===================================================
+    #         Redefined comunication functions
     # ===================================================
 
     def get_all_generators(self, nodes, timeout_sec=TIMEOUT_SEC_DEFAULT):
@@ -136,7 +146,7 @@ class CommsManager(NodeClient):
         generators = self.load_generators_from_api(nodes, timeout_sec)
         for a in generators:
             try:
-                self._logger.warn("Parsing gen: {}".format(a.keys()))
+                self._logger.info("Parsing gen: {}".format(a.keys()))
             except:
                 self._logger.warn("Parsing gen: {}".format(a))
                 
@@ -151,7 +161,7 @@ class CommsManager(NodeClient):
         discriminators = self.load_discriminators_from_api(nodes, timeout_sec)
         for a in discriminators:
             try:
-                self._logger.warn("Parsing disc: {}".format(a.keys()))
+                self._logger.info("Parsing disc: {}".format(a.keys()))
             except:
                 self._logger.warn("Parsing disc: {}".format(a))
 
@@ -162,7 +172,7 @@ class CommsManager(NodeClient):
         generators = self.load_best_generators_from_api(nodes, timeout_sec)
         for a in generators:
             try:
-                self._logger.warn("Parsing b gen: {}".format(a.keys()))
+                self._logger.info("Parsing b gen: {}".format(a.keys()))
             except:
                 self._logger.warn("Parsing b gen: {}".format(a))
 
@@ -260,7 +270,7 @@ class CommsManager(NodeClient):
 
         self.send_task(task, node)
         resp = self.recv(node)
-
+ 
         stop = time.time()
         self._logger.info('Loading parameters from node {} took {} seconds'.format(node, stop - start))
         try:

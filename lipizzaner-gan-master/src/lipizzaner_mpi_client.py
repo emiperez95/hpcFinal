@@ -15,6 +15,7 @@ from distribution.grid import Grid
 from helpers.configuration_container import ConfigurationContainer
 from helpers.log_helper import LogHelper
 from helpers.or_event import or_event
+from helpers.class_dict_converter import individual_to_dict
 from lipizzaner import Lipizzaner
 
 class LipizzanerMpiClient():
@@ -114,7 +115,7 @@ class LipizzanerMpiClient():
 
         if populations.generator is not None:
             best_individual = sorted(populations.generator.individuals, key=lambda x: x.fitness)[0]
-            parameters = [self._individual_to_dict(best_individual)]
+            parameters = [individual_to_dict(best_individual)]
         else:
             parameters = []
         return parameters
@@ -124,7 +125,7 @@ class LipizzanerMpiClient():
 
         populations.lock()
         if populations.generator is not None:
-            parameters = [self._individual_to_dict(i) for i in populations.generator.individuals]
+            parameters = [individual_to_dict(i) for i in populations.generator.individuals]
         else:
             parameters = []
         populations.unlock()
@@ -135,7 +136,7 @@ class LipizzanerMpiClient():
 
         populations.lock()
         if populations.discriminator is not None:
-            parameters = [self._individual_to_dict(i) for i in populations.discriminator.individuals]
+            parameters = [individual_to_dict(i) for i in populations.discriminator.individuals]
         else:
             parameters = []
         populations.unlock()
@@ -150,7 +151,7 @@ class LipizzanerMpiClient():
         
         if populations.discriminator is not None:
             best_individual = sorted(populations.discriminator.individuals, key=lambda x: x.fitness)[0]
-            parameters = [self._individual_to_dict(best_individual)]
+            parameters = [individual_to_dict(best_individual)]
         else:
             parameters = []
         
@@ -211,22 +212,6 @@ class LipizzanerMpiClient():
             LipizzanerMpiClient._logger.info('Finished experiment, waiting for new requests.')
             cc.output_dir = output_base_dir
             ConcurrentPopulations.instance().lock()
-
-
-
-
-    @staticmethod
-    def _individual_to_dict(individual):
-        individual_dict = {
-            'id': individual.id,
-            'parameters': individual.genome.encoded_parameters,
-            'learning_rate': individual.learning_rate,
-            'optimizer_state': StateEncoder.encode(individual.optimizer_state)
-        }
-        if individual.iteration is not None:
-            individual_dict['iteration'] = individual.iteration
-
-        return individual_dict
 
     @classmethod
     def _set_output_dir(cls, cc):
