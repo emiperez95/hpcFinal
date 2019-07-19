@@ -25,6 +25,8 @@ class GridManager():
         if empty_spaces:
             w_place = empty_spaces.pop(0)
             self.grid[w_place // self.grid_y, w_place % self.grid_y] = worker
+            return w_place
+        return None
 
     def grid_to_list(self):
         '''Returns a list version of the grid.'''

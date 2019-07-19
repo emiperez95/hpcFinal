@@ -43,21 +43,16 @@ class LipizzanerMpiMaster:
         self._logger.info("Seed used in master: {}".format(self.cc.settings['general']['seed']))
 
         self.heartbeat_event = Event()
-        self.heartbeat_thread = Heartbeat(self.heartbeat_event,
-                                          False)
+        self.heartbeat_thread = Heartbeat(self.heartbeat_event,  False)
 
         signal.signal(signal.SIGINT, self._sigint)
+
         self._start_experiments()
-        
-        # TODO: Check for end
-        # TODO: gather results
 
         self.heartbeat_thread.start()
-
         self._logger.info("Started heartbeat")
         self.heartbeat_thread.join()
-        # When this is reached, the heartbeat thread has stopped.
-        # This either happens when the exper iments are done, or if they were terminated
+
         if self.heartbeat_thread.success:
             self._logger.info("Started stopped with success")
             self._gather_results()
@@ -65,9 +60,7 @@ class LipizzanerMpiMaster:
         else:
             self._logger.info("Started stopped with error")
             self._terminate(stop_clients=False, return_code=-1)
-
-        # End program
-        # self.comms.stop_running_experiments()
+        self._terminate()
 
     def _start_experiments(self):
         self.cc.settings['general']['distribution']['start_time'] = time.strftime('%Y-%m-%d_%H-%M-%S')
@@ -80,14 +73,23 @@ class LipizzanerMpiMaster:
 
         while self.grid.empty_spaces() > 0:
             worker = self.topology.get_best_worker()
-            self.grid.assign_worker(worker)   
+            w_id = self.grid.assign_worker(worker)   
             self.topology.assign_worker(worker)
+            
+            self._logger.info("Asigned worker {} to wid {}".format(worker, w_id))
+            self.comms.send_task("new_comm", worker, data={"color" : 0, "key" : w_id})
+
+        for off_pu in self.topology.inactive_pu:
+            self._logger.info("Asigned worker {} to rest".format(off_pu))
+            self.comms.send_task("new_comm", off_pu, data={"color" : 1, "key" : off_pu})
+        
+        self.comms.new_comm(1, 0)
         
         # print(self.grid.grid)
         for proc_unit in self.grid.grid_to_list():
             self.cc.settings["general"]["distribution"]["grid"]["config"] = self.grid.grid
             self.comms.start_worker(proc_unit, self.cc.settings)
-            sleep(2)
+            # sleep(2)
     
     def _sigint(self, signal, frame):
         self._terminate(stop_clients=True)

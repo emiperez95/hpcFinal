@@ -22,12 +22,16 @@ from mpi4py import MPI
 TIMEOUT_SEC_DEFAULT = 10
 MAX_HTTP_CLIENT_THREADS = 5
 
+# TODO: Mantener un pu con el backup de los demas, por si se apaga uno corriendo, 
+# este puede tomar su lugar y designar a uno nuevo para operar
+
 @Singleton
 class CommsManager(NodeClient):
     _logger = logging.getLogger(__name__)
     def __init__(self, network_factory=None):
         self.cc = ConfigurationContainer.instance()
         self.root = self.cc.settings['general']['distribution']['root']
+        self.local = MPI.COMM_WORLD
         self.comm = MPI.COMM_WORLD
         self.rank = self.comm.Get_rank()
         self.size = self.comm.Get_size()
@@ -57,9 +61,13 @@ class CommsManager(NodeClient):
         self.comm.send(message, dest=r_dest, tag=1)
         self._logger.info("Sent message to {} ,tag 1".format(r_dest))
 
-    def send_task(self, task, dest):
+    def send_task(self, task, dest, data=None):
         r_dest = self._parse_node(dest)
-        self.comm.send({"task" : task},dest=r_dest, tag=3)
+        if data:
+            data["task"] = task
+            self.comm.send(data, dest=r_dest, tag=3)
+        else:
+            self.comm.send({"task" : task}, dest=r_dest, tag=3)
         self._logger.info("Sent task ({}) to {}, tag 3".format(task, r_dest))
 
     def recv(self, source=None):
@@ -105,6 +113,16 @@ class CommsManager(NodeClient):
         elif isinstance(node, float):
             return int(node)
         return int(node["id"])
+
+    # ===================================================
+    #                Comms management
+    # ===================================================
+
+    def new_comm(self, color, key):
+        self.local = MPI.COMM_WORLD.Split(color, key)
+        self.local_rank = key
+        size = self.local.Get_size()
+        self._logger.warn("New comm {}, rank {} out of {}".format(color, key, size))
 
     # ===================================================
     #                Redefined functions
