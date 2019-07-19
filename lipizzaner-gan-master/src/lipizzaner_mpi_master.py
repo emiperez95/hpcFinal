@@ -30,10 +30,10 @@ class LipizzanerMpiMaster:
         self.cc = ConfigurationContainer.instance()
         self.comms = CommsManager.instance()
         self.comms.start_comms()
-        # TODO: Falta el size check
         self.topology = TopologyManager.instance()
         self.grid = GridManager.instance()
 
+        self._size_error(self.comms, self.grid)
         self.heartbeat_event = None
         self.heartbeat_thread = None
         self.experiment_id = None
@@ -197,3 +197,12 @@ class LipizzanerMpiMaster:
                 break
 
         return paths
+
+    def _size_error(self, comms, grid):
+        pu_size = comms.size
+        grid_size = grid.grid_x * grid.grid_y
+        if grid_size+1 > pu_size:
+            self._logger.error("Not enough Procesing Units to execute this grid"\
+                "at least {} PUs are required.".format(grid_size+1))
+        comms.close_all()
+        exit(-1)
