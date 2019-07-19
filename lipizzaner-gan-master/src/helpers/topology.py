@@ -39,7 +39,7 @@ class TopologyManager():
             if node["node"] not in self.node_topology:
                 self.node_topology[node["node"]] = set([])
             self.node_topology[node["node"]].add(i)
-        print(self.pu_info)
+        # print(self.pu_info)
 
     def get_node_topology(self):
         return self.node_topology

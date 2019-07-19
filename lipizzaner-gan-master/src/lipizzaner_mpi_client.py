@@ -38,7 +38,7 @@ class LipizzanerMpiClient():
 
     def run(self):
         while(1):
-            self._logger.warn("{}) Waiting for task".format(self.comms.rank))
+            self._logger.info("{}) Waiting for task".format(self.comms.rank))
             data = self.comms.recv_task()
             task = data["task"]
             func = getattr(self, "_task_"+task)
@@ -51,14 +51,9 @@ class LipizzanerMpiClient():
                     self.comms.isend(result, data["source"])
         self._logger.info("Exiting...")
 
-    # def __process_data(self):
-    #     neightbours_list = self.grid.get_neightbours(self.comms.rank)
-    #     self.to_log(neightbours_list.__str__())
-    #     sleep(10)
-
-    # def to_log(self, message):
-    #     print("{}) ".format(self.comms.rank) + message)
-    #     sys.stdout.flush()
+    # ===================================================
+    #                Execution opers
+    # ===================================================
 
     def _task_run(self, data):
         config = data["config"]
@@ -163,6 +158,26 @@ class LipizzanerMpiClient():
             populations.unlock()
         return parameters
     
+    # ===================================================
+    #                New data opers
+    # ===================================================
+    def _task_gen_disc(self, data):
+        params = {
+            "generator" : self._task_generators(data),
+            "discriminator" : self._task_discriminators(data)
+        }
+        return params
+
+    # ===================================================
+    #                Comms opers
+    # ===================================================
+    def _task_new_comm(self, data):
+        self.comms.new_comm(data["color"], data["key"])
+
+
+    # ===================================================
+    #                Static aux funcs
+    # ===================================================
     @staticmethod
     def _run_lipizzaner(config):
         cc = ConfigurationContainer.instance()
