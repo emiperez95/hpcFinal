@@ -83,7 +83,7 @@ class LipizzanerMpiMaster:
             self._logger.info("Asigned worker {} to rest".format(off_pu))
             self.comms.send_task("new_comm", off_pu, data={"color" : 1, "key" : off_pu})
         
-        self.comms.new_comm(1, 0)
+        self.comms.new_comm_master(2, 0)
         
         # print(self.grid.grid)
         for proc_unit in self.grid.grid_to_list():
@@ -115,7 +115,7 @@ class LipizzanerMpiMaster:
         node_client = self.comms
         db_logger = DbLogger()
 
-        results = node_client.gather_results(self.topology.get_worker_pu())
+        results = node_client.general_gather_results()
 
         scores = []
         for (node, generator_pop, discriminator_pop, weights_generator, _) in results:
@@ -133,6 +133,7 @@ class LipizzanerMpiMaster:
                                os.path.join(output_dir, 'generator-{}.pkl'.format(source)))
 
                     with open(os.path.join(output_dir, 'mixture.yml'), "a") as file:
+                        # self._logger.error("Weights generator: " + weights_generator.__str__())
                         file.write('{}: {}\n'.format(filename, weights_generator[source]))
 
                 for discriminator in discriminator_pop.individuals:
@@ -143,13 +144,15 @@ class LipizzanerMpiMaster:
                                os.path.join(output_dir, filename))
 
                 # # Save images
+                self._logger.error("Data recieved\nGen pop {} \nWeights gen {}"
+                                    .format(generator_pop, weights_generator))
                 dataset = MixedGeneratorDataset(generator_pop,
                                                 weights_generator,
                                                 self.cc.settings['master']['score_sample_size'],
                                                 self.cc.settings['trainer']['mixture_generator_samples_mode'])
-                # image_paths = self.save_samples(dataset, output_dir, dataloader)
-                # self._logger.info('Saved mixture result images of client {} to target directory {}.'
-                #                   .format(node_name, output_dir))
+                image_paths = self.save_samples(dataset, output_dir, dataloader)
+                self._logger.info('Saved mixture result images of client {} to target directory {}.'
+                                  .format(node_name, output_dir))
 
                 # Calculate inception or FID score
                 score = float('-inf')
@@ -204,5 +207,5 @@ class LipizzanerMpiMaster:
         if grid_size+1 > pu_size:
             self._logger.error("Not enough Procesing Units to execute this grid"\
                 "at least {} PUs are required.".format(grid_size+1))
-        comms.close_all()
-        exit(-1)
+            comms.close_all()
+            exit(-1)

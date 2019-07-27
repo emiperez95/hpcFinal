@@ -3,6 +3,7 @@ import collections
 import numpy as np
 import torch.utils.data
 
+# from helpers.log_helper import logging
 from helpers.pytorch_helpers import noise
 
 class MixedGeneratorDataset(torch.utils.data.Dataset):
@@ -30,10 +31,9 @@ class MixedGeneratorDataset(torch.utils.data.Dataset):
         self.individuals = sorted(generator_population.individuals, key=lambda x: _parse_node(x.source))
         for individual in self.individuals:
             individual.genome.net.eval()
-        self.data = []
-
-        weights = collections.OrderedDict(sorted(weights.items()))
-        weights = {k: v for k, v in weights.items() if any([i for i in self.individuals if i.source == k])}
+        # self.data = []
+        # weights = collections.OrderedDict(sorted(weights.items()))
+        weights = {k: v for k, v in weights.items() if any([i for i in self.individuals if _parse_node(i.source) == k])}
         weights_np = np.asarray(list(weights.values()))
         if np.sum(weights_np) != 1:
             weights_np = weights_np / np.sum(weights_np).astype(float)    # Abit of patching, but normalize it again
@@ -48,6 +48,7 @@ class MixedGeneratorDataset(torch.utils.data.Dataset):
             ]
             np.random.shuffle(self.gen_indices)
             self.gen_indices = self.gen_indices[:n_samples]
+            # logging.getLogger(__name__).error("gen_indices {}".format(self.gen_indices))
         else:
             raise NotImplementedError(
                 "Invalid argument for mixture_generator_samples_mode: {}".format(mixture_generator_samples_mode)

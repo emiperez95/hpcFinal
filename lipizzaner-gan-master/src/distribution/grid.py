@@ -5,6 +5,7 @@ from helpers.singleton import Singleton
 from helpers.configuration_container import ConfigurationContainer
 from helpers.population import Population, TYPE_GENERATOR, TYPE_DISCRIMINATOR
 from helpers.log_helper import logging
+from helpers.class_dict_converter import individual_to_dict
 
 from distribution.concurrent_populations import ConcurrentPopulations
 from distribution.comms_manager import CommsManager
@@ -48,6 +49,10 @@ class Grid():
         return {"id" : self.node_client.rank}
 
     @property
+    def local_rank(self):
+        return self.node_client.local_rank
+
+    @property
     def grid_position(self):
         '''Return x and y positions in grid.'''
         lmb_func = lambda a: (a[0][0], a[1][0])
@@ -68,7 +73,7 @@ class Grid():
     @property
     def all_nodes(self):
         '''Return neighbours + self list.'''
-        return self.neighbours + [self.local_node]
+        return self.neighbours + [{"id": self.local_rank}]
 
     @property
     def mixture_weights_generators(self):
@@ -92,6 +97,13 @@ class Grid():
     def mixture_weights_discriminators(self, value):
         self._mixture_weights_discriminators = value
 
+    def rank_to_wid(self, rank):
+        lmb_func = lambda a: (a[0][0], a[1][0])
+        x, y =  lmb_func(np.where(self.grid == rank))
+        return x * self.grid_x + y
+
+    # def wid_to_rank(self, rank):
+    #     return self.grid[rank%self.grid_x, rank%self.grid_y]
 
     def load_grid(self):
         '''Loads grid from settings'''
@@ -108,8 +120,9 @@ class Grid():
         neighs = [(x+1, y), (x, y+1), (x-1, y), (x, y-1)]
         neighs_list = []
         for nei in neighs:
-            neighs_list.append(self.grid[nei[0]%self.grid_x, nei[1]%self.grid_y])
-        pu_pos = self.local_node["id"]
+            rank = self.grid[nei[0]%self.grid_x, nei[1]%self.grid_y]
+            neighs_list.append(self.rank_to_wid(rank))
+        pu_pos = self.local_rank
         return list(set(neighs_list) - set([pu_pos]))
 
     def __pos_pu(self, processing_unit):
@@ -121,7 +134,7 @@ class Grid():
 
     def _set_source(self, population):
         for individual in population.individuals:
-            individual.source = self.local_node["id"]
+            individual.source = self.local_rank
         return population
 
 
@@ -147,7 +160,7 @@ class Grid():
         discriminators = []
         # lamda_separator = lambda d: data[0], data[1]
         for sender_wid, elem in enumerate(data):
-            # TODO: Mising neighbours filter
+            # self._logger.error("Local nodes: {}".format(sender_wid))
             for gen_indiv in elem[0].individuals:
                 gen_indiv.source = sender_wid
             generators += elem[0].individuals
@@ -176,6 +189,48 @@ class Grid():
         return Population(individuals=all_best,
                           default_fitness=local_population.default_fitness,
                           population_type=TYPE_GENERATOR)
+
+    def get_all_parameters_local(self):
+        local_population_gen = self.local_generators
+        best_individual_gen = sorted(local_population_gen.individuals, key=lambda x: x.fitness)[0]
+        best_parsed_gen = individual_to_dict(best_individual_gen)
+        best_parsed_gen["source"] = {"id": self.node_client.local_rank}
+
+        local_population_disc = self.local_discriminators
+        best_individual_disc = sorted(local_population_disc.individuals, key=lambda x: x.fitness)[0]
+        best_parsed_disc = individual_to_dict(best_individual_disc)
+        best_parsed_disc["source"] = {"id": self.node_client.local_rank}
+
+        send_data = (best_parsed_gen, best_parsed_disc)
+        data_arr = self.node_client.local_all_gather(send_data)
+
+        results = {
+            'generators': [],
+            'discriminators': [],
+        }
+        neighs = self.get_neighbours(self.local_node["id"]) + [self.local_rank]
+        # self._logger.error("Nodes {}".format(neighs))
+        for i, touple in enumerate(data_arr):
+            if i in neighs:
+                results['generators'].append(touple[0])
+                results['discriminators'].append(touple[1])
+        
+        return results
+
+        # Missing data postprocesing and return
+
+
+    # def best_discriminators_local(self):
+    #     local_population = self.local_discriminators
+    #     best_local_individual = sorted(local_population.individuals, key=lambda x: x.fitness)[0]
+
+    #     all_best = self.node_client.local_all_gather(best_local_individual)
+    #     for sender_wid, indiv in enumerate(all_best):
+    #         indiv.source = sender_wid
+
+    #     return Population(individuals=all_best,
+    #                       default_fitness=local_population.default_fitness,
+    #                       population_type=TYPE_DISCRIMINATOR)
 
     # ==========================================================
     #                   From neighbourhood
@@ -239,6 +294,8 @@ class Grid():
         return self.node_client.load_best_discriminators_from_api(self.neighbours + [self.local_node])
 
     def _init_mixture_weights(self):
+        # self._logger.error("================================")
+        # self._logger.error("Nodes for mixture: {}".format(self.all_nodes))
         node_ids = [node['id'] for node in self.all_nodes]
         default_weight = 1 / len(node_ids)
         # Warning: Feature of order preservation in Dict is used in the mixture_weight

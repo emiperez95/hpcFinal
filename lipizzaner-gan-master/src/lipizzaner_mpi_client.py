@@ -99,7 +99,7 @@ class LipizzanerMpiClient():
         # LipizzanerMpiClient._lock.acquire()
         if LipizzanerMpiClient.is_busy:
             self._logger.info('Sending neighbourhood results to master')
-            worker_thread = Thread(target=LipizzanerMpiClient._gather_results, args=(data["source"],))
+            worker_thread = Thread(target=LipizzanerMpiClient._gather_results)
             worker_thread.start()
             # response = self._gather_results()
         else:
@@ -201,7 +201,7 @@ class LipizzanerMpiClient():
             LipizzanerMpiClient.is_finished = True
 
             # Wait until master finishes experiment, i.e. collects results, or experiment is terminated
-            or_event(LipizzanerMpiClient._finish_event, LipizzanerMpiClient._stop_event).wait()
+            # or_event(LipizzanerMpiClient._finish_event, LipizzanerMpiClient._stop_event).wait()
         except Exception as ex:
             LipizzanerMpiClient.is_finished = True
             LipizzanerMpiClient._logger.critical('An unhandled error occured while running Lipizzaner: {}'.format(ex))
@@ -212,6 +212,7 @@ class LipizzanerMpiClient():
             LipizzanerMpiClient._logger.info('Finished experiment, waiting for new requests.')
             cc.output_dir = output_base_dir
             ConcurrentPopulations.instance().lock()
+            LipizzanerMpiClient._gather_results()
 
     @classmethod
     def _set_output_dir(cls, cc):
@@ -223,15 +224,19 @@ class LipizzanerMpiClient():
         os.makedirs(cc.output_dir, exist_ok=True)
     
     @staticmethod
-    def _gather_results(source):
+    def _gather_results():
+        LipizzanerMpiClient._logger.info("Results gathering")
         LipizzanerMpiClient._lock.acquire()
         neighbourhood = Grid.instance()
         cc = ConfigurationContainer.instance()
-        results = {
-            'generators': neighbourhood.best_generator_parameters,
-            'discriminators': neighbourhood.best_discriminator_parameters,
-            'weights_generators': neighbourhood.mixture_weights_generators
-        }
+        # results = {
+        #     'generators': neighbourhood.best_generator_parameters_local,
+        #     'discriminators': neighbourhood.best_discriminator_parameters_local,
+        #     'weights_generators': neighbourhood.mixture_weights_generators
+        # }
+        results = neighbourhood.get_all_parameters_local()
+        results['weights_generators'] = neighbourhood.mixture_weights_generators
+        
         if cc.settings['trainer']['name'] == 'with_disc_mixture_wgan' \
             or cc.settings['trainer']['name'] == 'with_disc_mixture_gan':
             results['weights_discriminators'] = neighbourhood.mixture_weights_discriminators
@@ -241,5 +246,5 @@ class LipizzanerMpiClient():
         LipizzanerMpiClient._lock.release()
 
         comms = CommsManager.instance()
-        comms.isend(results, source)
+        comms.general_gather(results)
         # return results

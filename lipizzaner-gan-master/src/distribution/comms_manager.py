@@ -119,20 +119,84 @@ class CommsManager(NodeClient):
     # ===================================================
 
     def new_comm(self, color, key):
+        '''
+        Create 2 comms:
+            Local: Intended for PUs in grid
+            Global: same as local plus master
+        '''
         self.local = MPI.COMM_WORLD.Split(color, key)
+        self.general = MPI.COMM_WORLD.Split(color, key+1)
+        # self.local_rank = key
+        size = self.local.Get_size()
+        self._logger.info("New comm {}, rank {} out of {}".format(color, key, size))
+    
+    def new_comm_master(self, color, key):
+        '''
+        Same as new_comm but intended for master only
+        '''
+        self.local = MPI.COMM_WORLD.Split(color, key)
+        self.general = MPI.COMM_WORLD.Split(0, 0)
         # self.local_rank = key
         size = self.local.Get_size()
         self._logger.info("New comm {}, rank {} out of {}".format(color, key, size))
 
 
     # ===================================================
-    #                Local operations
+    #                Comm operations
     # ===================================================
+    @property
+    def local_rank(self):
+        '''
+        Local rank getter for MPI comm
+        '''
+        return self.local.Get_rank()
+
+    @property
+    def general_rank(self):
+        '''
+        General rank getter for MPI comm
+        '''
+        return self.general.Get_rank()
 
     def local_all_gather(self, send_data):
         ret_data = self.local.allgather(send_data)
         self._logger.info("Allgather on local comm")
         return ret_data
+
+    def general_gather(self, send_data):
+        '''
+        Gather operation to send all the results data to master.
+        '''
+        self.general.gather(send_data, root=0)
+        self._logger.info("Gather on general comm")
+
+    def general_gather_master(self):
+        '''
+        Same as general_gather but this operation removes first
+        element from array and returns the result.
+        '''
+        ret_data = self.general.gather(None, root=0)
+        self._logger.info("Gather on general comm by master")
+        ret_data.pop(0)
+        return ret_data
+
+    def general_gather_results(self):
+        res_data = self.general_gather_master()
+
+        formatted_list = []
+        for i, data in enumerate(res_data):
+            formatted_list.append((i,
+                        self._create_population(data['generators'],
+                                            self.network_factory.create_generator,
+                                            TYPE_GENERATOR),
+                        self._create_population(data['discriminators'],
+                                            self.network_factory.create_discriminator,
+                                            TYPE_DISCRIMINATOR),
+                        data['weights_generators'],
+                        data['weights_discriminators'])),
+
+        return formatted_list
+
 
     # ===================================================
     #         Redefined comunication functions
