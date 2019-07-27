@@ -79,10 +79,13 @@ class Grid():
     def mixture_weights_generators(self):
         if self.grid.size != 0 and not self._mixture_weights_generators:
             self._mixture_weights_generators = self._init_mixture_weights()
+            self._logger.error("Mixture weight gen created")
+        self._logger.error("Mixture weight gen: {}".format(self._mixture_weights_discriminators))
         return self._mixture_weights_generators
 
     @mixture_weights_generators.setter
     def mixture_weights_generators(self, value):
+        self._logger.error("Mixture weight gen setter: {}".format(value))
         self._mixture_weights_generators = value
 
     @property
@@ -90,17 +93,22 @@ class Grid():
         if self.grid.size != 0 and not self._mixture_weights_discriminators \
                 and (self.cc.settings['trainer']['name'] == 'with_disc_mixture_wgan' \
                 or self.cc.settings['trainer']['name'] == 'with_disc_mixture_gan'):
-            self.mixture_weights_discriminators = self._init_mixture_weights()
+            self._mixture_weights_discriminators = self._init_mixture_weights()
+            self._logger.error("Mixture weight disc created")
+        self._logger.error("Mixture weight disc: {}".format(self._mixture_weights_discriminators))
         return self._mixture_weights_discriminators
 
     @mixture_weights_discriminators.setter
     def mixture_weights_discriminators(self, value):
+        self._logger.error("Mixture weight disc setter: {}".format(self.value))
         self._mixture_weights_discriminators = value
 
     def rank_to_wid(self, rank):
         lmb_func = lambda a: (a[0][0], a[1][0])
         x, y =  lmb_func(np.where(self.grid == rank))
-        return x * self.grid_x + y
+        self._logger.info(self.grid)
+        self._logger.error("Rank_to_wid: {} -> {}, {} -> {}".format(rank, x,y,x * self.grid_x + y))
+        return x * self.grid_y + y
 
     # def wid_to_rank(self, rank):
     #     return self.grid[rank%self.grid_x, rank%self.grid_y]
@@ -122,6 +130,7 @@ class Grid():
         for nei in neighs:
             rank = self.grid[nei[0]%self.grid_x, nei[1]%self.grid_y]
             neighs_list.append(self.rank_to_wid(rank))
+            self._logger.error("Neigh: {} -> {}".format(rank, self.rank_to_wid(rank)))
         pu_pos = self.local_rank
         return list(set(neighs_list) - set([pu_pos]))
 
@@ -295,11 +304,12 @@ class Grid():
 
     def _init_mixture_weights(self):
         # self._logger.error("================================")
-        # self._logger.error("Nodes for mixture: {}".format(self.all_nodes))
         node_ids = [node['id'] for node in self.all_nodes]
         default_weight = 1 / len(node_ids)
         # Warning: Feature of order preservation in Dict is used in the mixture_weight
         #          initialized here because further code involves converting it to list
         # According to https://stackoverflow.com/a/39980548, it's still preferable/safer
         # to use OrderedDict over Dict in Python 3.6
-        return OrderedDict({n_id: default_weight for n_id in node_ids})
+        ordered_dict = OrderedDict({n_id: default_weight for n_id in node_ids})
+        self._logger.error("Mixture weights init: {}".format(self.all_nodes))
+        return ordered_dict

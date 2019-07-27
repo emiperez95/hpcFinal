@@ -26,13 +26,13 @@ def get_heuristic_seed(seed, ip, port):
     Added check for MPI, and adds rank to help diversiy when running multiple
     procesing units on the same node.
 
-    Solved this on set_random_seed:
-    # TODO Handle the case of integer overflow
+    Solved this on set_random_seed by using modulo maxint:
+        -Handle the case of integer overflow
     """
-   
+
     modulename = 'mpi4py'
     heuristic_seed = seed + int(ip.replace('.', '')) + 1000*port
-   
+
     if modulename in sys.modules:
         from mpi4py import MPI
         heuristic_seed *= MPI.COMM_WORLD.Get_rank()
