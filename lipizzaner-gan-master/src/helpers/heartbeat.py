@@ -5,7 +5,7 @@ from distribution.node_client import NodeClient
 
 _logger = logging.getLogger(__name__)
 
-HEARTBEAT_FREQUENCY_SEC = 3
+HEARTBEAT_FREQUENCY_SEC = 60
 
 
 class Heartbeat(Thread):

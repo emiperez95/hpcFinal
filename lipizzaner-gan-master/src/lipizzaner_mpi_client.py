@@ -5,7 +5,7 @@ import traceback
 from threading import Thread, Lock, Event
 # import sys
 import pprint
-# from time import sleep
+from time import sleep
 
 from distribution.comms_manager import CommsManager
 from distribution.concurrent_populations import ConcurrentPopulations
@@ -34,7 +34,7 @@ class LipizzanerMpiClient():
         self.grid = Grid.instance()
         LipizzanerMpiClient.is_busy = False
         LipizzanerMpiClient.is_finished = False
-
+        sleep(10)	
         self.run()
 
     def run(self):

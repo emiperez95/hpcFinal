@@ -89,7 +89,7 @@ class LipizzanerMpiMaster:
         for proc_unit in self.grid.grid_to_list():
             self.cc.settings["general"]["distribution"]["grid"]["config"] = self.grid.grid
             self.comms.start_worker(proc_unit, self.cc.settings)
-            # sleep(2)
+            #sleep(2)
     
     def _sigint(self, signal, frame):
         self._terminate(stop_clients=True)

@@ -8,7 +8,7 @@ from torchvision.utils import save_image
 
 from helpers.configuration_container import ConfigurationContainer
 from helpers.pytorch_helpers import denorm
-
+from distribution.comms_manager import CommsManager
 
 class DataLoader(ABC):
     """
@@ -37,7 +37,8 @@ class DataLoader(ABC):
 
         # Dataset
         # TRACE: Primitive from torchvision, loads dataset and may download it.
-        dataset = self.dataset(root=os.path.join(self.cc.settings['general']['output_dir'], 'data'+str(os.getpid())),
+        comms = CommsManager.instance()
+        dataset = self.dataset(root=os.path.join(self.cc.settings['general']['output_dir'], 'data'+str(comms.rank)),
                                train=True,
                                transform=self.transform(),
                                download=True)
