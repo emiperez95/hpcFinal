@@ -48,7 +48,6 @@ class MixedGeneratorDataset(torch.utils.data.Dataset):
             ]
             np.random.shuffle(self.gen_indices)
             self.gen_indices = self.gen_indices[:n_samples]
-            # logging.getLogger(__name__).error("gen_indices {}".format(self.gen_indices))
         else:
             raise NotImplementedError(
                 "Invalid argument for mixture_generator_samples_mode: {}".format(mixture_generator_samples_mode)

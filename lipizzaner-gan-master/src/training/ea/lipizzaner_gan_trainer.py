@@ -162,7 +162,8 @@ class LipizzanerGANTrainer(EvolutionaryAlgorithmTrainer):
                     defenders = new_populations[TYPE_GENERATOR] if self._enable_selection else all_generators
                     input_data = self.step(local_discriminators, attackers, defenders, input_data, self.batch_number, loaded, data_iterator)
 
-                self._logger.info('Iteration {}, Batch {}/{}'.format(iteration + 1, self.batch_number, len(loaded)))
+                if self.batch_number%100 == 0:
+                    self._logger.info('Iteration {}, Batch {}/{}'.format(iteration + 1, self.batch_number, len(loaded)))
 
                 # If n_batches is set to 0, all batches will be used
                 if self.is_last_batch(self.batch_number):
@@ -295,6 +296,8 @@ class LipizzanerGANTrainer(EvolutionaryAlgorithmTrainer):
 
             if fitness_mode == 'average':
                 individual_attacker.fitness /= len(population_defender.individuals)
+            
+
 
     def mutate_mixture_weights_with_score(self, input_data):
         # Not necessary for single-cell grids, as mixture must always be [1]

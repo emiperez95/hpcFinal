@@ -93,9 +93,7 @@ class LipizzanerGANTrainer(EvolutionaryAlgorithmTrainer):
 
             local_generators = self.neighbourhood.local_generators
             local_discriminators = self.neighbourhood.local_discriminators
-            all_generators, all_discriminators = self.neighbourhood.all_disc_gen_local()
-
-            # Local functions
+            all_generators, all_discriminators = self.neighbourhood.all_disc_gen_local(local_generators, local_discriminators)
 
             # Log the name of individuals in entire neighborhood for every iteration
             # (to help tracing because individuals from adjacent cells might be from different iterations)
@@ -161,7 +159,8 @@ class LipizzanerGANTrainer(EvolutionaryAlgorithmTrainer):
                     defenders = new_populations[TYPE_GENERATOR] if self._enable_selection else all_generators
                     input_data = self.step(local_discriminators, attackers, defenders, input_data, self.batch_number, loaded, data_iterator)
 
-                self._logger.info('Iteration {}, Batch {}/{}'.format(iteration + 1, self.batch_number, len(loaded)))
+                if self.batch_number%100 == 0:
+                    self._logger.info('Iteration {}, Batch {}/{}'.format(iteration + 1, self.batch_number, len(loaded)))
 
                 # If n_batches is set to 0, all batches will be used
                 if self.is_last_batch(self.batch_number):
@@ -282,11 +281,11 @@ class LipizzanerGANTrainer(EvolutionaryAlgorithmTrainer):
                     return fitness + curr_fitness
 
             return fitness
-
         for individual_attacker in population_attacker.individuals:
             individual_attacker.fitness = float('-inf')    # Reinitalize before evaluation started (Needed for average fitness)
             for individual_defender in population_defender.individuals:
                 # TRACE: Evalua atacante contra defensor
+
                 fitness_attacker = float(individual_attacker.genome.compute_loss_against(
                     individual_defender.genome, input_var)[0])
                 # TRACE: Se que da con el mejor fitness?
@@ -294,6 +293,7 @@ class LipizzanerGANTrainer(EvolutionaryAlgorithmTrainer):
 
             if fitness_mode == 'average':
                 individual_attacker.fitness /= len(population_defender.individuals)
+            
 
     def mutate_mixture_weights_with_score(self, input_data):
         # Not necessary for single-cell grids, as mixture must always be [1]
