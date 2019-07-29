@@ -221,8 +221,8 @@ if __name__ == '__main__':
             cc = ConfigurationContainer.instance()
             with open("output/statistics.txt", "a") as fl:
                 fl.write(cc.settings.__str__())
-                fl.write("Total time: {}".format(total_time))
-                fl.write("===========================================")
+                fl.write("\nTotal time: {}\n".format(total_time))
+                fl.write("===========================================\n")
 
     elif args.task == 'score':
         cc = initialize_settings(args)
