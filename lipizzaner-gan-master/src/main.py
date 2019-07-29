@@ -181,7 +181,18 @@ if __name__ == '__main__':
         print('Enforcing usage of CUDA device {}'.format(args.cuda_device))
         os.environ['CUDA_VISIBLE_DEVICES'] = str(args.cuda_device)
 
+
     if args.task == 'train':
+        # ===========================================
+        #               Statistics init
+        # ===========================================
+        import time
+        start_time = time.time()
+
+
+        # ===========================================
+        #               Main execution
+        # ===========================================
         if args.distributed:
             if args.master:
                 initialize_settings(args)
@@ -199,6 +210,19 @@ if __name__ == '__main__':
             cc = initialize_settings(args)
             lipizzaner = Lipizzaner()
             lipizzaner.run(cc.settings['trainer']['n_iterations'])
+    
+        # ===========================================
+        #               Statistics
+        # ===========================================
+        # _logger.info("Writing statistics on file")
+        if (args.mpi and MPI.COMM_WORLD.Get_rank() == 1):
+            _logger.info("Writing statistics on file")
+            total_time = time.time() - start_time
+            cc = ConfigurationContainer.instance()
+            with open("output/statistics.txt", "a") as fl:
+                fl.write(cc.settings.__str__())
+                fl.write("Total time: {}".format(total_time))
+                fl.write("===========================================")
 
     elif args.task == 'score':
         cc = initialize_settings(args)

@@ -59,7 +59,7 @@ class CommsManager(NodeClient):
     def isend(self, message, dest):
         r_dest = self._parse_node(dest)
         self.comm.send(message, dest=r_dest, tag=1)
-        self._logger.warn("Sent message to {} ,tag 1".format(r_dest))
+        self._logger.info("Sent message to {} ,tag 1".format(r_dest))
 
     def send_task(self, task, dest, data=None):
         r_dest = self._parse_node(dest)
@@ -68,30 +68,30 @@ class CommsManager(NodeClient):
             self.comm.send(data, dest=r_dest, tag=3)
         else:
             self.comm.send({"task" : task}, dest=r_dest, tag=3)
-        self._logger.warn("Sent task ({}) to {}, tag 3".format(task, r_dest))
+        self._logger.info("Sent task ({}) to {}, tag 3".format(task, r_dest))
 
     def recv(self, source=None):
         if source:
             r_source = self._parse_node(source)
             data = self.comm.recv(source=r_source, tag=1)
-            self._logger.warn("Recieved data from {}, tag 1".format(r_source))
+            self._logger.info("Recieved data from {}, tag 1".format(r_source))
         else:
             status = MPI.Status()
             data = self.comm.recv(source=MPI.ANY_SOURCE, status=status, tag=1)
             data["source"] = status.Get_source()
-            self._logger.warn("Recieved data from {}, tag 1".format(data["source"]))
+            self._logger.info("Recieved data from {}, tag 1".format(data["source"]))
         return data
 
     def recv_task(self, source=None):
         if source:
             r_source = self._parse_node(source)
             data = self.comm.recv(source=r_source, tag=3)
-            self._logger.warn("Recieved task ({}) from {}, tag 3".format(data["task"],r_source))
+            self._logger.info("Recieved task ({}) from {}, tag 3".format(data["task"],r_source))
         else:
             status = MPI.Status()
             data = self.comm.recv(source=MPI.ANY_SOURCE, status=status, tag=3)
             data["source"] = status.Get_source()
-            self._logger.warn("Recieved task ({}) from {}, tag 3".format(data["task"],data["source"]))
+            self._logger.info("Recieved task ({}) from {}, tag 3".format(data["task"],data["source"]))
         return data
 
     
