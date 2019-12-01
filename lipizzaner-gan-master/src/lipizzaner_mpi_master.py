@@ -98,7 +98,10 @@ class LipizzanerMpiMaster:
     def _load_dataset(self):
          if ( 'distributed_filesystem' in self.cc.settings['general']['distribution'] \
             and self.cc.settings['general']['distribution']['distributed_filesystem'] == True ):
-                self.cc.create_instance(self.cc.settings['dataloader']['dataset_name'])
+                self._logger.info('Downloading dataset...')
+                self.cc.create_instance(self.cc.settings['dataloader']['dataset_name']).load()
+                self._logger.info('Dataset downloaded.')
+
 
 
     def _sigint(self, signal, frame):
