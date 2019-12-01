@@ -9,6 +9,7 @@ losswise:
   api_key: MN3GDIZWZ
 output_dir: ./output
 distribution:
+  distributed_filesystem: True
   type: mpi
   root : 0
   grid:
