@@ -1,4 +1,5 @@
 import time
+import socket
 from concurrent.futures import as_completed, ThreadPoolExecutor
 
 from distribution.node_client import NodeClient
@@ -36,7 +37,7 @@ class CommsManager(NodeClient):
         self.rank = self.comm.Get_rank()
         self.size = self.comm.Get_size()
         self.sys_info = {
-            "node" : TestData.nodes[self.rank],
+            "node" : socket.gethostname()
             "rank" : self.rank
         }
 
@@ -378,34 +379,3 @@ class CommsManager(NodeClient):
                                          source=parameters['source'])
                        for parameters in all_parameters if parameters and len(parameters) > 0]
         return Population(individuals, float('-inf'), population_type)
-
-
-# ===================================================
-#                Testing vars
-# ===================================================
-# TODO: Remove this in prod
-
-class TestData():
-    nodes = {
-        0: "machine1",
-        1: "machine1",
-        2: "machine2",
-        3: "machine2",
-        4: "machine3",
-        5: "machine3",
-        6: "machine4",
-        7: "machine4",
-        8: "machine5",
-        9: "machine5",
-        10: "machine6",
-        11: "machine6",
-        12: "machine7",
-        13: "machine7",
-        14: "machine8",
-        15: "machine8",
-        16: "machine9",
-        17: "machine9",
-        18: "machine10",
-        19: "machine10",
-    }   
-
