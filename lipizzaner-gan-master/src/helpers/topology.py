@@ -57,10 +57,9 @@ class TopologyManager():
             min_node = None
             min_val = None
             for node in node_work_effort:
-                if min_val == None or min_val > node[1]:
+                if (min_val == None or min_val > node[1]) and node[2]!=0:
                     min_node = node[0]
                     min_val = node[1]
-
             return self.__inactive_pu(min_node)
 
     def assign_worker(self, worker):
@@ -72,13 +71,18 @@ class TopologyManager():
     def __node_work_effort(self):
         node_list = self.__node_list()
         work_effort_list = []
+        remaining_effort_list = []
         for node in node_list:
             work_effort = 0
+            remaining_effort = 0
             for pu in self.node_topology[node]:
                 if pu in self.active_pu:
                     work_effort += 1
+                elif pu in self.inactive_pu:
+                    remaining_effort += 1
             work_effort_list.append(work_effort)
-        return zip(node_list, work_effort_list)
+            remaining_effort_list.append(remaining_effort)
+        return zip(node_list, work_effort_list, remaining_effort_list)
 
     def __node_list(self):
         return [node_name for node_name in self.node_topology]
