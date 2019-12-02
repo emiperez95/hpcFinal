@@ -37,7 +37,7 @@ class CommsManager(NodeClient):
         self.rank = self.comm.Get_rank()
         self.size = self.comm.Get_size()
         self.sys_info = {
-            "node" : socket.gethostname()
+            "node" : socket.gethostname(),
             "rank" : self.rank
         }
 
