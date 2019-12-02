@@ -1,0 +1,228 @@
+[93m2019-12-01 20:55:05,972 INFO - lipizzaner_mpi_master - Seed used in master: 1 [0m
+[93m2019-12-01 20:55:06,228 INFO - lipizzaner_mpi_master - Downloading dataset... [0m
+[93m2019-12-01 20:55:06,892 INFO - lipizzaner_mpi_master - Dataset downloaded. [0m
+[93m2019-12-01 20:55:06,893 INFO - lipizzaner_mpi_master - Asigned worker 2 to wid 0 [0m
+[93m2019-12-01 20:55:06,893 INFO - distribution.comms_manager - Sent task (new_comm) to 2, tag 3 [0m
+[93m2019-12-01 20:55:06,894 INFO - lipizzaner_mpi_master - Asigned worker 4 to wid 1 [0m
+[93m2019-12-01 20:55:06,894 INFO - distribution.comms_manager - Sent task (new_comm) to 4, tag 3 [0m
+[93m2019-12-01 20:55:06,894 INFO - lipizzaner_mpi_master - Asigned worker 1 to wid 2 [0m
+[93m2019-12-01 20:55:06,895 INFO - distribution.comms_manager - Sent task (new_comm) to 1, tag 3 [0m
+[93m2019-12-01 20:55:06,895 INFO - lipizzaner_mpi_master - Asigned worker 3 to wid 3 [0m
+[93m2019-12-01 20:55:06,895 INFO - distribution.comms_manager - Sent task (new_comm) to 3, tag 3 [0m
+[1;35;40m2019-12-01 20:55:15,145 INFO - lipizzaner_mpi_client - 3) Waiting for task [0m
+[1;35;40m2019-12-01 20:55:15,477 INFO - distribution.comms_manager - Recieved task (new_comm) from 0, tag 3 [0m
+[92m2019-12-01 20:55:15,547 INFO - lipizzaner_mpi_client - 2) Waiting for task [0m
+[94m2019-12-01 20:55:15,520 INFO - lipizzaner_mpi_client - 1) Waiting for task [0m
+[94m2019-12-01 20:55:15,560 INFO - distribution.comms_manager - Recieved task (new_comm) from 0, tag 3 [0m
+[92m2019-12-01 20:55:15,560 INFO - distribution.comms_manager - Recieved task (new_comm) from 0, tag 3 [0m
+[1;36;40m2019-12-01 20:55:15,783 INFO - lipizzaner_mpi_client - 4) Waiting for task [0m
+[1;36;40m2019-12-01 20:55:15,822 INFO - distribution.comms_manager - Recieved task (new_comm) from 0, tag 3 [0m
+[92m2019-12-01 20:55:15,825 INFO - distribution.comms_manager - New comm 0, rank 0 out of 4 [0m
+[94m2019-12-01 20:55:15,825 INFO - distribution.comms_manager - New comm 0, rank 2 out of 4 [0m
+[1;35;40m2019-12-01 20:55:15,826 INFO - distribution.comms_manager - New comm 0, rank 3 out of 4 [0m
+[92m2019-12-01 20:55:15,825 INFO - lipizzaner_mpi_client - 2) Waiting for task [0m
+[94m2019-12-01 20:55:15,825 INFO - lipizzaner_mpi_client - 1) Waiting for task [0m
+[1;35;40m2019-12-01 20:55:15,826 INFO - lipizzaner_mpi_client - 3) Waiting for task [0m
+[1;36;40m2019-12-01 20:55:15,825 INFO - distribution.comms_manager - New comm 0, rank 1 out of 4 [0m
+[1;36;40m2019-12-01 20:55:15,826 INFO - lipizzaner_mpi_client - 4) Waiting for task [0m
+[93m2019-12-01 20:55:15,826 INFO - distribution.comms_manager - New comm 2, rank 0 out of 1 [0m
+[93m2019-12-01 20:55:15,829 INFO - distribution.comms_manager - Started worker 2, tag 3 [0m
+[93m2019-12-01 20:55:15,830 INFO - distribution.comms_manager - Started worker 4, tag 3 [0m
+[92m2019-12-01 20:55:15,829 INFO - distribution.comms_manager - Recieved task (run) from 0, tag 3 [0m
+[93m2019-12-01 20:55:15,830 INFO - distribution.comms_manager - Started worker 1, tag 3 [0m
+[93m2019-12-01 20:55:15,830 INFO - distribution.comms_manager - Started worker 3, tag 3 [0m
+[94m2019-12-01 20:55:15,829 INFO - distribution.comms_manager - Recieved task (run) from 0, tag 3 [0m
+[1;36;40m2019-12-01 20:55:15,830 INFO - distribution.comms_manager - Recieved task (run) from 0, tag 3 [0m
+[1;35;40m2019-12-01 20:55:15,830 INFO - distribution.comms_manager - Recieved task (run) from 0, tag 3 [0m
+[93m2019-12-01 20:55:15,830 INFO - lipizzaner_mpi_master - Started heartbeat [0m
+[94m2019-12-01 20:55:15,830 INFO - lipizzaner_mpi_client - 1) Waiting for task [0m
+[92m2019-12-01 20:55:15,829 INFO - lipizzaner_mpi_client - 2) Waiting for task [0m
+[1;35;40m2019-12-01 20:55:15,830 INFO - lipizzaner_mpi_client - 3) Waiting for task [0m
+[1;36;40m2019-12-01 20:55:15,831 INFO - lipizzaner_mpi_client - 4) Waiting for task [0m
+[94m2019-12-01 20:55:16,269 INFO - lipizzaner_mpi_client - Distributed training recognized, set log directory to ./output/lipizzaner_gan_mpi/distributed/mnist/2019-12-01_20-55-06/30118 [0m
+[1;35;40m2019-12-01 20:55:16,311 INFO - lipizzaner_mpi_client - Distributed training recognized, set log directory to ./output/lipizzaner_gan_mpi/distributed/mnist/2019-12-01_20-55-06/7061 [0m
+[92m2019-12-01 20:55:16,344 INFO - lipizzaner_mpi_client - Distributed training recognized, set log directory to ./output/lipizzaner_gan_mpi/distributed/mnist/2019-12-01_20-55-06/20775 [0m
+[1;36;40m2019-12-01 20:55:16,414 INFO - lipizzaner_mpi_client - Distributed training recognized, set log directory to ./output/lipizzaner_gan_mpi/distributed/mnist/2019-12-01_20-55-06/612 [0m
+[94m2019-12-01 20:55:17,236 INFO - lipizzaner - Parameters: {'trainer': {'name': 'lipizzaner_gan_mpi', 'n_iterations': 2, 'calculate_net_weights_dist': True, 'mixture_generator_samples_mode': 'exact_proportion', 'params': {'population_size': 1, 'tournament_size': 2, 'n_replacements': 1, 'default_adam_learning_rate': 0.0002, 'alpha': 0.0001, 'mutation_probability': 0.5, 'discriminator_skip_each_nth_step': 1, 'mixture_sigma': 0.01, 'enable_selection': False, 'score': {'enabled': True, 'type': 'fid', 'score_sample_size': 1000, 'cuda': True}, 'fitness': {'fitness_sample_size': 1000, 'fitness_mode': 'average'}}}, 'dataloader': {'dataset_name': 'mnist', 'use_batch': True, 'batch_size': 100, 'n_batches': 50, 'shuffle': True}, 'network': {'name': 'four_layer_perceptron', 'loss': 'bceloss'}, 'master': {'calculate_score': True, 'score_sample_size': 50000, 'cuda': False}, 'general': {'logging': {'enabled': True, 'log_level': 'INFO', 'log_server': None, 'image_format': 'jpg', 'print_discriminator': False}, 'losswise': {'enabled': False, 'api_key': 'MN3GDIZWZ'}, 'output_dir': './output', 'distribution': {'distributed_filesystem': True, 'type': 'mpi', 'root': 0, 'grid': {'x_size': 2, 'y_size': 2, 'config': array([[2., 4.],
+       [1., 3.]])}, 'start_time': '2019-12-01_20-55-06'}, 'seed': 1, 'num_workers': 0}} [0m
+[1;35;40m2019-12-01 20:55:17,239 INFO - lipizzaner - Parameters: {'trainer': {'name': 'lipizzaner_gan_mpi', 'n_iterations': 2, 'calculate_net_weights_dist': True, 'mixture_generator_samples_mode': 'exact_proportion', 'params': {'population_size': 1, 'tournament_size': 2, 'n_replacements': 1, 'default_adam_learning_rate': 0.0002, 'alpha': 0.0001, 'mutation_probability': 0.5, 'discriminator_skip_each_nth_step': 1, 'mixture_sigma': 0.01, 'enable_selection': False, 'score': {'enabled': True, 'type': 'fid', 'score_sample_size': 1000, 'cuda': True}, 'fitness': {'fitness_sample_size': 1000, 'fitness_mode': 'average'}}}, 'dataloader': {'dataset_name': 'mnist', 'use_batch': True, 'batch_size': 100, 'n_batches': 50, 'shuffle': True}, 'network': {'name': 'four_layer_perceptron', 'loss': 'bceloss'}, 'master': {'calculate_score': True, 'score_sample_size': 50000, 'cuda': False}, 'general': {'logging': {'enabled': True, 'log_level': 'INFO', 'log_server': None, 'image_format': 'jpg', 'print_discriminator': False}, 'losswise': {'enabled': False, 'api_key': 'MN3GDIZWZ'}, 'output_dir': './output', 'distribution': {'distributed_filesystem': True, 'type': 'mpi', 'root': 0, 'grid': {'x_size': 2, 'y_size': 2, 'config': array([[2., 4.],
+       [1., 3.]])}, 'start_time': '2019-12-01_20-55-06'}, 'seed': 1, 'num_workers': 0}} [0m
+[92m2019-12-01 20:55:17,239 INFO - lipizzaner - Parameters: {'trainer': {'name': 'lipizzaner_gan_mpi', 'n_iterations': 2, 'calculate_net_weights_dist': True, 'mixture_generator_samples_mode': 'exact_proportion', 'params': {'population_size': 1, 'tournament_size': 2, 'n_replacements': 1, 'default_adam_learning_rate': 0.0002, 'alpha': 0.0001, 'mutation_probability': 0.5, 'discriminator_skip_each_nth_step': 1, 'mixture_sigma': 0.01, 'enable_selection': False, 'score': {'enabled': True, 'type': 'fid', 'score_sample_size': 1000, 'cuda': True}, 'fitness': {'fitness_sample_size': 1000, 'fitness_mode': 'average'}}}, 'dataloader': {'dataset_name': 'mnist', 'use_batch': True, 'batch_size': 100, 'n_batches': 50, 'shuffle': True}, 'network': {'name': 'four_layer_perceptron', 'loss': 'bceloss'}, 'master': {'calculate_score': True, 'score_sample_size': 50000, 'cuda': False}, 'general': {'logging': {'enabled': True, 'log_level': 'INFO', 'log_server': None, 'image_format': 'jpg', 'print_discriminator': False}, 'losswise': {'enabled': False, 'api_key': 'MN3GDIZWZ'}, 'output_dir': './output', 'distribution': {'distributed_filesystem': True, 'type': 'mpi', 'root': 0, 'grid': {'x_size': 2, 'y_size': 2, 'config': array([[2., 4.],
+       [1., 3.]])}, 'start_time': '2019-12-01_20-55-06'}, 'seed': 1, 'num_workers': 0}} [0m
+[94m2019-12-01 20:55:17,249 INFO - lipizzaner - CUDA is not supported on this device. [0m
+[1;35;40m2019-12-01 20:55:17,251 INFO - lipizzaner - CUDA is not supported on this device. [0m
+[92m2019-12-01 20:55:17,252 INFO - lipizzaner - CUDA is not supported on this device. [0m
+[94m2019-12-01 20:55:17,325 INFO - lipizzaner - Seed used: 105187117 [0m
+[94m2019-12-01 20:55:17,325 INFO - lipizzaner - Starting training for 2 iterations/epochs. [0m
+[1;35;40m2019-12-01 20:55:17,336 INFO - lipizzaner - Seed used: 315561366 [0m
+[1;35;40m2019-12-01 20:55:17,336 INFO - lipizzaner - Starting training for 2 iterations/epochs. [0m
+[92m2019-12-01 20:55:17,344 INFO - lipizzaner - Seed used: 210374236 [0m
+[92m2019-12-01 20:55:17,344 INFO - lipizzaner - Starting training for 2 iterations/epochs. [0m
+[1;36;40m2019-12-01 20:55:17,360 INFO - lipizzaner - Parameters: {'trainer': {'name': 'lipizzaner_gan_mpi', 'n_iterations': 2, 'calculate_net_weights_dist': True, 'mixture_generator_samples_mode': 'exact_proportion', 'params': {'population_size': 1, 'tournament_size': 2, 'n_replacements': 1, 'default_adam_learning_rate': 0.0002, 'alpha': 0.0001, 'mutation_probability': 0.5, 'discriminator_skip_each_nth_step': 1, 'mixture_sigma': 0.01, 'enable_selection': False, 'score': {'enabled': True, 'type': 'fid', 'score_sample_size': 1000, 'cuda': True}, 'fitness': {'fitness_sample_size': 1000, 'fitness_mode': 'average'}}}, 'dataloader': {'dataset_name': 'mnist', 'use_batch': True, 'batch_size': 100, 'n_batches': 50, 'shuffle': True}, 'network': {'name': 'four_layer_perceptron', 'loss': 'bceloss'}, 'master': {'calculate_score': True, 'score_sample_size': 50000, 'cuda': False}, 'general': {'logging': {'enabled': True, 'log_level': 'INFO', 'log_server': None, 'image_format': 'jpg', 'print_discriminator': False}, 'losswise': {'enabled': False, 'api_key': 'MN3GDIZWZ'}, 'output_dir': './output', 'distribution': {'distributed_filesystem': True, 'type': 'mpi', 'root': 0, 'grid': {'x_size': 2, 'y_size': 2, 'config': array([[2., 4.],
+       [1., 3.]])}, 'start_time': '2019-12-01_20-55-06'}, 'seed': 1, 'num_workers': 0}} [0m
+[1;36;40m2019-12-01 20:55:17,373 INFO - lipizzaner - CUDA is not supported on this device. [0m
+[1;36;40m2019-12-01 20:55:17,578 INFO - lipizzaner - Seed used: 420748508 [0m
+[1;36;40m2019-12-01 20:55:17,578 INFO - lipizzaner - Starting training for 2 iterations/epochs. [0m
+[1;36;40m2019-12-01 20:55:18,217 INFO - distribution.comms_manager - Allgather on local comm [0m
+[1;36;40m2019-12-01 20:55:18,218 INFO - training.ea.ea_trainer - Generators in current neighborhood are ['Iteration0:0:0/G0', 'Iteration0:1:2/G0', 'Iteration0:3:3/G0'] [0m
+[1;36;40m2019-12-01 20:55:18,218 INFO - training.ea.ea_trainer - Discriminators in current neighborhood are ['Iteration0:0:0/D0', 'Iteration0:1:2/D0', 'Iteration0:3:3/D0'] [0m
+[1;35;40m2019-12-01 20:55:18,218 INFO - distribution.comms_manager - Allgather on local comm [0m
+[1;35;40m2019-12-01 20:55:18,219 INFO - training.ea.ea_trainer - Generators in current neighborhood are ['Iteration0:1:2/G0', 'Iteration0:2:1/G0', 'Iteration0:3:3/G0'] [0m
+[1;35;40m2019-12-01 20:55:18,219 INFO - training.ea.ea_trainer - Discriminators in current neighborhood are ['Iteration0:1:2/D0', 'Iteration0:2:1/D0', 'Iteration0:3:3/D0'] [0m
+[94m2019-12-01 20:55:18,249 INFO - distribution.comms_manager - Allgather on local comm [0m
+[92m2019-12-01 20:55:18,255 INFO - distribution.comms_manager - Allgather on local comm [0m
+[92m2019-12-01 20:55:18,256 INFO - training.ea.ea_trainer - Generators in current neighborhood are ['Iteration0:0:0/G0', 'Iteration0:1:2/G0', 'Iteration0:2:1/G0'] [0m
+[92m2019-12-01 20:55:18,256 INFO - training.ea.ea_trainer - Discriminators in current neighborhood are ['Iteration0:0:0/D0', 'Iteration0:1:2/D0', 'Iteration0:2:1/D0'] [0m
+[94m2019-12-01 20:55:18,262 INFO - training.ea.ea_trainer - Generators in current neighborhood are ['Iteration0:0:0/G0', 'Iteration0:2:1/G0', 'Iteration0:3:3/G0'] [0m
+[94m2019-12-01 20:55:18,262 INFO - training.ea.ea_trainer - Discriminators in current neighborhood are ['Iteration0:0:0/D0', 'Iteration0:2:1/D0', 'Iteration0:3:3/D0'] [0m
+[1;35;40m2019-12-01 20:55:20,186 INFO - training.ea.ea_trainer - Iteration 1, Batch 0/600 [0m
+[94m2019-12-01 20:55:20,214 INFO - training.ea.ea_trainer - Iteration 1, Batch 0/600 [0m
+[1;36;40m2019-12-01 20:55:20,164 INFO - training.ea.ea_trainer - Iteration 1, Batch 0/600 [0m
+[92m2019-12-01 20:55:20,228 INFO - training.ea.ea_trainer - Iteration 1, Batch 0/600 [0m
+[1;36;40m2019-12-01 20:55:24,538 INFO - distribution.comms_manager - Allgather on local comm [0m
+[94m2019-12-01 20:55:24,555 INFO - distribution.comms_manager - Allgather on local comm [0m
+[1;35;40m2019-12-01 20:55:24,569 INFO - distribution.comms_manager - Allgather on local comm [0m
+[92m2019-12-01 20:55:24,575 INFO - distribution.comms_manager - Allgather on local comm [0m
+[1;36;40m2019-12-01 20:55:24,748 INFO - training.ea.ea_trainer - Calculating FID/inception score. [0m
+[94m2019-12-01 20:55:24,766 INFO - training.ea.ea_trainer - Calculating FID/inception score. [0m
+[1;35;40m2019-12-01 20:55:24,780 INFO - training.ea.ea_trainer - Calculating FID/inception score. [0m
+[92m2019-12-01 20:55:24,787 INFO - training.ea.ea_trainer - Calculating FID/inception score. [0m
+[94m2019-12-01 20:55:27,856 INFO - training.ea.ea_trainer - Iteration=1, f(Generator(x))=0.6017685333887736, f(Discriminator(x))=0.572413961092631, lr_gen=0.00019984392801475142, lr_dis=0.00019994078450126968, score=808.2603466723334, mixture_gen=OrderedDict([(0, 0.34138893245209434), (3, 0.33658131130262775), (2, 0.32202975624527785)]), mixture_dis=None [0m
+[1;36;40m2019-12-01 20:55:27,842 INFO - training.ea.ea_trainer - Iteration=1, f(Generator(x))=0.4062419931093852, f(Discriminator(x))=0.8280932903289795, lr_gen=0.00020003646542713087, lr_dis=0.00019995468874252893, score=808.5156797259115, mixture_gen=OrderedDict([(0, 0.3333333333333333), (3, 0.3333333333333333), (1, 0.3333333333333333)]), mixture_dis=None [0m
+[92m2019-12-01 20:55:27,985 INFO - training.ea.ea_trainer - Iteration=1, f(Generator(x))=0.3688961664835612, f(Discriminator(x))=0.9621689319610596, lr_gen=0.00019991280993205245, lr_dis=0.00019994242701121555, score=808.9261703877249, mixture_gen=OrderedDict([(1, 0.3333333333333333), (2, 0.3333333333333333), (0, 0.3333333333333333)]), mixture_dis=None [0m
+[1;35;40m2019-12-01 20:55:28,080 INFO - training.ea.ea_trainer - Iteration=1, f(Generator(x))=0.7002385258674622, f(Discriminator(x))=0.6344809134801229, lr_gen=0.00020001871701751299, lr_dis=0.00019995337500086123, score=808.325546626317, mixture_gen=OrderedDict([(1, 0.3333333333333333), (2, 0.3333333333333333), (3, 0.3333333333333333)]), mixture_dis=None [0m
+[1;36;40m2019-12-01 20:55:31,362 INFO - distribution.comms_manager - Allgather on local comm [0m
+[1;35;40m2019-12-01 20:55:31,369 INFO - distribution.comms_manager - Allgather on local comm [0m
+[1;36;40m2019-12-01 20:55:31,375 INFO - training.ea.ea_trainer - Generators in current neighborhood are ['Iteration0:0:0/G0', 'Iteration0:1:2/G0', 'Iteration0:3:3/G0'] [0m
+[1;36;40m2019-12-01 20:55:31,375 INFO - training.ea.ea_trainer - Discriminators in current neighborhood are ['Iteration0:0:0/D0', 'Iteration0:1:2/D0', 'Iteration0:3:3/D0'] [0m
+[92m2019-12-01 20:55:31,376 INFO - distribution.comms_manager - Allgather on local comm [0m
+[1;35;40m2019-12-01 20:55:31,382 INFO - training.ea.ea_trainer - Generators in current neighborhood are ['Iteration0:1:2/G0', 'Iteration0:2:1/G0', 'Iteration0:3:3/G0'] [0m
+[1;35;40m2019-12-01 20:55:31,382 INFO - training.ea.ea_trainer - Discriminators in current neighborhood are ['Iteration0:1:2/D0', 'Iteration0:2:1/D0', 'Iteration0:3:3/D0'] [0m
+[94m2019-12-01 20:55:31,386 INFO - distribution.comms_manager - Allgather on local comm [0m
+[92m2019-12-01 20:55:31,390 INFO - training.ea.ea_trainer - Generators in current neighborhood are ['Iteration0:0:0/G0', 'Iteration0:1:2/G0', 'Iteration0:2:1/G0'] [0m
+[92m2019-12-01 20:55:31,390 INFO - training.ea.ea_trainer - Discriminators in current neighborhood are ['Iteration0:0:0/D0', 'Iteration0:1:2/D0', 'Iteration0:2:1/D0'] [0m
+[94m2019-12-01 20:55:31,400 INFO - training.ea.ea_trainer - Generators in current neighborhood are ['Iteration0:0:0/G0', 'Iteration0:2:1/G0', 'Iteration0:3:3/G0'] [0m
+[94m2019-12-01 20:55:31,400 INFO - training.ea.ea_trainer - Discriminators in current neighborhood are ['Iteration0:0:0/D0', 'Iteration0:2:1/D0', 'Iteration0:3:3/D0'] [0m
+[1;35;40m2019-12-01 20:55:33,423 INFO - training.ea.ea_trainer - Iteration 2, Batch 0/600 [0m
+[1;36;40m2019-12-01 20:55:33,396 INFO - training.ea.ea_trainer - Iteration 2, Batch 0/600 [0m
+[92m2019-12-01 20:55:33,467 INFO - training.ea.ea_trainer - Iteration 2, Batch 0/600 [0m
+[94m2019-12-01 20:55:33,483 INFO - training.ea.ea_trainer - Iteration 2, Batch 0/600 [0m
+[1;36;40m2019-12-01 20:55:37,642 INFO - distribution.comms_manager - Allgather on local comm [0m
+[1;35;40m2019-12-01 20:55:37,653 INFO - distribution.comms_manager - Allgather on local comm [0m
+[92m2019-12-01 20:55:37,671 INFO - distribution.comms_manager - Allgather on local comm [0m
+[94m2019-12-01 20:55:37,674 INFO - distribution.comms_manager - Allgather on local comm [0m
+[1;36;40m2019-12-01 20:55:37,865 INFO - training.ea.ea_trainer - Calculating FID/inception score. [0m
+[1;35;40m2019-12-01 20:55:37,876 INFO - training.ea.ea_trainer - Calculating FID/inception score. [0m
+[92m2019-12-01 20:55:37,881 INFO - training.ea.ea_trainer - Calculating FID/inception score. [0m
+[94m2019-12-01 20:55:37,899 INFO - training.ea.ea_trainer - Calculating FID/inception score. [0m
+[94m2019-12-01 20:55:39,850 INFO - training.ea.ea_trainer - Iteration=2, f(Generator(x))=0.11615846306085587, f(Discriminator(x))=0.7494495138525963, lr_gen=0.00019979314628507263, lr_dis=0.0001998376241696755, score=767.355193613654, mixture_gen=OrderedDict([(0, 0.34138893245209434), (3, 0.33658131130262775), (2, 0.32202975624527785)]), mixture_dis=None [0m
+[92m2019-12-01 20:55:39,853 INFO - training.ea.ea_trainer - Iteration=2, f(Generator(x))=0.2239255222181479, f(Discriminator(x))=0.6641985674699148, lr_gen=0.00019979344114059132, lr_dis=0.0001998632680338751, score=765.0645466107286, mixture_gen=OrderedDict([(1, 0.3333333333333333), (2, 0.3333333333333333), (0, 0.3333333333333333)]), mixture_dis=None [0m
+[94m2019-12-01 20:55:40,078 INFO - lipizzaner - Finished training process, f(d)=0.7494495138525963, f(g)=0.11615846306085587 [0m
+[92m2019-12-01 20:55:40,078 INFO - lipizzaner - Finished training process, f(d)=0.6641985674699148, f(g)=0.2239255222181479 [0m
+[1;36;40m2019-12-01 20:55:40,111 INFO - training.ea.ea_trainer - Iteration=2, f(Generator(x))=0.05881430705388387, f(Discriminator(x))=0.987852156162262, lr_gen=0.00020004657991796836, lr_dis=0.00019991180317255273, score=767.040696889128, mixture_gen=OrderedDict([(0, 0.3335131818035399), (3, 0.31547865844298195), (1, 0.3510081597534782)]), mixture_dis=None [0m
+[1;35;40m2019-12-01 20:55:40,112 INFO - training.ea.ea_trainer - Iteration=2, f(Generator(x))=0.16649357974529266, f(Discriminator(x))=0.6103751311699549, lr_gen=0.0001999458173404775, lr_dis=0.00020003222820439475, score=766.9822809292921, mixture_gen=OrderedDict([(1, 0.33321038266065256), (2, 0.3378904950603662), (3, 0.32889912227898116)]), mixture_dis=None [0m
+[1;36;40m2019-12-01 20:55:40,420 INFO - lipizzaner - Finished training process, f(d)=0.987852156162262, f(g)=0.05881430705388387 [0m
+[1;35;40m2019-12-01 20:55:40,544 INFO - lipizzaner - Finished training process, f(d)=0.6103751311699549, f(g)=0.16649357974529266 [0m
+[94m2019-12-01 20:55:40,987 INFO - lipizzaner_mpi_client - Finished experiment, waiting for new requests. [0m
+[94m2019-12-01 20:55:40,987 INFO - lipizzaner_mpi_client - Results gathering [0m
+[92m2019-12-01 20:55:41,160 INFO - lipizzaner_mpi_client - Finished experiment, waiting for new requests. [0m
+[92m2019-12-01 20:55:41,161 INFO - lipizzaner_mpi_client - Results gathering [0m
+[1;35;40m2019-12-01 20:55:41,328 INFO - lipizzaner_mpi_client - Finished experiment, waiting for new requests. [0m
+[1;35;40m2019-12-01 20:55:41,329 INFO - lipizzaner_mpi_client - Results gathering [0m
+[1;36;40m2019-12-01 20:55:41,561 INFO - lipizzaner_mpi_client - Finished experiment, waiting for new requests. [0m
+[1;36;40m2019-12-01 20:55:41,562 INFO - lipizzaner_mpi_client - Results gathering [0m
+[1;35;40m2019-12-01 20:55:42,124 INFO - distribution.comms_manager - Allgather on local comm [0m
+[92m2019-12-01 20:55:42,139 INFO - distribution.comms_manager - Allgather on local comm [0m
+[94m2019-12-01 20:55:42,143 INFO - distribution.comms_manager - Allgather on local comm [0m
+[1;36;40m2019-12-01 20:55:42,145 INFO - distribution.comms_manager - Allgather on local comm [0m
+[93m2019-12-01 20:56:15,831 INFO - distribution.comms_manager - Sent task (status) to 1, tag 3 [0m
+[93m2019-12-01 20:56:15,886 INFO - distribution.comms_manager - Recieved data from 1, tag 1 [0m
+[93m2019-12-01 20:56:15,886 INFO - distribution.comms_manager - Sent task (status) to 2, tag 3 [0m
+[94m2019-12-01 20:56:15,843 INFO - distribution.comms_manager - Recieved task (status) from 0, tag 3 [0m
+[94m2019-12-01 20:56:15,885 INFO - distribution.comms_manager - Sent message to 0 ,tag 1 [0m
+[94m2019-12-01 20:56:15,885 INFO - lipizzaner_mpi_client - 1) Waiting for task [0m
+[92m2019-12-01 20:56:15,897 INFO - distribution.comms_manager - Recieved task (status) from 0, tag 3 [0m
+[93m2019-12-01 20:56:15,911 INFO - distribution.comms_manager - Recieved data from 2, tag 1 [0m
+[92m2019-12-01 20:56:15,910 INFO - distribution.comms_manager - Sent message to 0 ,tag 1 [0m
+[92m2019-12-01 20:56:15,910 INFO - lipizzaner_mpi_client - 2) Waiting for task [0m
+[93m2019-12-01 20:56:15,911 INFO - distribution.comms_manager - Sent task (status) to 3, tag 3 [0m
+[93m2019-12-01 20:56:15,943 INFO - distribution.comms_manager - Recieved data from 3, tag 1 [0m
+[93m2019-12-01 20:56:15,943 INFO - distribution.comms_manager - Sent task (status) to 4, tag 3 [0m
+[1;35;40m2019-12-01 20:56:15,924 INFO - distribution.comms_manager - Recieved task (status) from 0, tag 3 [0m
+[1;35;40m2019-12-01 20:56:15,943 INFO - distribution.comms_manager - Sent message to 0 ,tag 1 [0m
+[1;35;40m2019-12-01 20:56:15,943 INFO - lipizzaner_mpi_client - 3) Waiting for task [0m
+[93m2019-12-01 20:56:15,967 INFO - distribution.comms_manager - Recieved data from 4, tag 1 [0m
+[93m2019-12-01 20:56:15,967 INFO - helpers.heartbeat_mpi - Heartbeat: All clients finished their experiments. [0m
+[1;36;40m2019-12-01 20:56:15,956 INFO - distribution.comms_manager - Recieved task (status) from 0, tag 3 [0m
+[1;36;40m2019-12-01 20:56:15,967 INFO - distribution.comms_manager - Sent message to 0 ,tag 1 [0m
+[1;36;40m2019-12-01 20:56:15,967 INFO - lipizzaner_mpi_client - 4) Waiting for task [0m
+[93m2019-12-01 20:56:15,967 INFO - lipizzaner_mpi_master - Started stopped with success [0m
+[93m2019-12-01 20:56:15,967 INFO - lipizzaner_mpi_master - Collecting results from clients... [0m
+[92m2019-12-01 20:56:16,045 INFO - distribution.comms_manager - Gather on general comm [0m
+[1;36;40m2019-12-01 20:56:16,111 INFO - distribution.comms_manager - Gather on general comm [0m
+[94m2019-12-01 20:56:16,178 INFO - distribution.comms_manager - Gather on general comm [0m
+[1;35;40m2019-12-01 20:56:16,239 INFO - distribution.comms_manager - Gather on general comm [0m
+[93m2019-12-01 20:56:16,309 INFO - distribution.comms_manager - Gather on general comm by master [0m
+[93m2019-12-01 20:56:17,058 INFO - lipizzaner_mpi_master - Filename: generator-0.pkl [0m
+[93m2019-12-01 20:56:18,459 INFO - lipizzaner_mpi_master - Filename: generator-1.pkl [0m
+[93m2019-12-01 20:56:20,826 INFO - lipizzaner_mpi_master - Filename: generator-2.pkl [0m
+[93m2019-12-01 20:56:21,505 INFO - lipizzaner_mpi_master - Filename: discriminator-0.pkl [0m
+[93m2019-12-01 20:56:22,118 INFO - lipizzaner_mpi_master - Filename: discriminator-1.pkl [0m
+[93m2019-12-01 20:56:22,815 INFO - lipizzaner_mpi_master - Filename: discriminator-2.pkl [0m
+[93m2019-12-01 20:56:23,031 ERROR - lipizzaner_mpi_master - Data recieved
+Gen pop <helpers.population.Population object at 0x7fe9b80557b8> 
+Weights gen OrderedDict([(1, 0.3333333333333333), (2, 0.3333333333333333), (0, 0.3333333333333333)]) [0m
+[93m2019-12-01 20:56:27,462 INFO - lipizzaner_mpi_master - Saved mixture result images of client 0 to target directory ./output/lipizzaner_gan_mpi/master/2019-12-01_20-55-06/pu0. [0m
+[93m2019-12-01 20:56:27,505 INFO - lipizzaner_mpi_master - Score calculator: FIDCalculator [0m
+[93m2019-12-01 20:56:27,505 INFO - lipizzaner_mpi_master - Calculating score score of 0. Depending on the type, this may take very long. [0m
+[93m2019-12-01 20:56:28,481 INFO - lipizzaner_mpi_master - Node 0 with weights OrderedDict([(1, 0.3333333333333333), (2, 0.3333333333333333), (0, 0.3333333333333333)]) yielded a score of (767.3072091983076, 0) [0m
+[93m2019-12-01 20:56:28,561 INFO - lipizzaner_mpi_master - Filename: generator-0.pkl [0m
+[93m2019-12-01 20:56:29,062 INFO - lipizzaner_mpi_master - Filename: generator-1.pkl [0m
+[93m2019-12-01 20:56:29,512 INFO - lipizzaner_mpi_master - Filename: generator-3.pkl [0m
+[93m2019-12-01 20:56:30,221 INFO - lipizzaner_mpi_master - Filename: discriminator-0.pkl [0m
+[93m2019-12-01 20:56:30,334 INFO - lipizzaner_mpi_master - Filename: discriminator-1.pkl [0m
+[93m2019-12-01 20:56:30,454 INFO - lipizzaner_mpi_master - Filename: discriminator-3.pkl [0m
+[93m2019-12-01 20:56:30,855 ERROR - lipizzaner_mpi_master - Data recieved
+Gen pop <helpers.population.Population object at 0x7fea685dd748> 
+Weights gen OrderedDict([(0, 0.3335131818035399), (3, 0.31547865844298195), (1, 0.3510081597534782)]) [0m
+[93m2019-12-01 20:56:32,664 INFO - lipizzaner_mpi_master - Saved mixture result images of client 1 to target directory ./output/lipizzaner_gan_mpi/master/2019-12-01_20-55-06/pu1. [0m
+[93m2019-12-01 20:56:32,707 INFO - lipizzaner_mpi_master - Score calculator: FIDCalculator [0m
+[93m2019-12-01 20:56:32,707 INFO - lipizzaner_mpi_master - Calculating score score of 1. Depending on the type, this may take very long. [0m
+[93m2019-12-01 20:56:33,190 INFO - lipizzaner_mpi_master - Node 1 with weights OrderedDict([(0, 0.3335131818035399), (3, 0.31547865844298195), (1, 0.3510081597534782)]) yielded a score of (755.7290512106649, 0) [0m
+[93m2019-12-01 20:56:33,288 INFO - lipizzaner_mpi_master - Filename: generator-0.pkl [0m
+[93m2019-12-01 20:56:33,864 INFO - lipizzaner_mpi_master - Filename: generator-2.pkl [0m
+[93m2019-12-01 20:56:34,363 INFO - lipizzaner_mpi_master - Filename: generator-3.pkl [0m
+[93m2019-12-01 20:56:34,931 INFO - lipizzaner_mpi_master - Filename: discriminator-0.pkl [0m
+[93m2019-12-01 20:56:35,422 INFO - lipizzaner_mpi_master - Filename: discriminator-2.pkl [0m
+[93m2019-12-01 20:56:35,739 INFO - lipizzaner_mpi_master - Filename: discriminator-3.pkl [0m
+[93m2019-12-01 20:56:35,917 ERROR - lipizzaner_mpi_master - Data recieved
+Gen pop <helpers.population.Population object at 0x7fea685f2ba8> 
+Weights gen OrderedDict([(0, 0.34138893245209434), (3, 0.33658131130262775), (2, 0.32202975624527785)]) [0m
+[93m2019-12-01 20:56:38,242 INFO - lipizzaner_mpi_master - Saved mixture result images of client 2 to target directory ./output/lipizzaner_gan_mpi/master/2019-12-01_20-55-06/pu2. [0m
+[93m2019-12-01 20:56:38,285 INFO - lipizzaner_mpi_master - Score calculator: FIDCalculator [0m
+[93m2019-12-01 20:56:38,285 INFO - lipizzaner_mpi_master - Calculating score score of 2. Depending on the type, this may take very long. [0m
+[93m2019-12-01 20:56:38,760 INFO - lipizzaner_mpi_master - Node 2 with weights OrderedDict([(0, 0.34138893245209434), (3, 0.33658131130262775), (2, 0.32202975624527785)]) yielded a score of (776.0126140805692, 0) [0m
+[93m2019-12-01 20:56:38,823 INFO - lipizzaner_mpi_master - Filename: generator-1.pkl [0m
+[93m2019-12-01 20:56:39,346 INFO - lipizzaner_mpi_master - Filename: generator-2.pkl [0m
+[93m2019-12-01 20:56:39,631 INFO - lipizzaner_mpi_master - Filename: generator-3.pkl [0m
+[93m2019-12-01 20:56:40,091 INFO - lipizzaner_mpi_master - Filename: discriminator-1.pkl [0m
+[93m2019-12-01 20:56:40,983 INFO - lipizzaner_mpi_master - Filename: discriminator-2.pkl [0m
+[93m2019-12-01 20:56:41,240 INFO - lipizzaner_mpi_master - Filename: discriminator-3.pkl [0m
+[93m2019-12-01 20:56:41,682 ERROR - lipizzaner_mpi_master - Data recieved
+Gen pop <helpers.population.Population object at 0x7fea6858bf28> 
+Weights gen OrderedDict([(1, 0.33321038266065256), (2, 0.3378904950603662), (3, 0.32889912227898116)]) [0m
+[93m2019-12-01 20:56:44,584 INFO - lipizzaner_mpi_master - Saved mixture result images of client 3 to target directory ./output/lipizzaner_gan_mpi/master/2019-12-01_20-55-06/pu3. [0m
+[93m2019-12-01 20:56:44,634 INFO - lipizzaner_mpi_master - Score calculator: FIDCalculator [0m
+[93m2019-12-01 20:56:44,634 INFO - lipizzaner_mpi_master - Calculating score score of 3. Depending on the type, this may take very long. [0m
+[93m2019-12-01 20:56:45,106 INFO - lipizzaner_mpi_master - Node 3 with weights OrderedDict([(1, 0.33321038266065256), (2, 0.3378904950603662), (3, 0.32889912227898116)]) yielded a score of (791.010139469414, 0) [0m
+[93m2019-12-01 20:56:45,145 INFO - lipizzaner_mpi_master - Best result: pu1 = (755.7290512106649, 0) [0m
+[93m2019-12-01 20:56:45,147 INFO - lipizzaner_mpi_master - Stopping clients... [0m
+[94m2019-12-01 20:56:45,147 INFO - distribution.comms_manager - Recieved task (close) from 0, tag 3 [0m
+[1;36;40m2019-12-01 20:56:45,147 INFO - distribution.comms_manager - Recieved task (close) from 0, tag 3 [0m
+[94m2019-12-01 20:56:45,158 INFO - lipizzaner_mpi_client - Exiting... [0m
+[92m2019-12-01 20:56:45,147 INFO - distribution.comms_manager - Recieved task (close) from 0, tag 3 [0m
+[1;35;40m2019-12-01 20:56:45,148 INFO - distribution.comms_manager - Recieved task (close) from 0, tag 3 [0m
+[1;36;40m2019-12-01 20:56:45,159 INFO - lipizzaner_mpi_client - Exiting... [0m
+[94m2019-12-01 20:56:45,158 INFO - __main__ - Writing statistics on file [0m
+[92m2019-12-01 20:56:45,158 INFO - lipizzaner_mpi_client - Exiting... [0m
+[1;35;40m2019-12-01 20:56:45,159 INFO - lipizzaner_mpi_client - Exiting... [0m

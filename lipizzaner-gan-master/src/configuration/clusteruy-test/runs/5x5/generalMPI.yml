@@ -1,0 +1,19 @@
+logging:
+  enabled: True
+  log_level: INFO
+  log_server: # Fill in connection string with read/write access here
+  image_format: jpg
+  print_discriminator: False
+losswise:
+  enabled: False
+  api_key: MN3GDIZWZ
+output_dir: ./output
+distribution:
+  distributed_filesystem: True
+  type: mpi
+  root : 0
+  grid:
+    x_size: 5
+    y_size: 5
+seed: 1
+num_workers: 0    # how many subprocesses to use for data loading
