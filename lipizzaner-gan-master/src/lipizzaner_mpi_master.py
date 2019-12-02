@@ -47,6 +47,8 @@ class LipizzanerMpiMaster:
 
         signal.signal(signal.SIGINT, self._sigint)
 
+        self._load_dataset()
+
         self._start_experiments()
 
         self.heartbeat_thread.start()
@@ -91,6 +93,17 @@ class LipizzanerMpiMaster:
             self.comms.start_worker(proc_unit, self.cc.settings)
             #sleep(2)
     
+    # Pre downloading the dataset for distributed sistems.
+    # Otherwise, the parallel datasets would overlap each other and fail.
+    def _load_dataset(self):
+         if ( 'distributed_filesystem' in self.cc.settings['general']['distribution'] \
+            and self.cc.settings['general']['distribution']['distributed_filesystem'] == True ):
+                self._logger.info('Downloading dataset...')
+                self.cc.create_instance(self.cc.settings['dataloader']['dataset_name']).load()
+                self._logger.info('Dataset downloaded.')
+
+
+
     def _sigint(self, signal, frame):
         self._terminate(stop_clients=True)
 
