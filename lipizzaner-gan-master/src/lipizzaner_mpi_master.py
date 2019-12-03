@@ -56,11 +56,11 @@ class LipizzanerMpiMaster:
         self.heartbeat_thread.join()
 
         if self.heartbeat_thread.success:
-            self._logger.info("Started stopped with success")
+            self._logger.info("Heartbeat stopped with success")
             self._gather_results()
             self._terminate(stop_clients=True, return_code=0)
         else:
-            self._logger.info("Started stopped with error")
+            self._logger.info("Heartbeat stopped with error")
             self._terminate(stop_clients=False, return_code=-1)
         # self._terminate()
 
@@ -130,6 +130,7 @@ class LipizzanerMpiMaster:
 
         results = node_client.general_gather_results()
 
+        self._logger.info('Results scoring')
         scores = []
         for (node, generator_pop, discriminator_pop, weights_generator, _) in results:
             # self._logger.info("Getting result from {}".format(node))

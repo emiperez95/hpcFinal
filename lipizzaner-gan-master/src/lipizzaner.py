@@ -40,7 +40,7 @@ class Lipizzaner:
         else:
             self.cuda = False
 
-        self._logger.info("Parameters: {}".format(self.cc.settings))
+        self._logger.debug("Parameters: {}".format(self.cc.settings))
 
         if is_cuda_available() and self.cuda:
             self._logger.info("CUDA is supported on this device and will be used.")

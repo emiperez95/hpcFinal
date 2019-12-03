@@ -60,7 +60,7 @@ class CommsManager(NodeClient):
     def isend(self, message, dest):
         r_dest = self._parse_node(dest)
         self.comm.send(message, dest=r_dest, tag=1)
-        self._logger.info("Sent message to {} ,tag 1".format(r_dest))
+        self._logger.debug("Sent message to {} ,tag 1".format(r_dest))
 
     def send_task(self, task, dest, data=None):
         r_dest = self._parse_node(dest)
@@ -69,37 +69,37 @@ class CommsManager(NodeClient):
             self.comm.send(data, dest=r_dest, tag=3)
         else:
             self.comm.send({"task" : task}, dest=r_dest, tag=3)
-        self._logger.info("Sent task ({}) to {}, tag 3".format(task, r_dest))
+        self._logger.debug("Sent task ({}) to {}, tag 3".format(task, r_dest))
 
     def recv(self, source=None):
         if source:
             r_source = self._parse_node(source)
             data = self.comm.recv(source=r_source, tag=1)
-            self._logger.info("Recieved data from {}, tag 1".format(r_source))
+            self._logger.debug("Recieved data from {}, tag 1".format(r_source))
         else:
             status = MPI.Status()
             data = self.comm.recv(source=MPI.ANY_SOURCE, status=status, tag=1)
             data["source"] = status.Get_source()
-            self._logger.info("Recieved data from {}, tag 1".format(data["source"]))
+            self._logger.debug("Recieved data from {}, tag 1".format(data["source"]))
         return data
 
     def recv_task(self, source=None):
         if source:
             r_source = self._parse_node(source)
             data = self.comm.recv(source=r_source, tag=3)
-            self._logger.info("Recieved task ({}) from {}, tag 3".format(data["task"],r_source))
+            self._logger.debug("Recieved task ({}) from {}, tag 3".format(data["task"],r_source))
         else:
             status = MPI.Status()
             data = self.comm.recv(source=MPI.ANY_SOURCE, status=status, tag=3)
             data["source"] = status.Get_source()
-            self._logger.info("Recieved task ({}) from {}, tag 3".format(data["task"],data["source"]))
+            self._logger.debug("Recieved task ({}) from {}, tag 3".format(data["task"],data["source"]))
         return data
 
     
     def start_worker(self, pu, grid):
         r_pu = self._parse_node(pu)
         self.comm.send({"task" : "run", "config" : self.cc.settings}, dest=r_pu, tag=3)
-        self._logger.info("Started worker {}, tag 3".format(r_pu))
+        self._logger.debug("Started worker {}, tag 3".format(r_pu))
 
     # def recieve_root(self):
     #     return self.comm.recv(source=self.root)
@@ -139,7 +139,7 @@ class CommsManager(NodeClient):
         self.general = MPI.COMM_WORLD.Split(0, 0)
         # self.local_rank = key
         size = self.local.Get_size()
-        self._logger.info("New comm {}, rank {} out of {}".format(color, key, size))
+        self._logger.debug("New comm {}, rank {} out of {}".format(color, key, size))
 
 
     # ===================================================
@@ -161,7 +161,7 @@ class CommsManager(NodeClient):
 
     def local_all_gather(self, send_data):
         ret_data = self.local.allgather(send_data)
-        self._logger.info("Allgather on local comm")
+        self._logger.debug("Allgather on local comm")
         return ret_data
 
     def general_gather(self, send_data):
@@ -169,7 +169,7 @@ class CommsManager(NodeClient):
         Gather operation to send all the results data to master.
         '''
         self.general.gather(send_data, root=0)
-        self._logger.info("Gather on general comm")
+        self._logger.debug("Gather on general comm")
 
     def general_gather_master(self):
         '''
@@ -177,7 +177,7 @@ class CommsManager(NodeClient):
         element from array and returns the result.
         '''
         ret_data = self.general.gather(None, root=0)
-        self._logger.info("Gather on general comm by master")
+        self._logger.debug("Gather on general comm by master")
         ret_data.pop(0)
         return ret_data
 
@@ -211,7 +211,7 @@ class CommsManager(NodeClient):
         generators = self.load_generators_from_api(nodes, timeout_sec)
         for a in generators:
             try:
-                self._logger.info("Parsing gen: {}".format(a.keys()))
+                self._logger.debug("Parsing gen: {}".format(a.keys()))
             except:
                 self._logger.warn("Parsing gen: {}".format(a))
                 
@@ -226,7 +226,7 @@ class CommsManager(NodeClient):
         discriminators = self.load_discriminators_from_api(nodes, timeout_sec)
         for a in discriminators:
             try:
-                self._logger.info("Parsing disc: {}".format(a.keys()))
+                self._logger.debug("Parsing disc: {}".format(a.keys()))
             except:
                 self._logger.warn("Parsing disc: {}".format(a))
 
@@ -237,7 +237,7 @@ class CommsManager(NodeClient):
         generators = self.load_best_generators_from_api(nodes, timeout_sec)
         for a in generators:
             try:
-                self._logger.info("Parsing b gen: {}".format(a.keys()))
+                self._logger.debug("Parsing b gen: {}".format(a.keys()))
             except:
                 self._logger.warn("Parsing b gen: {}".format(a))
 
@@ -259,7 +259,7 @@ class CommsManager(NodeClient):
     def _load_results(self, node, timeout_sec):
         try:
             self.send_task("results", node)
-            self._logger.info("Waiting for results {}".format(node))
+            self._logger.debug("Waiting for results {}".format(node))
             return self.recv(node)
         except Exception as ex:
             self._logger.error('Error loading results from {}: {}.'.format(node, ex))
@@ -337,7 +337,7 @@ class CommsManager(NodeClient):
         resp = self.recv(node)
  
         stop = time.time()
-        self._logger.info('Loading parameters from node {} took {} seconds'.format(node, stop - start))
+        self._logger.debug('Loading parameters from node {} took {} seconds'.format(node, stop - start))
         try:
             for n in resp:
                 n['source'] = node

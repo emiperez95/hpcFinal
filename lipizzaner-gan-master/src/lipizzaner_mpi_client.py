@@ -39,7 +39,7 @@ class LipizzanerMpiClient():
 
     def run(self):
         while(1):
-            self._logger.info("{}) Waiting for task".format(self.comms.rank))
+            self._logger.debug("{}) Waiting for task".format(self.comms.rank))
             data = self.comms.recv_task()
             task = data["task"]
             func = getattr(self, "_task_"+task)
