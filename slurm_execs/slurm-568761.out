@@ -1,0 +1,97 @@
+Rank 1, socket:  node02.datos.cluster.uy 
+	 gpu seen 1  gpu count Tesla P100-PCIE-12GB
+Rank 0, socket:  node02.datos.cluster.uy 
+	 gpu seen 1  gpu count Tesla P100-PCIE-12GB
+Rank 6, socket:  node13.datos.cluster.uy 
+	 gpu seen 1  gpu count Tesla P100-PCIE-12GB
+Rank 7, socket:  node13.datos.cluster.uy 
+	 gpu seen 1  gpu count Tesla P100-PCIE-12GB
+Rank 4, socket:  node12.datos.cluster.uy 
+	 gpu seen 1  gpu count Tesla P100-PCIE-12GB
+Rank 5, socket:  node12.datos.cluster.uy 
+	 gpu seen 1  gpu count Tesla P100-PCIE-12GB
+Rank 2, socket:  node11.datos.cluster.uy 
+	 gpu seen 1  gpu count Tesla P100-PCIE-12GB
+Rank 3, socket:  node11.datos.cluster.uy 
+	 gpu seen 1  gpu count Tesla P100-PCIE-12GB
+Rank 8, socket:  node15.datos.cluster.uy 
+	 gpu seen 1  gpu count Tesla P100-PCIE-12GB
+Rank 9, socket:  node15.datos.cluster.uy 
+	 gpu seen 1  gpu count Tesla P100-PCIE-12GB
+[93m2019-12-12 10:47:09,539 INFO - lipizzaner_mpi_master - Seed used in master: 1 [0m
+[93m2019-12-12 10:47:09,633 INFO - lipizzaner_mpi_master - Downloading dataset... [0m
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+Processing...
+Done!
+[93m2019-12-12 10:48:53,182 INFO - lipizzaner_mpi_master - Dataset downloaded. [0m
+[93m2019-12-12 10:48:53,183 INFO - lipizzaner_mpi_master - Asigned worker 2 to wid 0 [0m
+[93m2019-12-12 10:48:53,183 INFO - lipizzaner_mpi_master - Asigned worker 4 to wid 1 [0m
+[93m2019-12-12 10:48:53,184 INFO - lipizzaner_mpi_master - Asigned worker 6 to wid 2 [0m
+[93m2019-12-12 10:48:53,184 INFO - lipizzaner_mpi_master - Asigned worker 8 to wid 3 [0m
+[93m2019-12-12 10:48:53,184 INFO - lipizzaner_mpi_master - Asigned worker 1 to wid 4 [0m
+[93m2019-12-12 10:48:53,184 INFO - lipizzaner_mpi_master - Asigned worker 3 to wid 5 [0m
+[93m2019-12-12 10:48:53,185 INFO - lipizzaner_mpi_master - Asigned worker 5 to wid 6 [0m
+[93m2019-12-12 10:48:53,185 INFO - lipizzaner_mpi_master - Asigned worker 7 to wid 7 [0m
+[93m2019-12-12 10:48:53,185 INFO - lipizzaner_mpi_master - Asigned worker 9 to wid 8 [0m
+[94m2019-12-12 10:48:53,196 INFO - distribution.comms_manager - New comm 0, rank 4 out of 9 [0m
+[92m2019-12-12 10:48:53,195 INFO - distribution.comms_manager - New comm 0, rank 0 out of 9 [0m
+[1;36;40m2019-12-12 10:48:53,196 INFO - distribution.comms_manager - New comm 0, rank 3 out of 9 [0m
+[1;35;40m2019-12-12 10:48:53,195 INFO - distribution.comms_manager - New comm 0, rank 5 out of 9 [0m
+[1;36;40m2019-12-12 10:48:53,196 INFO - distribution.comms_manager - New comm 0, rank 8 out of 9 [0m
+[1;36;40m2019-12-12 10:48:53,197 INFO - distribution.comms_manager - New comm 0, rank 2 out of 9 [0m
+[1;36;40m2019-12-12 10:48:53,195 INFO - distribution.comms_manager - New comm 0, rank 6 out of 9 [0m
+[1;36;40m2019-12-12 10:48:53,197 INFO - distribution.comms_manager - New comm 0, rank 7 out of 9 [0m
+[1;36;40m2019-12-12 10:48:53,195 INFO - distribution.comms_manager - New comm 0, rank 1 out of 9 [0m
+[93m2019-12-12 10:48:53,197 INFO - lipizzaner_mpi_master - Started heartbeat [0m
+[1;36;40m2019-12-12 10:48:53,210 INFO - lipizzaner_mpi_client - Distributed training recognized, set log directory to /scratch/output/lipizzaner_gan_mpi/distributed/mnist/2019-12-12_10-48-53/36723 [0m
+[94m2019-12-12 10:48:53,210 INFO - lipizzaner_mpi_client - Distributed training recognized, set log directory to /scratch/output/lipizzaner_gan_mpi/distributed/mnist/2019-12-12_10-48-53/9082 [0m
+[92m2019-12-12 10:48:53,210 INFO - lipizzaner_mpi_client - Distributed training recognized, set log directory to /scratch/output/lipizzaner_gan_mpi/distributed/mnist/2019-12-12_10-48-53/29948 [0m
+[1;36;40m2019-12-12 10:48:53,210 INFO - lipizzaner_mpi_client - Distributed training recognized, set log directory to /scratch/output/lipizzaner_gan_mpi/distributed/mnist/2019-12-12_10-48-53/23051 [0m
+[1;36;40m2019-12-12 10:48:53,210 INFO - lipizzaner_mpi_client - Distributed training recognized, set log directory to /scratch/output/lipizzaner_gan_mpi/distributed/mnist/2019-12-12_10-48-53/36724 [0m
+[1;36;40m2019-12-12 10:48:53,224 INFO - lipizzaner_mpi_client - Distributed training recognized, set log directory to /scratch/output/lipizzaner_gan_mpi/distributed/mnist/2019-12-12_10-48-53/14157 [0m
+[1;36;40m2019-12-12 10:49:01,328 INFO - lipizzaner - CUDA is supported on this device and will be used. [0m
+[1;36;40m2019-12-12 10:49:01,339 INFO - lipizzaner - Seed used: 841496928 [0m
+[1;36;40m2019-12-12 10:49:01,339 INFO - lipizzaner - Starting training for 2 iterations/epochs. [0m
+[1;36;40m2019-12-12 10:49:01,370 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+[1;36;40m2019-12-12 10:49:01,433 INFO - lipizzaner - CUDA is supported on this device and will be used. [0m
+[1;36;40m2019-12-12 10:49:01,444 INFO - lipizzaner - Seed used: 946684044 [0m
+[1;36;40m2019-12-12 10:49:01,445 INFO - lipizzaner - Starting training for 2 iterations/epochs. [0m
+[1;36;40m2019-12-12 10:49:01,474 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+[94m2019-12-12 10:49:01,508 INFO - lipizzaner - CUDA is supported on this device and will be used. [0m
+[94m2019-12-12 10:49:01,509 INFO - lipizzaner - Seed used: 105187103 [0m
+[94m2019-12-12 10:49:01,509 INFO - lipizzaner - Starting training for 2 iterations/epochs. [0m
+[94m2019-12-12 10:49:01,556 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
+Processing...
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+Processing...
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+Processing...
+Done!
+[92m2019-12-12 10:49:55,407 INFO - lipizzaner - CUDA is supported on this device and will be used. [0m
+[92m2019-12-12 10:49:55,421 INFO - lipizzaner - Seed used: 210374224 [0m
+[92m2019-12-12 10:49:55,421 INFO - lipizzaner - Starting training for 2 iterations/epochs. [0m
+[92m2019-12-12 10:49:55,451 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+Done!
+[1;36;40m2019-12-12 10:49:56,157 INFO - lipizzaner - CUDA is supported on this device and will be used. [0m
+[1;36;40m2019-12-12 10:49:56,171 INFO - lipizzaner - Seed used: 525935565 [0m
+[1;36;40m2019-12-12 10:49:56,171 INFO - lipizzaner - Starting training for 2 iterations/epochs. [0m
+[1;36;40m2019-12-12 10:49:56,202 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+Done!
+[1;36;40m2019-12-12 10:49:59,580 INFO - lipizzaner - CUDA is supported on this device and will be used. [0m
+[1;36;40m2019-12-12 10:49:59,594 INFO - lipizzaner - Seed used: 736309798 [0m
+[1;36;40m2019-12-12 10:49:59,594 INFO - lipizzaner - Starting training for 2 iterations/epochs. [0m
+[1;36;40m2019-12-12 10:49:59,625 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+slurmstepd: error: *** JOB 568761 ON node02 CANCELLED AT 2019-12-12T13:16:40 DUE TO TIME LIMIT ***

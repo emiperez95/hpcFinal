@@ -1,4 +1,5 @@
 import time
+import sys
 import socket
 from concurrent.futures import as_completed, ThreadPoolExecutor
 
@@ -158,8 +159,10 @@ class CommsManager(NodeClient):
         General rank getter for MPI comm
         '''
         return self.general.Get_rank()
-
+    
+    @profile
     def local_all_gather(self, send_data):
+        self._logger.info("Size of data sent: " + str(sys.getsizeof(send_data)))
         ret_data = self.local.allgather(send_data)
         self._logger.debug("Allgather on local comm")
         return ret_data

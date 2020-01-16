@@ -1,0 +1,242 @@
+mkdir: cannot create directory '/scratch/eperez/output': File exists
+Need two file names, have 1 names
+Try "sbcast --help" for more information
+sbcast: -----------------------------
+sbcast: block_size = 8388608
+sbcast: compress   = 0
+sbcast: force      = false
+sbcast: fanout     = 0
+sbcast: jobid      = 568762
+sbcast: preserve   = false
+sbcast: timeout    = 0
+sbcast: verbose    = 1
+sbcast: source     = /clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/output/data
+sbcast: dest       = /scratch/eperez/output/data
+sbcast: -----------------------------
+sbcast: modes    = 40775
+sbcast: uid      = 10185
+sbcast: gid      = 10157
+sbcast: atime    = Thu Dec 12 10:46:38 2019
+sbcast: mtime    = Mon Dec 02 16:55:04 2019
+sbcast: ctime    = Mon Dec 02 16:55:04 2019
+sbcast: size     = 46
+sbcast: error: Can't mmap file `/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/output/data`, No such device.
+[93m2019-12-12 10:47:09,537 INFO - lipizzaner_mpi_master - Seed used in master: 1 [0m
+[93m2019-12-12 10:47:09,631 INFO - lipizzaner_mpi_master - Downloading dataset... [0m
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+Processing...
+Done!
+[93m2019-12-12 10:48:32,411 INFO - lipizzaner_mpi_master - Dataset downloaded. [0m
+[93m2019-12-12 10:48:32,412 INFO - lipizzaner_mpi_master - Asigned worker 2 to wid 0 [0m
+[93m2019-12-12 10:48:32,412 INFO - lipizzaner_mpi_master - Asigned worker 4 to wid 1 [0m
+[93m2019-12-12 10:48:32,413 INFO - lipizzaner_mpi_master - Asigned worker 6 to wid 2 [0m
+[93m2019-12-12 10:48:32,413 INFO - lipizzaner_mpi_master - Asigned worker 8 to wid 3 [0m
+[93m2019-12-12 10:48:32,413 INFO - lipizzaner_mpi_master - Asigned worker 1 to wid 4 [0m
+[93m2019-12-12 10:48:32,413 INFO - lipizzaner_mpi_master - Asigned worker 3 to wid 5 [0m
+[93m2019-12-12 10:48:32,414 INFO - lipizzaner_mpi_master - Asigned worker 5 to wid 6 [0m
+[93m2019-12-12 10:48:32,414 INFO - lipizzaner_mpi_master - Asigned worker 7 to wid 7 [0m
+[93m2019-12-12 10:48:32,414 INFO - lipizzaner_mpi_master - Asigned worker 9 to wid 8 [0m
+[94m2019-12-12 10:48:32,419 INFO - distribution.comms_manager - New comm 0, rank 4 out of 9 [0m
+[1;36;40m2019-12-12 10:48:32,419 INFO - distribution.comms_manager - New comm 0, rank 3 out of 9 [0m
+[1;36;40m2019-12-12 10:48:32,419 INFO - distribution.comms_manager - New comm 0, rank 2 out of 9 [0m
+[1;36;40m2019-12-12 10:48:32,419 INFO - distribution.comms_manager - New comm 0, rank 8 out of 9 [0m
+[1;36;40m2019-12-12 10:48:32,419 INFO - distribution.comms_manager - New comm 0, rank 7 out of 9 [0m
+[92m2019-12-12 10:48:32,418 INFO - distribution.comms_manager - New comm 0, rank 0 out of 9 [0m
+[1;35;40m2019-12-12 10:48:32,419 INFO - distribution.comms_manager - New comm 0, rank 5 out of 9 [0m
+[1;36;40m2019-12-12 10:48:32,419 INFO - distribution.comms_manager - New comm 0, rank 1 out of 9 [0m
+[1;36;40m2019-12-12 10:48:32,419 INFO - distribution.comms_manager - New comm 0, rank 6 out of 9 [0m
+[93m2019-12-12 10:48:32,420 INFO - lipizzaner_mpi_master - Started heartbeat [0m
+[94m2019-12-12 10:48:32,425 INFO - lipizzaner_mpi_client - Distributed training recognized, set log directory to /scratch/output/lipizzaner_gan_mpi/distributed/mnist/2019-12-12_10-48-32/36422 [0m
+[92m2019-12-12 10:48:32,433 INFO - lipizzaner_mpi_client - Distributed training recognized, set log directory to /scratch/output/lipizzaner_gan_mpi/distributed/mnist/2019-12-12_10-48-32/34819 [0m
+[1;36;40m2019-12-12 10:48:32,433 INFO - lipizzaner_mpi_client - Distributed training recognized, set log directory to /scratch/output/lipizzaner_gan_mpi/distributed/mnist/2019-12-12_10-48-32/14152 [0m
+[1;36;40m2019-12-12 10:48:32,434 INFO - lipizzaner_mpi_client - Distributed training recognized, set log directory to /scratch/output/lipizzaner_gan_mpi/distributed/mnist/2019-12-12_10-48-32/1242 [0m
+[1;36;40m2019-12-12 10:48:32,434 INFO - lipizzaner_mpi_client - Distributed training recognized, set log directory to /scratch/output/lipizzaner_gan_mpi/distributed/mnist/2019-12-12_10-48-32/12200 [0m
+[1;36;40m2019-12-12 10:48:32,434 INFO - lipizzaner_mpi_client - Distributed training recognized, set log directory to /scratch/output/lipizzaner_gan_mpi/distributed/mnist/2019-12-12_10-48-32/14150 [0m
+[1;36;40m2019-12-12 10:48:32,443 INFO - lipizzaner_mpi_client - Distributed training recognized, set log directory to /scratch/output/lipizzaner_gan_mpi/distributed/mnist/2019-12-12_10-48-32/12202 [0m
+[1;36;40m2019-12-12 10:48:32,445 INFO - lipizzaner_mpi_client - Distributed training recognized, set log directory to /scratch/output/lipizzaner_gan_mpi/distributed/mnist/2019-12-12_10-48-32/1247 [0m
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+[94m2019-12-12 10:48:32,606 INFO - lipizzaner - CUDA is not supported on this device. [0m
+[94m2019-12-12 10:48:32,676 INFO - lipizzaner - Seed used: 105187116 [0m
+[94m2019-12-12 10:48:32,677 INFO - lipizzaner - Starting training for 10 iterations/epochs. [0m
+[94m2019-12-12 10:48:32,697 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+[1;36;40m2019-12-12 10:48:40,582 CRITICAL - lipizzaner_mpi_client - An unhandled error occured while running Lipizzaner: [Errno 2] No such file or directory: '/scratch/output/data/raw/train-images-idx3-ubyte.gz' [0m
+Traceback (most recent call last):
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/lipizzaner_mpi_client.py", line 199, in _run_lipizzaner
+    lipizzaner = Lipizzaner()
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/lipizzaner.py", line 36, in __init__
+    self.trainer = self.cc.create_instance(self.cc.settings['trainer']['name'], dataloader, network_factory)
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/helpers/configuration_container.py", line 45, in create_instance
+    return cls(*args)
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/training/ea/lipizzaner_gan_trainer_mpi.py", line 66, in __init__
+    self.score_calc = ScoreCalculatorFactory.create()
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/training/mixture/score_factory.py", line 25, in create
+    dataloader.load()
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/data/data_loader.py", line 45, in load
+    download=True)
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/site-packages/torchvision-0.2.0-py3.6.egg/torchvision/datasets/mnist.py", line 45, in __init__
+    self.download()
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/site-packages/torchvision-0.2.0-py3.6.egg/torchvision/datasets/mnist.py", line 119, in download
+    gzip.GzipFile(file_path) as zip_f:
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/gzip.py", line 163, in __init__
+    fileobj = self.myfileobj = builtins.open(filename, mode or 'rb')
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/output/data/raw/train-images-idx3-ubyte.gz'
+[1;36;40m2019-12-12 10:48:40,616 INFO - lipizzaner_mpi_client - Finished experiment, waiting for new requests. [0m
+[1;36;40m2019-12-12 10:48:40,616 INFO - lipizzaner_mpi_client - Results gathering [0m
+[1;36;40m2019-12-12 10:48:40,677 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
+[1;36;40m2019-12-12 10:48:43,197 CRITICAL - lipizzaner_mpi_client - An unhandled error occured while running Lipizzaner: [Errno 2] No such file or directory: '/scratch/output/data/raw/train-images-idx3-ubyte.gz' [0m
+Processing...
+[1;36;40m2019-12-12 10:48:43,201 CRITICAL - lipizzaner_mpi_client - An unhandled error occured while running Lipizzaner: invalid literal for int() with base 16: b'' [0m
+Traceback (most recent call last):
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/lipizzaner_mpi_client.py", line 199, in _run_lipizzaner
+    lipizzaner = Lipizzaner()
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/lipizzaner.py", line 36, in __init__
+    self.trainer = self.cc.create_instance(self.cc.settings['trainer']['name'], dataloader, network_factory)
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/helpers/configuration_container.py", line 45, in create_instance
+    return cls(*args)
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/training/ea/lipizzaner_gan_trainer_mpi.py", line 66, in __init__
+    self.score_calc = ScoreCalculatorFactory.create()
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/training/mixture/score_factory.py", line 25, in create
+    dataloader.load()
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/data/data_loader.py", line 45, in load
+    download=True)
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/site-packages/torchvision-0.2.0-py3.6.egg/torchvision/datasets/mnist.py", line 45, in __init__
+    self.download()
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/site-packages/torchvision-0.2.0-py3.6.egg/torchvision/datasets/mnist.py", line 127, in download
+    read_image_file(os.path.join(self.root, self.raw_folder, 'train-images-idx3-ubyte')),
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/site-packages/torchvision-0.2.0-py3.6.egg/torchvision/datasets/mnist.py", line 189, in read_image_file
+    assert get_int(data[:4]) == 2051
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/site-packages/torchvision-0.2.0-py3.6.egg/torchvision/datasets/mnist.py", line 167, in get_int
+    return int(codecs.encode(b, 'hex'), 16)
+ValueError: invalid literal for int() with base 16: b''
+[1;36;40m2019-12-12 10:48:43,204 INFO - lipizzaner_mpi_client - Finished experiment, waiting for new requests. [0m
+[1;36;40m2019-12-12 10:48:43,204 INFO - lipizzaner_mpi_client - Results gathering [0m
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
+Traceback (most recent call last):
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/lipizzaner_mpi_client.py", line 199, in _run_lipizzaner
+    lipizzaner = Lipizzaner()
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/lipizzaner.py", line 36, in __init__
+    self.trainer = self.cc.create_instance(self.cc.settings['trainer']['name'], dataloader, network_factory)
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/helpers/configuration_container.py", line 45, in create_instance
+    return cls(*args)
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/training/ea/lipizzaner_gan_trainer_mpi.py", line 66, in __init__
+    self.score_calc = ScoreCalculatorFactory.create()
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/training/mixture/score_factory.py", line 25, in create
+    dataloader.load()
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/data/data_loader.py", line 45, in load
+    download=True)
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/site-packages/torchvision-0.2.0-py3.6.egg/torchvision/datasets/mnist.py", line 45, in __init__
+    self.download()
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/site-packages/torchvision-0.2.0-py3.6.egg/torchvision/datasets/mnist.py", line 119, in download
+    gzip.GzipFile(file_path) as zip_f:
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/gzip.py", line 163, in __init__
+    fileobj = self.myfileobj = builtins.open(filename, mode or 'rb')
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/output/data/raw/train-images-idx3-ubyte.gz'
+[1;36;40m2019-12-12 10:48:43,216 INFO - lipizzaner_mpi_client - Finished experiment, waiting for new requests. [0m
+[1;36;40m2019-12-12 10:48:43,216 INFO - lipizzaner_mpi_client - Results gathering [0m
+[1;36;40m2019-12-12 10:48:43,250 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+[1;36;40m2019-12-12 10:48:43,261 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+[1;36;40m2019-12-12 10:48:45,161 CRITICAL - lipizzaner_mpi_client - An unhandled error occured while running Lipizzaner: [Errno 2] No such file or directory: '/scratch/output/data/raw/train-images-idx3-ubyte.gz' [0m
+Traceback (most recent call last):
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/lipizzaner_mpi_client.py", line 199, in _run_lipizzaner
+    lipizzaner = Lipizzaner()
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/lipizzaner.py", line 36, in __init__
+    self.trainer = self.cc.create_instance(self.cc.settings['trainer']['name'], dataloader, network_factory)
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/helpers/configuration_container.py", line 45, in create_instance
+    return cls(*args)
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/training/ea/lipizzaner_gan_trainer_mpi.py", line 66, in __init__
+    self.score_calc = ScoreCalculatorFactory.create()
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/training/mixture/score_factory.py", line 25, in create
+    dataloader.load()
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/data/data_loader.py", line 45, in load
+    download=True)
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/site-packages/torchvision-0.2.0-py3.6.egg/torchvision/datasets/mnist.py", line 45, in __init__
+    self.download()
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/site-packages/torchvision-0.2.0-py3.6.egg/torchvision/datasets/mnist.py", line 119, in download
+    gzip.GzipFile(file_path) as zip_f:
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/gzip.py", line 163, in __init__
+    fileobj = self.myfileobj = builtins.open(filename, mode or 'rb')
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/output/data/raw/train-images-idx3-ubyte.gz'
+[1;36;40m2019-12-12 10:48:45,169 INFO - lipizzaner_mpi_client - Finished experiment, waiting for new requests. [0m
+[1;36;40m2019-12-12 10:48:45,169 INFO - lipizzaner_mpi_client - Results gathering [0m
+[1;36;40m2019-12-12 10:48:45,214 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+Processing...
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+Processing...
+[1;36;40m2019-12-12 10:48:45,621 CRITICAL - lipizzaner_mpi_client - An unhandled error occured while running Lipizzaner: invalid literal for int() with base 16: b'' [0m
+Traceback (most recent call last):
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/lipizzaner_mpi_client.py", line 199, in _run_lipizzaner
+    lipizzaner = Lipizzaner()
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/lipizzaner.py", line 36, in __init__
+    self.trainer = self.cc.create_instance(self.cc.settings['trainer']['name'], dataloader, network_factory)
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/helpers/configuration_container.py", line 45, in create_instance
+    return cls(*args)
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/training/ea/lipizzaner_gan_trainer_mpi.py", line 66, in __init__
+    self.score_calc = ScoreCalculatorFactory.create()
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/training/mixture/score_factory.py", line 25, in create
+    dataloader.load()
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/data/data_loader.py", line 45, in load
+    download=True)
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/site-packages/torchvision-0.2.0-py3.6.egg/torchvision/datasets/mnist.py", line 45, in __init__
+    self.download()
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/site-packages/torchvision-0.2.0-py3.6.egg/torchvision/datasets/mnist.py", line 127, in download
+    read_image_file(os.path.join(self.root, self.raw_folder, 'train-images-idx3-ubyte')),
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/site-packages/torchvision-0.2.0-py3.6.egg/torchvision/datasets/mnist.py", line 189, in read_image_file
+    assert get_int(data[:4]) == 2051
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/site-packages/torchvision-0.2.0-py3.6.egg/torchvision/datasets/mnist.py", line 167, in get_int
+    return int(codecs.encode(b, 'hex'), 16)
+ValueError: invalid literal for int() with base 16: b''
+[1;36;40m2019-12-12 10:48:45,624 INFO - lipizzaner_mpi_client - Finished experiment, waiting for new requests. [0m
+[1;36;40m2019-12-12 10:48:45,624 INFO - lipizzaner_mpi_client - Results gathering [0m
+[1;36;40m2019-12-12 10:48:45,661 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+Processing...
+[1;36;40m2019-12-12 10:48:45,819 CRITICAL - lipizzaner_mpi_client - An unhandled error occured while running Lipizzaner: invalid literal for int() with base 16: b'' [0m
+Traceback (most recent call last):
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/lipizzaner_mpi_client.py", line 199, in _run_lipizzaner
+    lipizzaner = Lipizzaner()
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/lipizzaner.py", line 36, in __init__
+    self.trainer = self.cc.create_instance(self.cc.settings['trainer']['name'], dataloader, network_factory)
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/helpers/configuration_container.py", line 45, in create_instance
+    return cls(*args)
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/training/ea/lipizzaner_gan_trainer_mpi.py", line 66, in __init__
+    self.score_calc = ScoreCalculatorFactory.create()
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/training/mixture/score_factory.py", line 25, in create
+    dataloader.load()
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/data/data_loader.py", line 45, in load
+    download=True)
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/site-packages/torchvision-0.2.0-py3.6.egg/torchvision/datasets/mnist.py", line 45, in __init__
+    self.download()
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/site-packages/torchvision-0.2.0-py3.6.egg/torchvision/datasets/mnist.py", line 127, in download
+    read_image_file(os.path.join(self.root, self.raw_folder, 'train-images-idx3-ubyte')),
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/site-packages/torchvision-0.2.0-py3.6.egg/torchvision/datasets/mnist.py", line 189, in read_image_file
+    assert get_int(data[:4]) == 2051
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/site-packages/torchvision-0.2.0-py3.6.egg/torchvision/datasets/mnist.py", line 167, in get_int
+    return int(codecs.encode(b, 'hex'), 16)
+ValueError: invalid literal for int() with base 16: b''
+[1;36;40m2019-12-12 10:48:45,822 INFO - lipizzaner_mpi_client - Finished experiment, waiting for new requests. [0m
+[1;36;40m2019-12-12 10:48:45,822 INFO - lipizzaner_mpi_client - Results gathering [0m
+[1;36;40m2019-12-12 10:48:45,862 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+Done!
+[92m2019-12-12 10:49:19,264 INFO - lipizzaner - CUDA is not supported on this device. [0m
+[92m2019-12-12 10:49:19,272 INFO - lipizzaner - Seed used: 210374234 [0m
+[92m2019-12-12 10:49:19,272 INFO - lipizzaner - Starting training for 10 iterations/epochs. [0m
+[92m2019-12-12 10:49:19,303 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+slurmstepd: error: *** JOB 568762 ON node15 CANCELLED AT 2019-12-12T13:16:40 DUE TO TIME LIMIT ***

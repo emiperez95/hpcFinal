@@ -82,7 +82,7 @@ class LipizzanerGANTrainer(EvolutionaryAlgorithmTrainer):
         else:
             # TODO: Add code for safe implementation & error handling
             raise KeyError("Fitness section must be defined in configuration file")
-
+    @profile
     def train(self, n_iterations, stop_event=None):
 
         loaded = self.dataloader.load()
@@ -211,7 +211,7 @@ class LipizzanerGANTrainer(EvolutionaryAlgorithmTrainer):
                                            path_real_images, path_fake_images)
 
         return self.result()
-
+    @profile
     def step(self, original, attacker, defender, input_data, i, loaded, data_iterator):
         # Don't execute for remote populations - needed if generator and discriminator are on different node
         #         if any(not ind.is_local for ind in original.individuals):
@@ -228,7 +228,7 @@ class LipizzanerGANTrainer(EvolutionaryAlgorithmTrainer):
                  self.concurrent_populations.generator.individuals[0].fitness),
                 (self.concurrent_populations.discriminator.individuals[0].genome,
                  self.concurrent_populations.discriminator.individuals[0].fitness))
- 
+    @profile
     def mutate_hyperparams(self, population):
         loc = -(self._default_adam_learning_rate / 10)
         deltas = np.random.normal(loc=loc, scale=self._default_adam_learning_rate, size=len(population.individuals))
@@ -236,6 +236,7 @@ class LipizzanerGANTrainer(EvolutionaryAlgorithmTrainer):
         for i, individual in enumerate(population.individuals):
             individual.learning_rate = max(0, individual.learning_rate + deltas[i] * self._alpha)
 
+    @profile
     def update_genomes(self, population_attacker, population_defender, input_var, loaded, data_iterator):
 
         # TODO Currently picking random opponent, introduce parameter for this
@@ -294,7 +295,7 @@ class LipizzanerGANTrainer(EvolutionaryAlgorithmTrainer):
             if fitness_mode == 'average':
                 individual_attacker.fitness /= len(population_defender.individuals)
             
-
+    @profile
     def mutate_mixture_weights_with_score(self, input_data):
         # Not necessary for single-cell grids, as mixture must always be [1]
         if self.neighbourhood.grid_size == 1:

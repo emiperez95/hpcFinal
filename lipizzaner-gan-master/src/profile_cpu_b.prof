@@ -1,0 +1,475 @@
+Timer unit: 1e-06 s
+
+Total time: 136.191 s
+File: /clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/distribution/comms_manager.py
+Function: local_all_gather at line 163
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+   163                                               @profile
+   164                                               def local_all_gather(self, send_data):
+   165        21     133769.0   6370.0      0.1          self._logger.info("Size of data sent: " + str(sys.getsizeof(send_data)))
+   166        21  136057114.0 6478910.2     99.9          ret_data = self.local.allgather(send_data)
+   167        21        505.0     24.0      0.0          self._logger.debug("Allgather on local comm")
+   168        21          8.0      0.4      0.0          return ret_data
+
+Total time: 41.3174 s
+File: /clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/distribution/grid.py
+Function: all_disc_gen_local at line 144
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+   144                                               @profile
+   145                                               def all_disc_gen_local(self, local_gen, local_disc):
+   146                                                   '''
+   147                                                       Get all generator and discriminators from all neighbours
+   148                                                   and create the Populations with them.
+   149                                                   Return:
+   150                                                       gen_pop: Population of all generators from neighbours
+   151                                                       disc_pop: Population of all discriminators from neighbours
+   152                                                   '''
+   153                                                   # TODO: Check if encoding is necesary or if pickle is enough
+   154        10      13016.0   1301.6      0.0          send_data = (local_gen, local_disc)
+   155        10   41288745.0 4128874.5     99.9          data = self.node_client.local_all_gather(send_data)
+   156                                           
+   157        10          8.0      0.8      0.0          generators = []
+   158        10          3.0      0.3      0.0          discriminators = []
+   159                                                   # lamda_separator = lambda d: data[0], data[1]
+   160        50         71.0      1.4      0.0          for sender_wid, elem in enumerate(data):
+   161        40      15223.0    380.6      0.0              if sender_wid in self.get_neighbours(self.node_client.rank):
+   162        40         46.0      1.1      0.0                  for gen_indiv in elem[0].individuals:
+   163        20         29.0      1.4      0.0                      gen_indiv.source = sender_wid
+   164                                           
+   165        40         31.0      0.8      0.0                  for disc_indiv in elem[1].individuals:
+   166        20         13.0      0.7      0.0                      disc_indiv.source = sender_wid
+   167        20         19.0      0.9      0.0                  generators += elem[0].individuals
+   168        20         16.0      0.8      0.0                  discriminators += elem[1].individuals
+   169        20         36.0      1.8      0.0              elif sender_wid == self.local_rank:
+   170        20         19.0      0.9      0.0                  for gen_indiv in local_gen.individuals:
+   171        10         10.0      1.0      0.0                      gen_indiv.source = sender_wid
+   172        10          5.0      0.5      0.0                  generators += local_gen.individuals
+   173                                           
+   174        20         22.0      1.1      0.0                  for disc_indiv in local_disc.individuals:
+   175        10          9.0      0.9      0.0                      disc_indiv.source = sender_wid
+   176        10          5.0      0.5      0.0                  discriminators += local_disc.individuals
+   177                                           
+   178                                                       
+   179        10          8.0      0.8      0.0          gen_pop = Population(individuals=generators,
+   180        10          8.0      0.8      0.0                            default_fitness=local_gen.default_fitness,
+   181        10         69.0      6.9      0.0                            population_type=TYPE_GENERATOR)
+   182        10          5.0      0.5      0.0          disc_pop = Population(individuals=discriminators,
+   183        10          8.0      0.8      0.0                            default_fitness=local_disc.default_fitness,
+   184        10         20.0      2.0      0.0                            population_type=TYPE_DISCRIMINATOR)
+   185        10          5.0      0.5      0.0          return gen_pop, disc_pop
+
+Total time: 0 s
+File: /clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/lipizzaner_mpi_master.py
+Function: __init__ at line 29
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    29                                               @profile
+    30                                               def __init__(self):
+    31                                                   self.cc = ConfigurationContainer.instance()
+    32                                                   self.comms = CommsManager.instance()
+    33                                                   self.comms.start_comms()
+    34                                                   self.topology = TopologyManager.instance()
+    35                                                   self.grid = GridManager.instance()
+    36                                           
+    37                                                   self._size_error(self.comms, self.grid)
+    38                                                   self.heartbeat_event = None
+    39                                                   self.heartbeat_thread = None
+    40                                                   self.experiment_id = None
+    41                                           
+    42                                                   set_random_seed(self.cc.settings['general']['seed'],
+    43                                                                   self.cc.settings['trainer']['params']['score']['cuda'])
+    44                                                   self._logger.info("Seed used in master: {}".format(self.cc.settings['general']['seed']))
+    45                                           
+    46                                                   self.heartbeat_event = Event()
+    47                                                   self.heartbeat_thread = Heartbeat(self.heartbeat_event, False)
+    48                                           
+    49                                                   signal.signal(signal.SIGINT, self._sigint)
+    50                                           
+    51                                                   self._load_dataset()
+    52                                           
+    53                                                   self._start_experiments()
+    54                                           
+    55                                                   self.heartbeat_thread.start()
+    56                                                   self._logger.info("Started heartbeat")
+    57                                                   self.heartbeat_thread.join()
+    58                                           
+    59                                                   if self.heartbeat_thread.success:
+    60                                                       self._logger.info("Heartbeat stopped with success")
+    61                                                       self._gather_results()
+    62                                                       self._terminate(stop_clients=True, return_code=0)
+    63                                                   else:
+    64                                                       self._logger.info("Heartbeat stopped with error")
+    65                                                       self._terminate(stop_clients=False, return_code=-1)
+
+Total time: 0 s
+File: /clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/lipizzaner_mpi_master.py
+Function: _start_experiments at line 67
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    67                                               @profile
+    68                                               def _start_experiments(self):
+    69                                                   self.cc.settings['general']['distribution']['start_time'] = time.strftime('%Y-%m-%d_%H-%M-%S')
+    70                                           
+    71                                                   # If DB logging is enabled, create a new experiment and attach its ID to settings for clients
+    72                                                   db_logger = DbLogger()
+    73                                                   if db_logger.is_enabled:
+    74                                                       self.experiment_id = db_logger.create_experiment(self.cc.settings)
+    75                                                       self.cc.settings['general']['logging']['experiment_id'] = self.experiment_id
+    76                                           
+    77                                                   while self.grid.empty_spaces() > 0:
+    78                                                       worker = self.topology.get_best_worker()
+    79                                                       w_id = self.grid.assign_worker(worker)   
+    80                                                       self.topology.assign_worker(worker)
+    81                                                       
+    82                                                       self._logger.info("Asigned worker {} to wid {}".format(worker, w_id))
+    83                                                       self.comms.send_task("new_comm", worker, data={"color" : 0, "key" : w_id})
+    84                                           
+    85                                                   for off_pu in self.topology.inactive_pu:
+    86                                                       self._logger.info("Asigned worker {} to rest".format(off_pu))
+    87                                                       self.comms.send_task("new_comm", off_pu, data={"color" : 1, "key" : off_pu})
+    88                                                   
+    89                                                   self.comms.new_comm_master(2, 0)
+    90                                                   
+    91                                                   # print(self.grid.grid)
+    92                                                   for proc_unit in self.grid.grid_to_list():
+    93                                                       self.cc.settings["general"]["distribution"]["grid"]["config"] = self.grid.grid
+    94                                                       self.comms.start_worker(proc_unit, self.cc.settings)
+
+Total time: 0 s
+File: /clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/lipizzaner_mpi_master.py
+Function: _gather_results at line 123
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+   123                                               @profile
+   124                                               def _gather_results(self):
+   125                                                   self._logger.info('Collecting results from clients...')
+   126                                           
+   127                                                   # Initialize node client
+   128                                                   dataloader = self.cc.create_instance(self.cc.settings['dataloader']['dataset_name'])
+   129                                                   # network_factory = self.cc.create_instance(self.cc.settings['network']['name'], dataloader.n_input_neurons)
+   130                                                   node_client = self.comms
+   131                                                   db_logger = DbLogger()
+   132                                           
+   133                                                   results = node_client.general_gather_results()
+   134                                           
+   135                                                   self._logger.info('Results scoring')
+   136                                                   scores = []
+   137                                                   for (node, generator_pop, discriminator_pop, weights_generator, _) in results:
+   138                                                       # self._logger.info("Getting result from {}".format(node))
+   139                                                       # node_name = '{}:{}'.format(node['address'], node['port'])
+   140                                                       node_name = node
+   141                                                       try:
+   142                                                           output_dir = self.get_and_create_output_dir(node)
+   143                                           
+   144                                                           for generator in generator_pop.individuals:
+   145                                                               source = generator.source['id']
+   146                                                               filename = '{}{}.pkl'.format(GENERATOR_PREFIX, source)
+   147                                                               self._logger.info("Filename: {}".format(filename))
+   148                                                               torch.save(generator.genome.net.state_dict(),
+   149                                                                          os.path.join(output_dir, 'generator-{}.pkl'.format(source)))
+   150                                           
+   151                                                               with open(os.path.join(output_dir, 'mixture.yml'), "a") as file:
+   152                                                                   # self._logger.error("Weights generator: " + weights_generator.__str__())
+   153                                                                   file.write('{}: {}\n'.format(filename, weights_generator[source]))
+   154                                           
+   155                                                           for discriminator in discriminator_pop.individuals:
+   156                                                               source = discriminator.source['id']
+   157                                                               filename = '{}{}.pkl'.format(DISCRIMINATOR_PREFIX, source)
+   158                                                               self._logger.info("Filename: {}".format(filename))
+   159                                                               torch.save(discriminator.genome.net.state_dict(),
+   160                                                                          os.path.join(output_dir, filename))
+   161                                           
+   162                                                           # # Save images
+   163                                                           self._logger.error("Data recieved\nGen pop {} \nWeights gen {}"
+   164                                                                               .format(generator_pop, weights_generator))
+   165                                                           dataset = MixedGeneratorDataset(generator_pop,
+   166                                                                                           weights_generator,
+   167                                                                                           self.cc.settings['master']['score_sample_size'],
+   168                                                                                           self.cc.settings['trainer']['mixture_generator_samples_mode'])
+   169                                                           image_paths = self.save_samples(dataset, output_dir, dataloader)
+   170                                                           self._logger.info('Saved mixture result images of client {} to target directory {}.'
+   171                                                                             .format(node_name, output_dir))
+   172                                           
+   173                                                           # Calculate inception or FID score
+   174                                                           score = float('-inf')
+   175                                                           if self.cc.settings['master']['calculate_score']:
+   176                                                               calc = ScoreCalculatorFactory.create()
+   177                                                               self._logger.info('Score calculator: {}'.format(type(calc).__name__))
+   178                                                               self._logger.info('Calculating score score of {}. Depending on the type, this may take very long.'
+   179                                                                                 .format(node_name))
+   180                                           
+   181                                                               score = calc.calculate(dataset)
+   182                                                               self._logger.info('Node {} with weights {} yielded a score of {}'
+   183                                                                                 .format(node_name, weights_generator, score))
+   184                                                               scores.append((node, score))
+   185                                           
+   186                                                           if db_logger.is_enabled and self.experiment_id is not None:
+   187                                                               db_logger.add_experiment_results(self.experiment_id, node_name, image_paths, score)
+   188                                                       except Exception as ex:
+   189                                                           self._logger.error('An error occured while trying to gather results from {}: {}'.format(node_name, ex))
+   190                                                           traceback.print_exc()
+   191                                           
+   192                                                   if self.cc.settings['master']['calculate_score'] and scores:
+   193                                                       best_node = sorted(scores, key=lambda x: x[1], reverse=ScoreCalculatorFactory.create().is_reversed)[-1]
+   194                                                       self._logger.info('Best result: pu{} = {}'.format(best_node[0], best_node[1]))
+
+Total time: 532.893 s
+File: /clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/training/ea/lipizzaner_gan_trainer_mpi.py
+Function: train at line 85
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    85                                               @profile
+    86                                               def train(self, n_iterations, stop_event=None):
+    87                                           
+    88         1      16642.0  16642.0      0.0          loaded = self.dataloader.load()
+    89                                           
+    90        11         23.0      2.1      0.0          for iteration in range(n_iterations):
+    91        10        138.0     13.8      0.0              self._logger.debug('Iteration {} started'.format(iteration + 1))
+    92        10         27.0      2.7      0.0              start_time = time()
+    93                                           
+    94        10        177.0     17.7      0.0              local_generators = self.neighbourhood.local_generators
+    95        10         61.0      6.1      0.0              local_discriminators = self.neighbourhood.local_discriminators
+    96        10   41321726.0 4132172.6      7.8              all_generators, all_discriminators = self.neighbourhood.all_disc_gen_local(local_generators, local_discriminators)
+    97                                           
+    98                                                       # Log the name of individuals in entire neighborhood for every iteration
+    99                                                       # (to help tracing because individuals from adjacent cells might be from different iterations)
+   100        10         39.0      3.9      0.0              self._logger.info('Generators in current neighborhood are {}'.format([
+   101        10      59428.0   5942.8      0.0                  individual.name for individual in all_generators.individuals
+   102                                                       ]))
+   103        10         28.0      2.8      0.0              self._logger.info('Discriminators in current neighborhood are {}'.format([
+   104        10       1871.0    187.1      0.0                  individual.name for individual in all_discriminators.individuals
+   105                                                       ]))
+   106                                           
+   107                                                       # TODO: Fixme
+   108                                                       # self._logger.info('L2 distance between all generators weights: {}'.format(all_generators.net_weights_dist))
+   109                                                       # self._logger.info('L2 distance between all discriminators weights: {}'.format(all_discriminators.net_weights_dist))
+   110                                           
+   111        10         25.0      2.5      0.0              new_populations = {}
+   112                                           
+   113                                                       # Create random dataset to evaluate fitness in each iterations
+   114        10    2362979.0 236297.9      0.4              fitness_samples = self.generate_random_fitness_samples(self.fitness_sample_size)
+   115        10         65.0      6.5      0.0              if self.cc.settings['dataloader']['dataset_name'] == 'celeba' \
+   116        10         19.0      1.9      0.0                  or self.cc.settings['dataloader']['dataset_name'] == 'cifar':
+   117                                                           fitness_samples = to_pytorch_variable(fitness_samples)
+   118                                                       else:
+   119        10        339.0     33.9      0.0                  fitness_samples = to_pytorch_variable(fitness_samples.view(self.fitness_sample_size, -1))
+   120                                           
+   121                                                       # Fitness evaluation
+   122        10        116.0     11.6      0.0              self._logger.debug('Evaluating fitness')
+   123        10    7031424.0 703142.4      1.3              self.evaluate_fitness(all_generators, all_discriminators, fitness_samples, self.fitness_mode)
+   124        10    8469725.0 846972.5      1.6              self.evaluate_fitness(all_discriminators, all_generators, fitness_samples, self.fitness_mode)
+   125        10        205.0     20.5      0.0              self._logger.debug('Finished evaluating fitness')
+   126                                           
+   127                                                       # Tournament selection
+   128        10         28.0      2.8      0.0              if self._enable_selection:
+   129                                                           self._logger.debug('Started tournament selection')
+   130                                                           new_populations[TYPE_GENERATOR] = self.tournament_selection(all_generators,
+   131                                                                                                                       TYPE_GENERATOR,
+   132                                                                                                                       is_logging=True)
+   133                                                           new_populations[TYPE_DISCRIMINATOR] = self.tournament_selection(all_discriminators,
+   134                                                                                                                           TYPE_DISCRIMINATOR,
+   135                                                                                                                           is_logging=True)
+   136                                                           self._logger.debug('Finished tournament selection')
+   137                                           
+   138        10         28.0      2.8      0.0              self.batch_number = 0
+   139        10        977.0     97.7      0.0              data_iterator = iter(loaded)
+   140      6010      95550.0     15.9      0.0              while self.batch_number < len(loaded):
+   141                                                       # for i, (input_data, labels) in enumerate(loaded):
+   142      6000  146049014.0  24341.5     27.4                  input_data = next(data_iterator)[0]
+   143      6000      19181.0      3.2      0.0                  batch_size = input_data.size(0)
+   144      6000     154067.0     25.7      0.0                  input_data = to_pytorch_variable(self.dataloader.transpose_data(input_data))
+   145                                           
+   146                                                           # Quit if requested
+   147      6000      27536.0      4.6      0.0                  if stop_event is not None and stop_event.is_set():
+   148                                                               self._logger.warning('External stop requested.')
+   149                                                               return self.result()
+   150                                           
+   151      6000      11815.0      2.0      0.0                  attackers = new_populations[TYPE_GENERATOR] if self._enable_selection else local_generators
+   152      6000      26023.0      4.3      0.0                  defenders = new_populations[TYPE_DISCRIMINATOR] if self._enable_selection else all_discriminators
+   153      6000  127647637.0  21274.6     24.0                  input_data = self.step(local_generators, attackers, defenders, input_data, self.batch_number, loaded, data_iterator)
+   154                                           
+   155      6000      18924.0      3.2      0.0                  if self._discriminator_skip_each_nth_step == 0 or self.batch_number % (self._discriminator_skip_each_nth_step + 1) == 0:
+   156      3000      39592.0     13.2      0.0                      self._logger.debug('Skipping discriminator step')
+   157                                           
+   158      3000       5815.0      1.9      0.0                      attackers = new_populations[TYPE_DISCRIMINATOR] if self._enable_selection else local_discriminators
+   159      3000       5116.0      1.7      0.0                      defenders = new_populations[TYPE_GENERATOR] if self._enable_selection else all_generators
+   160      3000   75065625.0  25021.9     14.1                      input_data = self.step(local_discriminators, attackers, defenders, input_data, self.batch_number, loaded, data_iterator)
+   161                                           
+   162      6000      13758.0      2.3      0.0                  if self.batch_number%100 == 0:
+   163        60     237503.0   3958.4      0.0                      self._logger.info('Iteration {}, Batch {}/{}'.format(iteration + 1, self.batch_number, len(loaded)))
+   164                                           
+   165                                                           # If n_batches is set to 0, all batches will be used
+   166      6000      23200.0      3.9      0.0                  if self.is_last_batch(self.batch_number):
+   167                                                               break
+   168                                           
+   169      6000      13132.0      2.2      0.0                  self.batch_number += 1
+   170                                           
+   171                                                       # Perform selection first before mutation of mixture_weights
+   172                                                       # Replace the worst with the best new
+   173        10         19.0      1.9      0.0              if self._enable_selection:
+   174                                                           # Evaluate fitness of new_populations against neighborhood
+   175                                                           self.evaluate_fitness(new_populations[TYPE_GENERATOR], all_discriminators, fitness_samples, self.fitness_mode)
+   176                                                           self.evaluate_fitness(new_populations[TYPE_DISCRIMINATOR], all_generators, fitness_samples, self.fitness_mode)
+   177                                                           self.concurrent_populations.lock()
+   178                                                           local_generators.replacement(new_populations[TYPE_GENERATOR], self._n_replacements, is_logging=True)
+   179                                                           local_generators.sort_population(is_logging=True)
+   180                                                           local_discriminators.replacement(new_populations[TYPE_DISCRIMINATOR], self._n_replacements, is_logging=True)
+   181                                                           local_discriminators.sort_population(is_logging=True)
+   182                                                           self.concurrent_populations.unlock()
+   183                                           
+   184                                                           # Update individuals' iteration and id after replacement and logging to ease tracing
+   185                                                           for i, individual in enumerate(local_generators.individuals):
+   186                                                               individual.id = '{}/G{}'.format(self.neighbourhood.cell_number, i)
+   187                                                               individual.iteration = iteration + 1
+   188                                                           for i, individual in enumerate(local_discriminators.individuals):
+   189                                                               individual.id = '{}/D{}'.format(self.neighbourhood.cell_number, i)
+   190                                                               individual.iteration = iteration + 1
+   191                                                       else:
+   192                                                           # Re-evaluate fitness of local_generators and local_discriminators against neighborhood
+   193        10    2357387.0 235738.7      0.4                  self.evaluate_fitness(local_generators, all_discriminators, fitness_samples, self.fitness_mode)
+   194        10    2796355.0 279635.5      0.5                  self.evaluate_fitness(local_discriminators, all_generators, fitness_samples, self.fitness_mode)
+   195                                           
+   196                                                       # Mutate mixture weights after selection
+   197        10  118336589.0 11833658.9     22.2              self.mutate_mixture_weights_with_score(input_data)    # self.score is updated here
+   198                                           
+   199        10         33.0      3.3      0.0              stop_time = time()
+   200                                           
+   201                                                       path_real_images, path_fake_images = \
+   202        10         31.0      3.1      0.0                  self.log_results(batch_size, iteration, input_data, loaded,
+   203        10         73.0      7.3      0.0                                   lr_gen=self.concurrent_populations.generator.individuals[0].learning_rate,
+   204        10         39.0      3.9      0.0                                   lr_dis=self.concurrent_populations.discriminator.individuals[0].learning_rate,
+   205        10         61.0      6.1      0.0                                   score=self.score, mixture_gen=self.neighbourhood.mixture_weights_generators,
+   206        10     682599.0  68259.9      0.1                                   mixture_dis=None)
+   207                                           
+   208        10         46.0      4.6      0.0              if self.db_logger.is_enabled:
+   209                                                           self.db_logger.log_results(iteration, self.neighbourhood, self.concurrent_populations,
+   210                                                                                      self.score, stop_time - start_time,
+   211                                                                                      path_real_images, path_fake_images)
+   212                                           
+   213         1         10.0     10.0      0.0          return self.result()
+
+Total time: 202.605 s
+File: /clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/training/ea/lipizzaner_gan_trainer_mpi.py
+Function: step at line 214
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+   214                                               @profile
+   215                                               def step(self, original, attacker, defender, input_data, i, loaded, data_iterator):
+   216                                                   # Don't execute for remote populations - needed if generator and discriminator are on different node
+   217                                                   #         if any(not ind.is_local for ind in original.individuals):
+   218                                                   #             return
+   219                                           
+   220      9000     575955.0     64.0      0.3          self.mutate_hyperparams(attacker)
+   221      9000  202029008.0  22447.7     99.7          return self.update_genomes(attacker, defender, input_data, loaded, data_iterator)
+
+Total time: 0.476352 s
+File: /clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/training/ea/lipizzaner_gan_trainer_mpi.py
+Function: mutate_hyperparams at line 231
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+   231                                               @profile
+   232                                               def mutate_hyperparams(self, population):
+   233      9000      12779.0      1.4      2.7          loc = -(self._default_adam_learning_rate / 10)
+   234      9000     225379.0     25.0     47.3          deltas = np.random.normal(loc=loc, scale=self._default_adam_learning_rate, size=len(population.individuals))
+   235      9000     142817.0     15.9     30.0          deltas[np.random.rand(*deltas.shape) < 1 - self._mutation_probability] = 0
+   236     18000      40881.0      2.3      8.6          for i, individual in enumerate(population.individuals):
+   237      9000      54496.0      6.1     11.4              individual.learning_rate = max(0, individual.learning_rate + deltas[i] * self._alpha)
+
+Total time: 201.608 s
+File: /clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/training/ea/lipizzaner_gan_trainer_mpi.py
+Function: update_genomes at line 239
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+   239                                               @profile
+   240                                               def update_genomes(self, population_attacker, population_defender, input_var, loaded, data_iterator):
+   241                                           
+   242                                                   # TODO Currently picking random opponent, introduce parameter for this
+   243      9000     114697.0     12.7      0.1          defender = random.choice(population_defender.individuals).genome
+   244                                           
+   245     18000      23264.0      1.3      0.0          for individual_attacker in population_attacker.individuals:
+   246      9000       8115.0      0.9      0.0              attacker = individual_attacker.genome
+   247      9000      24309.0      2.7      0.0              optimizer = torch.optim.Adam(attacker.net.parameters(),
+   248      9000       7707.0      0.9      0.0                                           lr=individual_attacker.learning_rate,
+   249      9000    1114341.0    123.8      0.6                                           betas=(0.5, 0.999))
+   250                                           
+   251                                                       # Restore previous state dict, if available
+   252      9000      11726.0      1.3      0.0              if individual_attacker.optimizer_state is not None:
+   253      8998    8308955.0    923.4      4.1                  optimizer.load_state_dict(individual_attacker.optimizer_state)
+   254      9000   49729503.0   5525.5     24.7              loss = attacker.compute_loss_against(defender, input_var)[0]
+   255                                           
+   256      9000    1978185.0    219.8      1.0              attacker.net.zero_grad()
+   257      9000    1772580.0    197.0      0.9              defender.net.zero_grad()
+   258      9000  113208236.0  12578.7     56.2              loss.backward()
+   259      9000   24946828.0   2771.9     12.4              optimizer.step()
+   260                                           
+   261      9000     351137.0     39.0      0.2              individual_attacker.optimizer_state = optimizer.state_dict()
+   262                                           
+   263      9000       8355.0      0.9      0.0          return input_var
+
+Total time: 118.333 s
+File: /clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/training/ea/lipizzaner_gan_trainer_mpi.py
+Function: mutate_mixture_weights_with_score at line 298
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+   298                                               @profile
+   299                                               def mutate_mixture_weights_with_score(self, input_data):
+   300                                                   # Not necessary for single-cell grids, as mixture must always be [1]
+   301        10         69.0      6.9      0.0          if self.neighbourhood.grid_size == 1:
+   302                                                       if self.score_calc is not None:
+   303                                                           self._logger.info('Calculating FID/inception score.')
+   304                                                           best_generators = self.neighbourhood.best_generators_local()
+   305                                           
+   306                                                           dataset = MixedGeneratorDataset(best_generators,
+   307                                                                                           self.neighbourhood.mixture_weights_generators,
+   308                                                                                           self.score_sample_size,
+   309                                                                                           self.cc.settings['trainer']['mixture_generator_samples_mode'])
+   310                                                           self.score = self.score_calc.calculate(dataset)[0]
+   311                                                   else:
+   312                                                       # Mutate mixture weights
+   313        10        726.0     72.6      0.0              z = np.random.normal(loc=0, scale=self.mixture_sigma, size=len(self.neighbourhood.mixture_weights_generators))
+   314        10        332.0     33.2      0.0              transformed = np.asarray([value for _, value in self.neighbourhood.mixture_weights_generators.items()])
+   315        10        129.0     12.9      0.0              transformed += z
+   316                                                       # Don't allow negative values, normalize to sum of 1.0
+   317        10        260.0     26.0      0.0              transformed = np.clip(transformed, 0, None)
+   318        10        545.0     54.5      0.0              transformed /= np.sum(transformed)
+   319                                           
+   320        10        122.0     12.2      0.0              new_mixture_weights_generators = OrderedDict(zip(self.neighbourhood.mixture_weights_generators.keys(), transformed))
+   321                                           
+   322        10   94163588.0 9416358.8     79.6              best_generators = self.neighbourhood.best_generators_local()
+   323        10         32.0      3.2      0.0              dataset_before_mutation = MixedGeneratorDataset(best_generators,
+   324        10         73.0      7.3      0.0                                                              self.neighbourhood.mixture_weights_generators,
+   325        10         11.0      1.1      0.0                                                              self.score_sample_size,
+   326        10    1064528.0 106452.8      0.9                                                              self.cc.settings['trainer']['mixture_generator_samples_mode'])
+   327        10         23.0      2.3      0.0              dataset_after_mutation = MixedGeneratorDataset(best_generators,
+   328        10          6.0      0.6      0.0                                                             new_mixture_weights_generators,
+   329        10         16.0      1.6      0.0                                                             self.score_sample_size,
+   330        10    1037249.0 103724.9      0.9                                                             self.cc.settings['trainer']['mixture_generator_samples_mode'])
+   331                                           
+   332        10         25.0      2.5      0.0              if self.score_calc is not None:
+   333        10      91595.0   9159.5      0.1                  self._logger.info('Calculating FID/inception score.')
+   334                                           
+   335        10   11895373.0 1189537.3     10.1                  score_before_mutation = self.score_calc.calculate(dataset_before_mutation)[0]
+   336        10   10078351.0 1007835.1      8.5                  score_after_mutation = self.score_calc.calculate(dataset_after_mutation)[0]
+   337                                           
+   338                                                           # For fid the lower the better, for inception_score, the higher the better
+   339        10         39.0      3.9      0.0                  if (score_after_mutation < score_before_mutation and self.score_calc.is_reversed) \
+   340         7         27.0      3.9      0.0                       or (score_after_mutation > score_before_mutation and (not self.score_calc.is_reversed)):
+   341                                                               # Adopt the mutated mixture_weights only if the performance after mutation is better
+   342         3         17.0      5.7      0.0                      self.neighbourhood.mixture_weights_generators = new_mixture_weights_generators
+   343         3          3.0      1.0      0.0                      self.score = score_after_mutation
+   344                                                           else:
+   345                                                               # Do not adopt the mutated mixture_weights here
+   346         7         11.0      1.6      0.0                      self.score = score_before_mutation
+

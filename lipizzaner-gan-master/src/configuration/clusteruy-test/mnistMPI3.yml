@@ -27,7 +27,7 @@ dataloader:
   dataset_name: mnist
   use_batch: True
   batch_size: 100
-  n_batches: 100
+  n_batches: 0
   shuffle: True
 network:
   name: four_layer_perceptron
@@ -36,5 +36,5 @@ master:
   calculate_score: True
   # Same amount of data as original CIFAR contains
   score_sample_size: 50000
-  cuda: False
-general: !include generalMPI.yml
+  cuda: True
+general: !include generalMPI3.yml

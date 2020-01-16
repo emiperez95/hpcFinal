@@ -1,0 +1,52 @@
+Need two file names, have 1 names
+Try "sbcast --help" for more information
+sbcast: -----------------------------
+sbcast: block_size = 8388608
+sbcast: compress   = 0
+sbcast: force      = false
+sbcast: fanout     = 0
+sbcast: jobid      = 568760
+sbcast: preserve   = false
+sbcast: timeout    = 0
+sbcast: verbose    = 1
+sbcast: source     = /clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/output/data
+sbcast: dest       = /scratch/eperez/output/data
+sbcast: -----------------------------
+sbcast: modes    = 40775
+sbcast: uid      = 10185
+sbcast: gid      = 10157
+sbcast: atime    = Thu Dec 12 10:46:38 2019
+sbcast: mtime    = Mon Dec 02 16:55:04 2019
+sbcast: ctime    = Mon Dec 02 16:55:04 2019
+sbcast: size     = 46
+sbcast: error: Can't mmap file `/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/output/data`, No such device.
+[93m2019-12-12 10:47:09,536 INFO - lipizzaner_mpi_master - Seed used in master: 1 [0m
+[93m2019-12-12 10:47:09,631 INFO - lipizzaner_mpi_master - Downloading dataset... [0m
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+Wrote profile results to main.py.lprof
+[93m2019-12-12 10:47:18,929 CRITICAL - root - Unhandled exception [0m
+Traceback (most recent call last):
+  File "/clusteruy/home/eperez/.local/bin/kernprof", line 11, in <module>
+    load_entry_point('line-profiler==2.1.1', 'console_scripts', 'kernprof')()
+  File "/clusteruy/home/eperez/.local/lib/python3.6/site-packages/kernprof.py", line 222, in main
+    execfile(script_file, ns, ns)
+  File "/clusteruy/home/eperez/.local/lib/python3.6/site-packages/kernprof.py", line 35, in execfile
+    exec_(compile(f.read(), filename, 'exec'), globals, locals)
+  File "main.py", line 203, in <module>
+    LipizzanerMpiMaster()
+  File "/clusteruy/home/eperez/.local/lib/python3.6/site-packages/line_profiler.py", line 115, in wrapper
+    result = func(*args, **kwds)
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/lipizzaner_mpi_master.py", line 51, in __init__
+    self._load_dataset()
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/lipizzaner_mpi_master.py", line 103, in _load_dataset
+    self.cc.create_instance(self.cc.settings['dataloader']['dataset_name']).load()
+  File "/clusteruy/home/eperez/editing/hpcFinal/lipizzaner-gan-master/src/data/data_loader.py", line 45, in load
+    download=True)
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/site-packages/torchvision-0.2.0-py3.6.egg/torchvision/datasets/mnist.py", line 45, in __init__
+    self.download()
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/site-packages/torchvision-0.2.0-py3.6.egg/torchvision/datasets/mnist.py", line 119, in download
+    gzip.GzipFile(file_path) as zip_f:
+  File "/clusteruy/home/eperez/anaconda3/envs/lipizzaner/lib/python3.6/gzip.py", line 163, in __init__
+    fileobj = self.myfileobj = builtins.open(filename, mode or 'rb')
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/output/data/raw/train-images-idx3-ubyte.gz'
+slurmstepd: error: *** JOB 568760 ON node15 CANCELLED AT 2019-12-12T13:16:40 DUE TO TIME LIMIT ***

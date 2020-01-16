@@ -141,7 +141,7 @@ class Grid():
     # ==========================================================
     #                 Local neighbourhood opers
     # ==========================================================    
-
+    @profile
     def all_disc_gen_local(self, local_gen, local_disc):
         '''
             Get all generator and discriminators from all neighbours

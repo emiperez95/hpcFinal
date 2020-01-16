@@ -1,0 +1,248 @@
+Rank 2, socket:  node21.datos.cluster.uy 
+	 gpu seen 1  gpu count Tesla P100-PCIE-12GB
+Rank 1, socket:  node20.datos.cluster.uy 
+	 gpu seen 1  gpu count Tesla P100-PCIE-12GB
+Rank 4, socket:  node28.datos.cluster.uy 
+	 gpu seen 1  gpu count Tesla P100-PCIE-12GB
+Rank 0, socket:  node17.datos.cluster.uy 
+	 gpu seen 1  gpu count Tesla P100-PCIE-12GB
+Rank 3, socket:  node25.datos.cluster.uy 
+	 gpu seen 1  gpu count Tesla P100-PCIE-12GB
+[93m2019-12-12 08:41:50,758 INFO - lipizzaner_mpi_master - Seed used in master: 1 [0m
+[93m2019-12-12 08:41:50,817 INFO - lipizzaner_mpi_master - Downloading dataset... [0m
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+Processing...
+Done!
+[93m2019-12-12 08:43:17,354 INFO - lipizzaner_mpi_master - Dataset downloaded. [0m
+[93m2019-12-12 08:43:17,355 INFO - lipizzaner_mpi_master - Asigned worker 1 to wid 0 [0m
+[93m2019-12-12 08:43:17,355 INFO - lipizzaner_mpi_master - Asigned worker 2 to wid 1 [0m
+[93m2019-12-12 08:43:17,356 INFO - lipizzaner_mpi_master - Asigned worker 3 to wid 2 [0m
+[93m2019-12-12 08:43:17,356 INFO - lipizzaner_mpi_master - Asigned worker 4 to wid 3 [0m
+[93m2019-12-12 08:43:17,359 INFO - lipizzaner_mpi_master - Started heartbeat [0m
+[94m2019-12-12 08:43:17,361 INFO - distribution.comms_manager - New comm 0, rank 0 out of 4 [0m
+[92m2019-12-12 08:43:17,358 INFO - distribution.comms_manager - New comm 0, rank 1 out of 4 [0m
+[1;36;40m2019-12-12 08:43:17,359 INFO - distribution.comms_manager - New comm 0, rank 3 out of 4 [0m
+[1;35;40m2019-12-12 08:43:17,359 INFO - distribution.comms_manager - New comm 0, rank 2 out of 4 [0m
+[94m2019-12-12 08:43:17,375 INFO - lipizzaner_mpi_client - Distributed training recognized, set log directory to /scratch/output/lipizzaner_gan_mpi/distributed/mnist/2019-12-12_08-43-17/34437 [0m
+[92m2019-12-12 08:43:17,373 INFO - lipizzaner_mpi_client - Distributed training recognized, set log directory to /scratch/output/lipizzaner_gan_mpi/distributed/mnist/2019-12-12_08-43-17/13756 [0m
+[1;36;40m2019-12-12 08:43:17,374 INFO - lipizzaner_mpi_client - Distributed training recognized, set log directory to /scratch/output/lipizzaner_gan_mpi/distributed/mnist/2019-12-12_08-43-17/8939 [0m
+[1;35;40m2019-12-12 08:43:17,374 INFO - lipizzaner_mpi_client - Distributed training recognized, set log directory to /scratch/output/lipizzaner_gan_mpi/distributed/mnist/2019-12-12_08-43-17/26370 [0m
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+Processing...
+Processing...
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+Processing...
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+Processing...
+Done!
+[94m2019-12-12 08:44:12,685 INFO - lipizzaner - CUDA is supported on this device and will be used. [0m
+[94m2019-12-12 08:44:12,698 INFO - lipizzaner - Seed used: 105187121 [0m
+[94m2019-12-12 08:44:12,698 INFO - lipizzaner - Starting training for 2 iterations/epochs. [0m
+[94m2019-12-12 08:44:12,728 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+Done!
+[92m2019-12-12 08:44:16,231 INFO - lipizzaner - CUDA is supported on this device and will be used. [0m
+[92m2019-12-12 08:44:16,232 INFO - lipizzaner - Seed used: 210374244 [0m
+[92m2019-12-12 08:44:16,232 INFO - lipizzaner - Starting training for 2 iterations/epochs. [0m
+[92m2019-12-12 08:44:16,263 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+Done!
+[1;36;40m2019-12-12 08:44:23,013 INFO - lipizzaner - CUDA is supported on this device and will be used. [0m
+[1;36;40m2019-12-12 08:44:23,014 INFO - lipizzaner - Seed used: 420748516 [0m
+[1;36;40m2019-12-12 08:44:23,015 INFO - lipizzaner - Starting training for 2 iterations/epochs. [0m
+[1;36;40m2019-12-12 08:44:23,046 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+Done!
+[1;35;40m2019-12-12 08:44:28,466 INFO - lipizzaner - CUDA is supported on this device and will be used. [0m
+[1;35;40m2019-12-12 08:44:28,468 INFO - lipizzaner - Seed used: 315561378 [0m
+[1;35;40m2019-12-12 08:44:28,469 INFO - lipizzaner - Starting training for 2 iterations/epochs. [0m
+[1;35;40m2019-12-12 08:44:28,534 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+[94m2019-12-12 08:45:07,866 INFO - training.ea.ea_trainer - Generators in current neighborhood are ['Iteration0:0:0/G0', 'Iteration0:1:2/G0', 'Iteration0:2:1/G0'] [0m
+[94m2019-12-12 08:45:07,879 INFO - training.ea.ea_trainer - Discriminators in current neighborhood are ['Iteration0:0:0/D0', 'Iteration0:1:2/D0', 'Iteration0:2:1/D0'] [0m
+[94m2019-12-12 08:45:08,825 INFO - training.ea.ea_trainer - Iteration 1, Batch 0/600 [0m
+[92m2019-12-12 08:45:08,936 INFO - training.ea.ea_trainer - Generators in current neighborhood are ['Iteration0:0:0/G0', 'Iteration0:1:2/G0', 'Iteration0:3:3/G0'] [0m
+[92m2019-12-12 08:45:08,949 INFO - training.ea.ea_trainer - Discriminators in current neighborhood are ['Iteration0:0:0/D0', 'Iteration0:1:2/D0', 'Iteration0:3:3/D0'] [0m
+[92m2019-12-12 08:45:09,744 INFO - training.ea.ea_trainer - Iteration 1, Batch 0/600 [0m
+[94m2019-12-12 08:45:11,564 INFO - training.ea.ea_trainer - Iteration 1, Batch 100/600 [0m
+[92m2019-12-12 08:45:12,675 INFO - training.ea.ea_trainer - Iteration 1, Batch 100/600 [0m
+[94m2019-12-12 08:45:14,228 INFO - training.ea.ea_trainer - Iteration 1, Batch 200/600 [0m
+[1;36;40m2019-12-12 08:45:14,530 INFO - training.ea.ea_trainer - Generators in current neighborhood are ['Iteration0:1:2/G0', 'Iteration0:2:1/G0', 'Iteration0:3:3/G0'] [0m
+[1;36;40m2019-12-12 08:45:14,543 INFO - training.ea.ea_trainer - Discriminators in current neighborhood are ['Iteration0:1:2/D0', 'Iteration0:2:1/D0', 'Iteration0:3:3/D0'] [0m
+[1;35;40m2019-12-12 08:45:15,303 INFO - training.ea.ea_trainer - Generators in current neighborhood are ['Iteration0:0:0/G0', 'Iteration0:2:1/G0', 'Iteration0:3:3/G0'] [0m
+[1;35;40m2019-12-12 08:45:15,317 INFO - training.ea.ea_trainer - Discriminators in current neighborhood are ['Iteration0:0:0/D0', 'Iteration0:2:1/D0', 'Iteration0:3:3/D0'] [0m
+[1;36;40m2019-12-12 08:45:15,517 INFO - training.ea.ea_trainer - Iteration 1, Batch 0/600 [0m
+[92m2019-12-12 08:45:15,580 INFO - training.ea.ea_trainer - Iteration 1, Batch 200/600 [0m
+[1;35;40m2019-12-12 08:45:16,284 INFO - training.ea.ea_trainer - Iteration 1, Batch 0/600 [0m
+[94m2019-12-12 08:45:16,881 INFO - training.ea.ea_trainer - Iteration 1, Batch 300/600 [0m
+[92m2019-12-12 08:45:18,489 INFO - training.ea.ea_trainer - Iteration 1, Batch 300/600 [0m
+[1;36;40m2019-12-12 08:45:19,324 INFO - training.ea.ea_trainer - Iteration 1, Batch 100/600 [0m
+[94m2019-12-12 08:45:19,515 INFO - training.ea.ea_trainer - Iteration 1, Batch 400/600 [0m
+[1;35;40m2019-12-12 08:45:20,242 INFO - training.ea.ea_trainer - Iteration 1, Batch 100/600 [0m
+[92m2019-12-12 08:45:21,410 INFO - training.ea.ea_trainer - Iteration 1, Batch 400/600 [0m
+[94m2019-12-12 08:45:22,150 INFO - training.ea.ea_trainer - Iteration 1, Batch 500/600 [0m
+[1;36;40m2019-12-12 08:45:23,108 INFO - training.ea.ea_trainer - Iteration 1, Batch 200/600 [0m
+[1;35;40m2019-12-12 08:45:24,119 INFO - training.ea.ea_trainer - Iteration 1, Batch 200/600 [0m
+[92m2019-12-12 08:45:24,317 INFO - training.ea.ea_trainer - Iteration 1, Batch 500/600 [0m
+[94m2019-12-12 08:45:24,827 INFO - distribution.comms_manager - Size of data sent: 56 [0m
+[1;36;40m2019-12-12 08:45:26,913 INFO - training.ea.ea_trainer - Iteration 1, Batch 300/600 [0m
+[92m2019-12-12 08:45:27,252 INFO - distribution.comms_manager - Size of data sent: 56 [0m
+[1;35;40m2019-12-12 08:45:28,059 INFO - training.ea.ea_trainer - Iteration 1, Batch 300/600 [0m
+[1;36;40m2019-12-12 08:45:30,706 INFO - training.ea.ea_trainer - Iteration 1, Batch 400/600 [0m
+[1;35;40m2019-12-12 08:45:31,952 INFO - training.ea.ea_trainer - Iteration 1, Batch 400/600 [0m
+[1;36;40m2019-12-12 08:45:34,505 INFO - training.ea.ea_trainer - Iteration 1, Batch 500/600 [0m
+[1;35;40m2019-12-12 08:45:35,826 INFO - training.ea.ea_trainer - Iteration 1, Batch 500/600 [0m
+[1;36;40m2019-12-12 08:45:38,311 INFO - distribution.comms_manager - Size of data sent: 56 [0m
+[1;35;40m2019-12-12 08:45:39,771 INFO - distribution.comms_manager - Size of data sent: 56 [0m
+[94m2019-12-12 08:46:42,398 INFO - training.ea.ea_trainer - Calculating FID/inception score. [0m
+[92m2019-12-12 08:46:43,568 INFO - training.ea.ea_trainer - Calculating FID/inception score. [0m
+[94m2019-12-12 08:46:51,498 INFO - training.ea.ea_trainer - Iteration=1, f(Generator(x))=0.49444759885470074, f(Discriminator(x))=0.6312182545661926, lr_gen=0.0001997480270820025, lr_dis=0.00019961078023401482, score=736.6243084128662, mixture_gen=OrderedDict([(1, 0.3438176523015317), (2, 0.33610265784318455), (0, 0.3200796898552838)]), mixture_dis=None [0m
+[92m2019-12-12 08:46:51,519 INFO - training.ea.ea_trainer - Iteration=1, f(Generator(x))=0.5584173500537872, f(Discriminator(x))=0.7544722060362498, lr_gen=0.0001996119560287908, lr_dis=0.0001995722386367193, score=736.4339926589014, mixture_gen=OrderedDict([(0, 0.3388115757271417), (3, 0.34416368200663194), (1, 0.31702474226622634)]), mixture_dis=None [0m
+[1;36;40m2019-12-12 08:46:52,438 INFO - training.ea.ea_trainer - Calculating FID/inception score. [0m
+[94m2019-12-12 08:46:52,444 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+[92m2019-12-12 08:46:52,443 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+[1;35;40m2019-12-12 08:46:53,734 INFO - training.ea.ea_trainer - Calculating FID/inception score. [0m
+[1;36;40m2019-12-12 08:46:56,306 INFO - training.ea.ea_trainer - Iteration=1, f(Generator(x))=0.6356974840164185, f(Discriminator(x))=0.6982510189215342, lr_gen=0.00019939909649645553, lr_dis=0.00019968434789835926, score=737.3633856250499, mixture_gen=OrderedDict([(1, 0.3333333333333333), (2, 0.3333333333333333), (3, 0.3333333333333333)]), mixture_dis=None [0m
+[1;36;40m2019-12-12 08:46:56,425 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+[1;35;40m2019-12-12 08:46:57,385 INFO - training.ea.ea_trainer - Iteration=1, f(Generator(x))=0.6517990430196127, f(Discriminator(x))=0.7091338535149893, lr_gen=0.00019941040907373532, lr_dis=0.0001996458268684371, score=736.5623172027712, mixture_gen=OrderedDict([(0, 0.3333333333333333), (3, 0.3333333333333333), (2, 0.3333333333333333)]), mixture_dis=None [0m
+[1;35;40m2019-12-12 08:46:57,495 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+[94m2019-12-12 08:48:58,351 INFO - training.ea.ea_trainer - Generators in current neighborhood are ['Iteration0:0:0/G0', 'Iteration0:1:2/G0', 'Iteration0:2:1/G0'] [0m
+[94m2019-12-12 08:48:58,364 INFO - training.ea.ea_trainer - Discriminators in current neighborhood are ['Iteration0:0:0/D0', 'Iteration0:1:2/D0', 'Iteration0:2:1/D0'] [0m
+[94m2019-12-12 08:48:58,773 INFO - training.ea.ea_trainer - Iteration 2, Batch 0/600 [0m
+[92m2019-12-12 08:49:00,754 INFO - training.ea.ea_trainer - Generators in current neighborhood are ['Iteration0:0:0/G0', 'Iteration0:1:2/G0', 'Iteration0:3:3/G0'] [0m
+[92m2019-12-12 08:49:00,767 INFO - training.ea.ea_trainer - Discriminators in current neighborhood are ['Iteration0:0:0/D0', 'Iteration0:1:2/D0', 'Iteration0:3:3/D0'] [0m
+[92m2019-12-12 08:49:01,195 INFO - training.ea.ea_trainer - Iteration 2, Batch 0/600 [0m
+[94m2019-12-12 08:49:01,422 INFO - training.ea.ea_trainer - Iteration 2, Batch 100/600 [0m
+[94m2019-12-12 08:49:04,072 INFO - training.ea.ea_trainer - Iteration 2, Batch 200/600 [0m
+[92m2019-12-12 08:49:04,117 INFO - training.ea.ea_trainer - Iteration 2, Batch 100/600 [0m
+[94m2019-12-12 08:49:06,741 INFO - training.ea.ea_trainer - Iteration 2, Batch 300/600 [0m
+[92m2019-12-12 08:49:07,018 INFO - training.ea.ea_trainer - Iteration 2, Batch 200/600 [0m
+[94m2019-12-12 08:49:09,394 INFO - training.ea.ea_trainer - Iteration 2, Batch 400/600 [0m
+[92m2019-12-12 08:49:09,978 INFO - training.ea.ea_trainer - Iteration 2, Batch 300/600 [0m
+[94m2019-12-12 08:49:12,047 INFO - training.ea.ea_trainer - Iteration 2, Batch 500/600 [0m
+[92m2019-12-12 08:49:12,868 INFO - training.ea.ea_trainer - Iteration 2, Batch 400/600 [0m
+[94m2019-12-12 08:49:14,734 INFO - distribution.comms_manager - Size of data sent: 56 [0m
+[92m2019-12-12 08:49:15,802 INFO - training.ea.ea_trainer - Iteration 2, Batch 500/600 [0m
+[1;36;40m2019-12-12 08:49:17,559 INFO - training.ea.ea_trainer - Generators in current neighborhood are ['Iteration0:1:2/G0', 'Iteration0:2:1/G0', 'Iteration0:3:3/G0'] [0m
+[1;36;40m2019-12-12 08:49:17,560 INFO - training.ea.ea_trainer - Discriminators in current neighborhood are ['Iteration0:1:2/D0', 'Iteration0:2:1/D0', 'Iteration0:3:3/D0'] [0m
+[1;36;40m2019-12-12 08:49:18,126 INFO - training.ea.ea_trainer - Iteration 2, Batch 0/600 [0m
+[92m2019-12-12 08:49:18,728 INFO - distribution.comms_manager - Size of data sent: 56 [0m
+[1;35;40m2019-12-12 08:49:20,405 INFO - training.ea.ea_trainer - Generators in current neighborhood are ['Iteration0:0:0/G0', 'Iteration0:2:1/G0', 'Iteration0:3:3/G0'] [0m
+[1;35;40m2019-12-12 08:49:20,418 INFO - training.ea.ea_trainer - Discriminators in current neighborhood are ['Iteration0:0:0/D0', 'Iteration0:2:1/D0', 'Iteration0:3:3/D0'] [0m
+[1;35;40m2019-12-12 08:49:20,982 INFO - training.ea.ea_trainer - Iteration 2, Batch 0/600 [0m
+[1;36;40m2019-12-12 08:49:21,931 INFO - training.ea.ea_trainer - Iteration 2, Batch 100/600 [0m
+[1;35;40m2019-12-12 08:49:24,930 INFO - training.ea.ea_trainer - Iteration 2, Batch 100/600 [0m
+[1;36;40m2019-12-12 08:49:25,735 INFO - training.ea.ea_trainer - Iteration 2, Batch 200/600 [0m
+[1;35;40m2019-12-12 08:49:28,898 INFO - training.ea.ea_trainer - Iteration 2, Batch 200/600 [0m
+[1;36;40m2019-12-12 08:49:29,539 INFO - training.ea.ea_trainer - Iteration 2, Batch 300/600 [0m
+[1;35;40m2019-12-12 08:49:32,822 INFO - training.ea.ea_trainer - Iteration 2, Batch 300/600 [0m
+[1;36;40m2019-12-12 08:49:33,308 INFO - training.ea.ea_trainer - Iteration 2, Batch 400/600 [0m
+[1;35;40m2019-12-12 08:49:36,770 INFO - training.ea.ea_trainer - Iteration 2, Batch 400/600 [0m
+[1;36;40m2019-12-12 08:49:37,108 INFO - training.ea.ea_trainer - Iteration 2, Batch 500/600 [0m
+[1;35;40m2019-12-12 08:49:40,696 INFO - training.ea.ea_trainer - Iteration 2, Batch 500/600 [0m
+[1;36;40m2019-12-12 08:49:40,943 INFO - distribution.comms_manager - Size of data sent: 56 [0m
+[1;35;40m2019-12-12 08:49:44,654 INFO - distribution.comms_manager - Size of data sent: 56 [0m
+[94m2019-12-12 08:50:47,485 INFO - training.ea.ea_trainer - Calculating FID/inception score. [0m
+[92m2019-12-12 08:50:48,547 INFO - training.ea.ea_trainer - Calculating FID/inception score. [0m
+[94m2019-12-12 08:50:48,563 INFO - training.ea.ea_trainer - Iteration=2, f(Generator(x))=0.43669435381889343, f(Discriminator(x))=0.6847185591856638, lr_gen=0.0001991901189131606, lr_dis=0.00019938989633964239, score=737.5735232839056, mixture_gen=OrderedDict([(1, 0.3424635751119941), (2, 0.3333614329575549), (0, 0.3241749919304511)]), mixture_dis=None [0m
+[94m2019-12-12 08:50:48,594 INFO - lipizzaner - Finished training process, f(d)=0.6847185591856638, f(g)=0.43669435381889343 [0m
+[94m2019-12-12 08:50:48,597 INFO - lipizzaner_mpi_client - Finished experiment, waiting for new requests. [0m
+[94m2019-12-12 08:50:48,597 INFO - lipizzaner_mpi_client - Results gathering [0m
+[94m2019-12-12 08:50:48,727 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+[92m2019-12-12 08:50:49,717 INFO - training.ea.ea_trainer - Iteration=2, f(Generator(x))=0.31462187071641284, f(Discriminator(x))=0.5579790472984314, lr_gen=0.0001987747813839697, lr_dis=0.0001995029281447666, score=737.7936578966013, mixture_gen=OrderedDict([(0, 0.33490509704786636), (3, 0.3553358282930889), (1, 0.3097590746590447)]), mixture_dis=None [0m
+[92m2019-12-12 08:50:49,727 INFO - lipizzaner - Finished training process, f(d)=0.5579790472984314, f(g)=0.31462187071641284 [0m
+[92m2019-12-12 08:50:49,742 INFO - lipizzaner_mpi_client - Finished experiment, waiting for new requests. [0m
+[92m2019-12-12 08:50:49,742 INFO - lipizzaner_mpi_client - Results gathering [0m
+[92m2019-12-12 08:50:49,859 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+[1;36;40m2019-12-12 08:50:57,569 INFO - training.ea.ea_trainer - Calculating FID/inception score. [0m
+[1;35;40m2019-12-12 08:50:58,753 INFO - training.ea.ea_trainer - Calculating FID/inception score. [0m
+[1;36;40m2019-12-12 08:50:59,002 INFO - training.ea.ea_trainer - Iteration=2, f(Generator(x))=0.45961907505989075, f(Discriminator(x))=0.6115500728289286, lr_gen=0.00019898578605582605, lr_dis=0.00019965485914076207, score=737.256725139536, mixture_gen=OrderedDict([(1, 0.32558141527920254), (2, 0.33358560938786025), (3, 0.3408329753329373)]), mixture_dis=None [0m
+[1;36;40m2019-12-12 08:50:59,026 INFO - lipizzaner - Finished training process, f(d)=0.6115500728289286, f(g)=0.45961907505989075 [0m
+[1;36;40m2019-12-12 08:50:59,043 INFO - lipizzaner_mpi_client - Finished experiment, waiting for new requests. [0m
+[1;36;40m2019-12-12 08:50:59,043 INFO - lipizzaner_mpi_client - Results gathering [0m
+[1;36;40m2019-12-12 08:50:59,251 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+[1;35;40m2019-12-12 08:51:00,167 INFO - training.ea.ea_trainer - Iteration=2, f(Generator(x))=0.22648056844870249, f(Discriminator(x))=0.7042683760325114, lr_gen=0.00019834132531173685, lr_dis=0.0001989195414003991, score=738.9688527852056, mixture_gen=OrderedDict([(0, 0.3333333333333333), (3, 0.3333333333333333), (2, 0.3333333333333333)]), mixture_dis=None [0m
+[1;35;40m2019-12-12 08:51:00,179 INFO - lipizzaner - Finished training process, f(d)=0.7042683760325114, f(g)=0.22648056844870249 [0m
+[1;35;40m2019-12-12 08:51:00,197 INFO - lipizzaner_mpi_client - Finished experiment, waiting for new requests. [0m
+[1;35;40m2019-12-12 08:51:00,210 INFO - lipizzaner_mpi_client - Results gathering [0m
+[1;35;40m2019-12-12 08:51:00,353 INFO - distribution.comms_manager - Size of data sent: 64 [0m
+[93m2019-12-12 08:51:23,524 INFO - helpers.heartbeat_mpi - Heartbeat: All clients finished their experiments. [0m
+[93m2019-12-12 08:51:23,525 INFO - lipizzaner_mpi_master - Heartbeat stopped with success [0m
+[93m2019-12-12 08:51:23,525 INFO - lipizzaner_mpi_master - Collecting results from clients... [0m
+[93m2019-12-12 08:51:27,323 INFO - lipizzaner_mpi_master - Results scoring [0m
+[93m2019-12-12 08:51:27,324 INFO - lipizzaner_mpi_master - Filename: generator-0.pkl [0m
+[93m2019-12-12 08:51:27,326 INFO - lipizzaner_mpi_master - Filename: generator-1.pkl [0m
+[93m2019-12-12 08:51:27,327 INFO - lipizzaner_mpi_master - Filename: generator-2.pkl [0m
+[93m2019-12-12 08:51:27,329 INFO - lipizzaner_mpi_master - Filename: discriminator-0.pkl [0m
+[93m2019-12-12 08:51:27,331 INFO - lipizzaner_mpi_master - Filename: discriminator-1.pkl [0m
+[93m2019-12-12 08:51:27,332 INFO - lipizzaner_mpi_master - Filename: discriminator-2.pkl [0m
+[93m2019-12-12 08:51:27,334 ERROR - lipizzaner_mpi_master - Data recieved
+Gen pop <helpers.population.Population object at 0x7f66680e5a90> 
+Weights gen OrderedDict([(1, 0.3424635751119941), (2, 0.3333614329575549), (0, 0.3241749919304511)]) [0m
+[93m2019-12-12 08:51:28,074 INFO - lipizzaner_mpi_master - Saved mixture result images of client 0 to target directory /scratch/output/lipizzaner_gan_mpi/master/2019-12-12_08-43-17/pu0. [0m
+[93m2019-12-12 08:51:28,108 INFO - lipizzaner_mpi_master - Score calculator: FIDCalculator [0m
+[93m2019-12-12 08:51:28,108 INFO - lipizzaner_mpi_master - Calculating score score of 0. Depending on the type, this may take very long. [0m
+[93m2019-12-12 08:51:29,430 INFO - lipizzaner_mpi_master - Node 0 with weights OrderedDict([(1, 0.3424635751119941), (2, 0.3333614329575549), (0, 0.3241749919304511)]) yielded a score of (738.6195650479649, 0) [0m
+[93m2019-12-12 08:51:29,431 INFO - lipizzaner_mpi_master - Filename: generator-0.pkl [0m
+[93m2019-12-12 08:51:29,433 INFO - lipizzaner_mpi_master - Filename: generator-1.pkl [0m
+[93m2019-12-12 08:51:29,435 INFO - lipizzaner_mpi_master - Filename: generator-3.pkl [0m
+[93m2019-12-12 08:51:29,437 INFO - lipizzaner_mpi_master - Filename: discriminator-0.pkl [0m
+[93m2019-12-12 08:51:29,439 INFO - lipizzaner_mpi_master - Filename: discriminator-1.pkl [0m
+[93m2019-12-12 08:51:29,440 INFO - lipizzaner_mpi_master - Filename: discriminator-3.pkl [0m
+[93m2019-12-12 08:51:29,442 ERROR - lipizzaner_mpi_master - Data recieved
+Gen pop <helpers.population.Population object at 0x7f670d7d3b38> 
+Weights gen OrderedDict([(0, 0.33490509704786636), (3, 0.3553358282930889), (1, 0.3097590746590447)]) [0m
+[93m2019-12-12 08:51:29,957 INFO - lipizzaner_mpi_master - Saved mixture result images of client 1 to target directory /scratch/output/lipizzaner_gan_mpi/master/2019-12-12_08-43-17/pu1. [0m
+[93m2019-12-12 08:51:29,990 INFO - lipizzaner_mpi_master - Score calculator: FIDCalculator [0m
+[93m2019-12-12 08:51:29,991 INFO - lipizzaner_mpi_master - Calculating score score of 1. Depending on the type, this may take very long. [0m
+[93m2019-12-12 08:51:30,302 INFO - lipizzaner_mpi_master - Node 1 with weights OrderedDict([(0, 0.33490509704786636), (3, 0.3553358282930889), (1, 0.3097590746590447)]) yielded a score of (738.6846427001753, 0) [0m
+[93m2019-12-12 08:51:30,303 INFO - lipizzaner_mpi_master - Filename: generator-0.pkl [0m
+[93m2019-12-12 08:51:30,305 INFO - lipizzaner_mpi_master - Filename: generator-2.pkl [0m
+[93m2019-12-12 08:51:30,306 INFO - lipizzaner_mpi_master - Filename: generator-3.pkl [0m
+[93m2019-12-12 08:51:30,308 INFO - lipizzaner_mpi_master - Filename: discriminator-0.pkl [0m
+[93m2019-12-12 08:51:30,310 INFO - lipizzaner_mpi_master - Filename: discriminator-2.pkl [0m
+[93m2019-12-12 08:51:30,311 INFO - lipizzaner_mpi_master - Filename: discriminator-3.pkl [0m
+[93m2019-12-12 08:51:30,313 ERROR - lipizzaner_mpi_master - Data recieved
+Gen pop <helpers.population.Population object at 0x7f670d7e7ef0> 
+Weights gen OrderedDict([(0, 0.3333333333333333), (3, 0.3333333333333333), (2, 0.3333333333333333)]) [0m
+[93m2019-12-12 08:51:30,823 INFO - lipizzaner_mpi_master - Saved mixture result images of client 2 to target directory /scratch/output/lipizzaner_gan_mpi/master/2019-12-12_08-43-17/pu2. [0m
+[93m2019-12-12 08:51:30,857 INFO - lipizzaner_mpi_master - Score calculator: FIDCalculator [0m
+[93m2019-12-12 08:51:30,857 INFO - lipizzaner_mpi_master - Calculating score score of 2. Depending on the type, this may take very long. [0m
+[93m2019-12-12 08:51:31,170 INFO - lipizzaner_mpi_master - Node 2 with weights OrderedDict([(0, 0.3333333333333333), (3, 0.3333333333333333), (2, 0.3333333333333333)]) yielded a score of (803.589233424587, 0) [0m
+[93m2019-12-12 08:51:31,170 INFO - lipizzaner_mpi_master - Filename: generator-1.pkl [0m
+[93m2019-12-12 08:51:31,172 INFO - lipizzaner_mpi_master - Filename: generator-2.pkl [0m
+[93m2019-12-12 08:51:31,174 INFO - lipizzaner_mpi_master - Filename: generator-3.pkl [0m
+[93m2019-12-12 08:51:31,176 INFO - lipizzaner_mpi_master - Filename: discriminator-1.pkl [0m
+[93m2019-12-12 08:51:31,177 INFO - lipizzaner_mpi_master - Filename: discriminator-2.pkl [0m
+[93m2019-12-12 08:51:31,179 INFO - lipizzaner_mpi_master - Filename: discriminator-3.pkl [0m
+[93m2019-12-12 08:51:31,180 ERROR - lipizzaner_mpi_master - Data recieved
+Gen pop <helpers.population.Population object at 0x7f664472f438> 
+Weights gen OrderedDict([(1, 0.32558141527920254), (2, 0.33358560938786025), (3, 0.3408329753329373)]) [0m
+[93m2019-12-12 08:51:31,691 INFO - lipizzaner_mpi_master - Saved mixture result images of client 3 to target directory /scratch/output/lipizzaner_gan_mpi/master/2019-12-12_08-43-17/pu3. [0m
+[93m2019-12-12 08:51:31,724 INFO - lipizzaner_mpi_master - Score calculator: FIDCalculator [0m
+[93m2019-12-12 08:51:31,725 INFO - lipizzaner_mpi_master - Calculating score score of 3. Depending on the type, this may take very long. [0m
+[93m2019-12-12 08:51:32,036 INFO - lipizzaner_mpi_master - Node 3 with weights OrderedDict([(1, 0.32558141527920254), (2, 0.33358560938786025), (3, 0.3408329753329373)]) yielded a score of (728.1915459457254, 0) [0m
+[1;36;40m2019-12-12 08:51:32,072 INFO - lipizzaner_mpi_client - Exiting... [0m
+[1;35;40m2019-12-12 08:51:32,072 INFO - lipizzaner_mpi_client - Exiting... [0m
+[94m2019-12-12 08:51:32,074 INFO - lipizzaner_mpi_client - Exiting... [0m
+[92m2019-12-12 08:51:32,072 INFO - lipizzaner_mpi_client - Exiting... [0m
+[94m2019-12-12 08:51:32,075 INFO - __main__ - Writing statistics on file [0m
+[93m2019-12-12 08:51:32,071 INFO - lipizzaner_mpi_master - Best result: pu3 = (728.1915459457254, 0) [0m
+[93m2019-12-12 08:51:32,072 INFO - lipizzaner_mpi_master - Stopping clients... [0m
+Wrote profile results to main.py.lprof
+Wrote profile results to main.py.lprof
+Wrote profile results to main.py.lprof
+Wrote profile results to main.py.lprof
+Wrote profile results to main.py.lprof

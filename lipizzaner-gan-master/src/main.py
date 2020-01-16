@@ -4,9 +4,6 @@ import os
 import re
 import sys
 import importlib
-
-# from mpi4py import MPI
-
 import losswise
 import torch
 import yaml
