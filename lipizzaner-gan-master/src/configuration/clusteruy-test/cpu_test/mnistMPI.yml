@@ -1,6 +1,6 @@
 trainer:
   name: lipizzaner_gan_mpi
-  n_iterations: 2
+  n_iterations: 200
   calculate_net_weights_dist: True
   # independent_probability, exact_proportion
   mixture_generator_samples_mode: exact_proportion
