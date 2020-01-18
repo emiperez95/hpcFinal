@@ -28,7 +28,7 @@ source activate lipizzaner
     ```
     - Change the number of nodes to be given to mpi for execution:
     ```
-    mpirun -n 5  python  main.py train --mpi -f configuration/clusteruy-test/cpu_test/mnistMPI.yml
+    mpirun -n <NUMBER_OF_NODES>  python  main.py train --mpi -f configuration/clusteruy-test/cpu_test/mnistMPI.yml
     ```
     -You might need to change other sbatch settings as you see fit
     
