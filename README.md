@@ -20,7 +20,8 @@ source activate lipizzaner
     - Change output dir to /scratch/<USR>/output, using yout cluster username
   
 4. Configure run settings: 
-  The defailt run setting is for 2x2 grid, to change the size:
+
+  The default run setting is for a 2x2 grid, to change the size:
   - On ./slurm_execs/cpu_tests/cpu_run.slurm:
     - Change number of nodes to be used to total cell ammounts plus one (example: if 4x4 grid desired, you need 17 nodes)
     ```
