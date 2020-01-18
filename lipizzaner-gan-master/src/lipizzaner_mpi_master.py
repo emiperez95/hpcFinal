@@ -26,7 +26,7 @@ class LipizzanerMpiMaster:
 
     _logger = logging.getLogger(__name__)
 
-    @profile
+    # @profile
     def __init__(self):
         self.cc = ConfigurationContainer.instance()
         self.comms = CommsManager.instance()
@@ -64,7 +64,7 @@ class LipizzanerMpiMaster:
             self._logger.info("Heartbeat stopped with error")
             self._terminate(stop_clients=False, return_code=-1)
         # self._terminate()
-    @profile
+    # @profile
     def _start_experiments(self):
         self.cc.settings['general']['distribution']['start_time'] = time.strftime('%Y-%m-%d_%H-%M-%S')
 
@@ -120,7 +120,7 @@ class LipizzanerMpiMaster:
 
             exit(return_code)
     
-    @profile
+    # @profile
     def _gather_results(self):
         self._logger.info('Collecting results from clients...')
 
