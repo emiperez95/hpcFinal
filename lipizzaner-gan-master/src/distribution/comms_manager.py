@@ -160,7 +160,7 @@ class CommsManager(NodeClient):
         '''
         return self.general.Get_rank()
     
-    # @profile
+    @profile
     def local_all_gather(self, send_data):
         self._logger.info("Size of data sent: " + str(sys.getsizeof(send_data)))
         ret_data = self.local.allgather(send_data)
